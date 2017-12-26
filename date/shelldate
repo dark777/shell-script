@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ "$(date +%k)" -ge 6 -a "$(date +%k)" -le 11 ]
+then
+echo -e"\n\tBom dia $USER, Hoje é $(date +%a), dia $(date +%d) de $(date +%b) de $(date +%Y)\n"
+
+elif [ "$(date +%k)" -ge 12 -a "$(date +%k)" -le 17 ]
+then
+echo -e "\n\tBoa tarde $USER, Hoje é $(date +%a), dia $(date +%d) de $(date +%b) de $(date +%Y)\n"
+else 
+echo -e "\n\tBoa noite $USER, Hoje é $(date +%a), dia $(date +%d) de $(date +%b) de $(date +%Y)\n"
+fi 
