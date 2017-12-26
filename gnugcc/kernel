@@ -77,7 +77,7 @@ installpkg --install-new d/python-django-1.10-x86_64-1_slonly.txz
 upgradepkg --install-new --reinstall a/kernel-firmware-$FIRMWARE-$ARCHFIRM-1.txz
 upgradepkg --install-new --reinstall a/kernel-generic-$VERSION-$ARCHKERNEL-1.txz
 upgradepkg --install-new --reinstall a/kernel-headers-$VERSION-$ARCHKERNEL-1.txz
-upgradepkg --install-new --reinstall a/kernel-huge-$VERSION-ARCHKERNEL-1.txz
+upgradepkg --install-new --reinstall a/kernel-huge-$VERSION-$ARCHKERNEL-1.txz
 upgradepkg --install-new --reinstall a/kernel-modules-$VERSION-$ARCHKERNEL-1.txz
 upgradepkg --install-new --reinstall k/kernel-source-$VERSION-$SKERNEL-1.txz
 
