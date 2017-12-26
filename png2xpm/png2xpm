@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+files=$(find $1 -name *.png)
+for i in $files; do
+    echo $i.xpm
+    convert $i $i.xpm
+done 
+
+
+#Escrevi esse script para transformar imagens .png para .xpm.
+
+#Requisitos:
+#- Imagemagic
+
+#Executar:
+# ./png2xpm [dir_imagens]

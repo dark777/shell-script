@@ -1,0 +1,10 @@
+MAIN1=$(pwd)/kernel
+MAIN2=$(pwd)/shell
+
+ . /$MAIN1
+ . /$MAIN2
+ 
+echo -e " 
+         $HELLO
+         $LINUX2
+        \e[0m"

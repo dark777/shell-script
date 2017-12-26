@@ -1,0 +1,30 @@
+#!/bin/bash
+#################################################
+#                  #
+#  Simples script para montagem de imagens iSO   #
+#         by André Ribeiro  :p      #
+#                  #
+#################################################
+#TODO: funçao para desmontar a imagem. Fica pra depois =D
+
+if [ -z "$1" ] || [ -z "$2" ]; then 
+  echo "  ERRO: Parâmetros insuficientes!" 
+  echo "  USO: mountiso [arquivo.iso] [/ponto/de/montagem]"
+  exit 1
+fi
+
+if [ ! -d "$2" ] ; then 
+   if [ mkdir "$2" ]; then
+       echo "Criando diretório ${2}"
+   else
+      echo "   Não foi possível criar o diretório ${2}"
+      echo "   Você tem permissão para escrever neste local?"
+      exit 1
+   fi
+echo "Montando arquivo ${1} em ${2}..." 
+if [ ! $(mount -t iso9660 -o ro,loop=/dev/loop0 "${1}" "${2}") ]; then
+   echo "Não foi possõvel montar o arquivo em ${2}"
+   exit 1
+   
+else
+   exit 0 

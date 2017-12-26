@@ -1,0 +1,13 @@
+KERNEL1=($(awk -F'-' '{print $1, $2, $3}' /usr/src/linux/include/config/kernel.release))
+KERNEL2=($(awk -F'-' '{print $1, $2, $3}' $(pwd)/kernel.release))
+
+ LINUX1="
+        \e[1;31mRelease\e[1;35m: \e[1;36m${KERNEL1[0]}
+        \e[1;31mAbi\e[1;35m: \e[1;36m${KERNEL1[1]} 
+        \e[1;31mExtraversion\e[1;35m: \e[1;36m${KERNEL1[2]}     
+       "
+ LINUX2="
+        \e[1;31mRelease\e[1;35m: \e[1;36m${KERNEL2[0]}
+        \e[1;31mAbi\e[1;35m: \e[1;36m${KERNEL2[1]} 
+        \e[1;31mExtraversion\e[1;35m: \e[1;36m${KERNEL2[2]}     
+       "

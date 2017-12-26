@@ -1,0 +1,10 @@
+MAIN2=$(pwd)/shell
+
+ . /$MAIN2
+ 
+ . /$VERSION
+ 
+echo -e " 
+         $HELLO
+         $LINUX2
+        \e[0m"

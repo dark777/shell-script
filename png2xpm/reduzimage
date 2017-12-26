@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+select_size () {
+        cat <<EOF
+Bemvindo ao REDUZFOTO.
+Copyright (C) 2009 Valter Ferraz Sanches <googbar@gmail.com>
+Entre abaixo o tamanho desejado para as fotos do diretÃ³rio atual:
+1) 640x480
+2) 800x600
+3) 1024x768
+EOF
+
+        read -p "==> " NEWSIZE
+}
+
+select_size
+
+case NEWSIZE in
+        1) NEWSIZE="640x480" ;;
+        2) NEWSIZE="800x600" ;;
+        3) NEWSIZE="1024x768" ;;
+        *) echo "Retornando ao menu principal. Opção inválida." ; select_size ;;
+esac
+
+for i in $(ls -1 *.jpg); do
+        echo -n "Convertendo \"$i\"..."
+        convert -resize $NEWSIZE "$i" "${i%.jpg}-new.jpg"
+        if [ $? = 0 ]; then
+                echo "OK"
+        else
+                echo "ERRO: "
+        fi
+done 

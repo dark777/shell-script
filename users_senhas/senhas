@@ -1,0 +1,18 @@
+#!/bin/bash
+#http://www.planetaunix.com.br/2014/09/comando-chpasswd-alterando-senhas-de.html
+
+SSL_RAND_PASS=$(openssl rand -base64 20)
+RAND_SENHASSL=$(tr -dc 0-9A-Za-z/$%\@#*1!_ < /dev/urandom | head -c 10) #gera senhas de até 10 caracteres
+
+RAND_SENHA1=$(tr -dc 0-9A-Za-z/$%\@#*1!_ < /dev/urandom | head -c 10) #gera senhas de até 10 caracteres 
+RAND_SENHA2=$(tr -dc a-z/$%\@A-Z#*1!_0-9 < /dev/urandom | head -c 10) #gera senhas de até 10 caracteres
+
+SSL_SENHA=$(tr -dc $SSL_RAND_PASS$RAND_SENHASSL < /dev/urandom | head -c 10)
+
+TR_SENHA=$(tr -dc $RAND_SENHA1$RAND_SENHA2 < /dev/urandom | head -c 10)
+
+echo -e "TR Senha: $TR_SENHA"
+
+echo -e "Rand Senha2: $RAND_SENHA2"
+
+echo -e "SSL Senha: $SSL_SENHA"
