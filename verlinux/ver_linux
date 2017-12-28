@@ -13,7 +13,7 @@ echo -e "$(uname -s)\t\t\t$(uname -r)"
 gcc -dumpversion 2>&1 |
 awk '/[0-9]+([.]?[0-9]+)+/ && !/not found$/{
 	match($0, /[0-9]+([.]?[0-9]+)+/)
-	printf("GNU C\t\t\t%s\n",
+	printf("GNU C/C++\t\t%s\n",
 	substr($0,RSTART,RLENGTH))
 }'
 
@@ -23,6 +23,35 @@ awk '/GNU Make/{
 	printf("GNU Make\t\t%s\n",
 	substr($0,RSTART,RLENGTH))
 }'
+
+cmake --version 2>&1 |
+awk '/[0-9]+([.]?[0-9]+)+/ && !/not found$/{
+match($0, /[0-9]+([.]?[0-9]+)+/)
+	printf("GNU CMake\t\t%s\n",
+	substr($0,RSTART,RLENGTH))
+}'
+
+zsh --version 2>&1 |
+awk '/[0-9]+([.]?[0-9]+)+/ && !/not found$/{
+match($0, /[0-9]+([.]?[0-9]+)+/)
+	printf("GNU zsh\t\t\t%s\n",
+	substr($0,RSTART,RLENGTH))
+}'
+
+csh --version 2>&1 |
+awk '/[0-9]+([.]?[0-9]+)+/ && !/not found$/{
+match($0, /[0-9]+([.]?[0-9]+)+/)
+	printf("GNU csh\t\t\t%s\n",
+	substr($0,RSTART,RLENGTH))
+}'
+
+bash --version 2>&1 | grep "GNU bash" | awk '{print "GNU bash\t\t"$4}'| cut -d '(' -f1
+
+grep --version 2>&1 | grep "GNU grep" | awk '{print "GNU (e)grep\t\t"$4}'
+
+zgrep --version 2>&1 | zgrep "(gzip)" | awk '{print "GNU z(grep/cat)\t\t"$3}'
+
+bzcat --version 2>&1 | grep "Version" | awk '{print "GNU bzcat\t\t"$7}'|sed 's/,//g;' 
 
 ld -v 2>&1 |
 awk '/[0-9]+([.]?[0-9]+)+/ && !/not found$/{
@@ -188,16 +217,16 @@ awk '/version/{
 
 echo -e "Modules Units\t\t$(lsmod | wc -l)"
 
-test -e /proc/modules &&
-sort /proc/modules |
-sed '
-	s/ .*//
-	H
-${
-	g
-	s/^\n/Modules Units Loaded\t/
-	y/\n/ /
-	q
-}
-	d
-'
+#test -e /proc/modules &&
+#sort /proc/modules |
+#sed '
+#	s/ .*//
+#	H
+#${
+#	g
+#	s/^\n/Modules Units Loaded\t/
+#	y/\n/ /
+#	q
+#}
+#	d
+#'
