@@ -8,6 +8,10 @@ for ((i=3; i<=200; i++)) do
 useradd -m -d /home/$nome$i -p $(openssl passwd -1 $senha) -s /bin/bash -g $grupo $nome$i
 chown -R $nome$i /home/$nome$i
 echo "Usuario $nome$i criado"
+
+# força que a senha seja trocada no primeiro login
+chage -d 0 $nome$i
+
 done
 
 
