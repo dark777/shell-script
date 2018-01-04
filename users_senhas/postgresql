@@ -1,0 +1,57 @@
+#!/bin/bash
+
+PG_VERSION=${PG_VERSION:-9.6}
+
+PG_USER=${PG_USER:-postgres}
+
+PG_PASSWORD=${PG_PASSWORD:-postgres}
+
+PG_USER_COMENT=${PG_USER_COMENT:-PostgreSQL}
+
+PG_USER_ID=${PG_USER_ID:-209}
+
+PG_GROUP=${PG_GROUP:-postgres}
+
+PG_GROUP_ID=${PG_GROUP_ID:-209}
+
+PG_HOME=${PG_HOME:-/var/lib/pgsql}
+
+
+echo "Adding PostgreSQL user and group..."
+
+# cria a grupo com id
+groupadd -g ${PG_GROUP_ID} ${PG_GROUP}
+
+# cria a conta
+useradd -g ${PG_GROUP} -u ${PG_USER_ID} -d ${PG_HOME} -c ${PG_USER_COMENT} ${PG_USER}
+
+# define a senha para primeiro login
+echo "${PG_USER}:${PG_PASSWORD}" | chpasswd -m
+
+# força que a senha seja trocada no primeiro login
+chage -d 0 ${PG_USER}
+
+mkdir -p ${PG_HOME}/${PG_VERSION}/data
+
+## default permissions
+echo "Setting up permissions..."
+chown -R ${PG_USER}:${PG_GROUP} ${PG_HOME}
+chmod 700 ${PG_HOME}
+chmod 700 ${PG_HOME}/${PG_VERSION}
+chmod 700 ${PG_HOME}/${PG_VERSION}/data
+
+## database cluster
+if [ ! -f ${PG_HOME}/${PG_VERSION}/data/PG_VERSION ]; then
+ echo "Creating database cluster in ${PG_HOME}/${PG_VERSION}/data..."
+ su ${PG_USER} -c "initdb -D ${PG_HOME}/${PG_VERSION}/data --locale=en_US.UTF-8 -A md5 -W --data-checksums"
+else
+ echo "
+ *** WARNING ***
+ There is already a database cluster in ${PG_HOME}/${PG_VERSION}/data.
+ If you are upgrading from an older version of PostgreSQL
+ you will have to 'dump' and 'restore' your database.
+ See PostgreSQL manual for more details.
+ " >&2
+fi
+
+echo "PostgreSQL post-installation setup completed"
