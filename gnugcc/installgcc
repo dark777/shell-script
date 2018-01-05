@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+home=${HOME}/Downloads
+
+# SVERSION pega o nome da ultima pasta gcc-*.*.*  dentro da pasta releases
+SVERSION=$(lynx --dump ftp://gcc.gnu.org/pub/gcc/releases/|sed -n '$p'|awk -F"/" '{print $NF}')
+
+# NVERSION pega a versao do gcc na variavel SVERSION
+NVERSION=$( echo $SVERSION | cut -f2 -d -)
+
+# PKGVERSION pega o nome do ultimo pacote gcc-*.*.*.tar.bz2 dentro da pasta gcc-*.*.*  
+PKGVERSION=$(lynx --dump ftp://gcc.gnu.org/pub/gcc/releases/|sed -n '$p'| awk -F"/" '{print $NF".tar.gz"}')
+
+LINK="ftp://gcc.gnu.org/pub/gcc/releases/$SVERSION/$PKGVERSION"
+
+wget -P $home -c $LINK
+
+tar -xvjf $home/$PKGVERSION
+cd $home/$SVERSION
+
+./contrib/download_prerequisites
+ mkdir build && cd build
+../configure --prefix=/usr \
+  --with-gxx-include-dir=/usr/include/c++/$NVERSION \
+  --enable-linker-build-id \
+  --without-included-gettext \
+  --libdir=/usr/lib --enable-isl \
+  --enable-nls \
+  --enable-clocale=gnu \
+  --enable-gnu-unique-object \
+  --enable-plugin \
+  --enable-libstdcxx-debug \
+  --enable-threads=posix \
+  --enable-zlib \
+  --with-system-zlib \
+  --enable-__cxa_atexit \
+  --enable-languages=c,c++,java \
+  --with-tune=native \
+  --enable-lto --enable-multiarch \
+  --enable-multilib \
+  --enable-share \
+  --enable-bootstrap \
+  --enable-vtable-verify \
+  --enable-libssp \
+  --enable-libvtv \
+  --enable-libcilkrts \
+  --enable-intermodule \
+  --enable-checking=yes,types \
+  --enable-coverage \
+  --enable-libatomic \
+  --enable-libgomp \
+  --enable-gdb \
+  --enable-gdb-stub \
+  --enable-disasm \
+  --enable-debugger \
+  --enable-new-pit \
+  --enable-all-optimizations \
+  --with-all-libs --with-x --with-x11 --with-nogui \
+  --enable-libjava \
+  --enable-static-libjava \
+  --enable-static-nss \
+  --with-arch-directory=x86_64 \
+  --target=x86_64-pc-linux-gnu \
+  --build=x86_64-pc-linux-gnu \
+  --host=x86_64-pc-linux-gnu \
+  --with-java-home=/usr/lib64/jvm/jre \
+  --with-jvm-root-dir=/usr/lib64/jvm \
+  --with-jvm-jar-dir=/usr/lib64/jvm/jvm-exports \
+  --enable-java-awt=gtk --enable-gtk-cairo \
+  --with-ecj-jar=/usr/share/java/eclipse-ecj.jar \
+  --with-bugurl="https://gcc.gnu.org/bugzilla/" \
+  --enable-libstdcxx-time=yes \
+  --enable-checking=yes
+
+  make -j12
+  make -k check
+  sudo make install
+ 
+ echo -e "\n\tGCC installed..."
+ gcc --version

@@ -1,0 +1,7 @@
+# ShellScript
+Scripts Unix e Linux
+
+SlackBuild-based Shell Script for JDK 
+downloads and installation across all processor architectures.
+To change choose a version other than the one configured in the script
+Change the value of the jdkVersion variable to the version you want 5, 6, 7, or 9. 
