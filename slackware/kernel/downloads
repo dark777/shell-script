@@ -1,8 +1,4 @@
 #!/bin/sh
-#http://ftp.slackware.com/pub/slackware/slackware64-current/slackware64/a/kernel-generic-4.14.11-x86_64-1.txz
-#http://ftp.slackware.com/pub/slackware/slackware64-current/slackware64/a/kernel-huge-4.14.11-x86_64-2.txz
-#http://ftp.slackware.com/pub/slackware/slackware64-current/slackware64/a/kernel-modules-4.14.11-x86_64-1.txz
-#https://github.com/aaronsw
    
 FTP_URL=${FTP_URL:-http://ftp.slackware.com}
 
