@@ -18,9 +18,10 @@ conexão com um servidor NTP ativa usando o comando:
 bash-4.4$ su -c "ntpq -p"
 
 Outros Liks:
-https://www.vivaolinux.com.br/dica/Truques-para-tratamento-de-variaveis-em-shell-script
-https://www.vivaolinux.com.br/artigo/Guia-Pos-Instalacao-do-Slackware-edicao-2015
+
 https://www.vivaolinux.com.br/dica/Ajustando-data-e-hora-com-NTP
 https://www.vivaolinux.com.br/dica/Deixando-o-relogio-sempre-ajustado-no-Slackware
+https://www.vivaolinux.com.br/dica/Truques-para-tratamento-de-variaveis-em-shell-script
+https://www.vivaolinux.com.br/artigo/Guia-Pos-Instalacao-do-Slackware-edicao-2015
 https://www.vivaolinux.com.br/artigo/Servidor-NTP-Configuracao-e-ajuste-de-data-e-hora
 https://www.vivaolinux.com.br/artigo/Sincronizando-o-Linux-com-a-Hora-Legal-Brasileira-usando-o-NTP.br
