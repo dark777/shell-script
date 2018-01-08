@@ -132,7 +132,7 @@ sed -i '7s/boot = \/dev\/'${SDA}'/boot = \/dev\/'${SDA}'\n/g;' ${LILO}
 
 sed -i '/ALL/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
 sed -i '/root/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
-sed -i '/%sudo/ s/^#//g;/%sudo/ s/^ //g;/ALL/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
+sed -i '/%sudo/ s/^#//g;s/^ //g;/ALL/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
 
 if [ -f ${MODULESLOCAL} ]; then
  echo "/sbin/modprobe zram" >> ${MODULESLOCAL}
