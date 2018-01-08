@@ -288,3 +288,7 @@ sed -i '/^read-only/a # Linux bootable generic partition config ends' ${LILO}
 #" >> ${LILO}
 
 ${SBINLILO}
+
+cat <<EOF
+Todos os comandos foram executados com sucesso...
+EOF
