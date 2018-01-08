@@ -214,10 +214,10 @@ echo "bash()
 BLANK_LNRM=\${BLANK_LNRM:-\$(sed  -i '/^$/d' ~/.bash_history)}
 
 # Remove caracteres em branco no inicio da linha:
-BLANK_INIRM=\${BLANK_INIRM:-\$(sed -i 's/^ *//g' ~/.bash_history)}
+BLANK_INIRM=\${BLANK_INIRM:-\$(sed -i 's/^ //g' ~/.bash_history)}
 
 # Remove caracteres em branco no final da linha:
-BLANK_FIMRM=\${BLANK_FIMRM:-\$(sed -i 's/ *$//g' ~/.bash_history)}
+BLANK_FIMRM=\${BLANK_FIMRM:-\$(sed -i 's/ $//g' ~/.bash_history)}
 
 # Remove linhas duplicadas
 RMDUP=\${RMDUP:-\$(sort -u ~/.bash_history > str_history)}
@@ -290,5 +290,7 @@ sed -i '/^read-only/a # Linux bootable generic partition config ends' ${LILO}
 ${SBINLILO}
 
 cat <<EOF
+
 Todos os comandos foram executados com sucesso...
+
 EOF
