@@ -3,6 +3,14 @@
 #https://www.vivaolinux.com.br/topico/Shell-Script/script-para-criar-varios-usuarios
 #http://www.dicas-l.com.br/arquivo/script_para_adicionar_usuarios_em_massa_no_linux.php
 
+#O arquivo /tmp/nome_contas terá o seguinte conteúdo:
+
+#  usuario1:senha1
+#  usuario2:senha2
+#  usuario3:senha3
+#  usuario4:senha4
+
+
 if [ $UID != 0 ]
 then
 echo -e "\n\tYou must be root!\n"
