@@ -375,7 +375,7 @@ echo -e "\n\t    ========================================\n\t   # Java Instalado
            echo "export CLASSPATH=/opt/$jdkverdir/lib " >> /etc/profile
            echo "export JRE_HOME=/opt/$jdkverdir/jre " >> /etc/profile
            echo "export MAN_JAVA=/opt/$jdkverdir/man " >> /etc/profile
-           echo "export JAVA_PATH="$JAVA_HOME/bin:$JAVA_HOME/jre/bin"
+           echo "export JAVA_PATH=\"$JAVA_HOME/bin:$JAVA_HOME/jre/bin\" " >> /etc/profile
            echo "export JAVA_HOME CLASSPATH JRE_HOME MAN_JAVA JAVA_PATH " >> /etc/profile
            echo "# Set the values for some environment variables Java ends " >> /etc/profile
            echo "# " >> /etc/profile 
