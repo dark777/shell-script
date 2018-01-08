@@ -1,15 +1,20 @@
 Configurando servidor NTP
 
-root.anon:/etc->> mv /etc/ntp.conf /etc/ntp.conf.orig
-root.anon:/etc->> cp sysctl/ntp.conf /etc/
-root.anon:/etc->> touch /etc/ntp.drift
-root.anon:/etc->> mkdir /var/log/ntpstats
-root.anon:/etc->> ntpdate pool.ntp.br
-root.anon:/etc->>  /etc/rc.d/rc.ntpd start
+bash-4.4$ su -c "mv /etc/ntp.conf /etc/ntp.conf.orig"
+
+bash-4.4$ su -c "cp sysctl/ntp.conf /etc/"
+
+bash-4.4$ su -c "touch /etc/ntp.drift"
+
+bash-4.4$ su -c "mkdir /var/log/ntpstats"
+
+bash-4.4$ su -c "ntpdate pool.ntp.br"
+
+bash-4.4$ su -c " /etc/rc.d/rc.ntpd start"
 
 Aguarde de um a dez minutos e então teste se há alguma conexão com um servidor NTP ativa usando o comando:
 
-root.anon:/etc->> ntpq -p
+bash-4.4$ su -c "ntpq -p"
 
 
 Outros Liks:
