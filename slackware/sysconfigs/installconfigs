@@ -208,10 +208,14 @@ echo "[user]
        untracked = red bold 
      " >> ${GITCONFIG}
 
+cat function > ${BASHRCUSER}
+
 echo "if [ -f ${PROFILE} ]; then
   . ${PROFILE}
 fi 
      " >> ${BASHRCUSER}
+
+cat function > ${BASHRCADM}
 
 echo "if [ -f ${PROFILE} ]; then
   . ${PROFILE}
