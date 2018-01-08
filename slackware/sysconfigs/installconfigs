@@ -85,7 +85,7 @@ mkdir /var/log/ntpstats
 
 if [ -f ${SHAREKEYBOARDEVDEV} ]; then
 
-cp ${SHAREKEYBOARDEVDEV}  ${KEYBOARD}
+cp ${SHAREKEYBOARDEVDEV} ${KEYBOARD}
 
 elif [ -f ${SHAREKEYBOARD} ]; then
 
