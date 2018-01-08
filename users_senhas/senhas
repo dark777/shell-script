@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #http://www.planetaunix.com.br/2014/09/comando-chpasswd-alterando-senhas-de.html
 
 SSL_RAND_PASS=$(openssl rand -base64 20)
