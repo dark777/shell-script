@@ -16,7 +16,6 @@ if [ $(id -u) -ne 0 ]; then
    else
 # Section verify Archteture Systems (U|Li)n(i|u)x begins
 if [ -z "${ARCH}" ]; then
-
  case "$(uname -m)" in
   x86_64) ARCH=64;;  #Downloads para arquitetura x86_64
    i?86|x86) ARCH="";; #Downloads para arquitetura x86
@@ -140,6 +139,7 @@ if [ ! -f ${SOURCE_HUGE} ]; then
   echo "Ah, found it /${BOOT}/${VMHUGE} .!";
    ln -s /${BOOT}/${VMHUGE} /${BOOT}/${HUGE_LNK}
    fi
+   
  if [ -f /${BOOT}/${SYSMAPHUGE} ]; then
   echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
    ln -s /${BOOT}/${SYSMAPHUGE} /${BOOT}/${HUGE_MAP}
@@ -168,10 +168,12 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
    echo "Ah, found it /${BOOT}/${SYSMAPGENE} .!";
     ln -s /${BOOT}/${SYSMAPGENE} /${BOOT}/${GENERIC_MAP}
     fi
+    
   if [ -f /${BOOT}/${VMGENE} ]; then
    echo "Ah, found it /${BOOT}/${VMGENE} .!";
     ln -s /${BOOT}/${VMGENE} /${BOOT}/${GENERIC_LNK}
     fi
+    
   if [ -f /${BOOT}/${GENERIC_LNK} ]; then
    echo "Ah, found it /${BOOT}/${GENERIC_LNK} .!";
   fi
