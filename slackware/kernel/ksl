@@ -11,17 +11,16 @@
 #                                                                                                    #
 ######################################################################################################
 if [ $(id -u) -ne 0 ]; then
-    echo -e "\n\e[1;34m Usuário \e[1;31m${USER}\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n"
-      exit 1
-    else
+ echo -e "\n\e[1;34m Usuário \e[1;31m${USER}\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n"
+  exit 1
+   else
 # Section verify Archteture Systems (U|Li)n(i|u)x begins
 if [ -z "${ARCH}" ]; then
 
-   case "$(uname -m)" in
-        x86_64) ARCH=64;;  #Downloads para arquitetura x86_64
-        i?86|x86) ARCH="";; #Downloads para arquitetura x86
-   esac
-
+ case "$(uname -m)" in
+  x86_64) ARCH=64;;  #Downloads para arquitetura x86_64
+   i?86|x86) ARCH="";; #Downloads para arquitetura x86
+    esac
 fi
 # Section verify Archteture Systems (U|Li)n(i|u)x ends
 
@@ -121,7 +120,7 @@ MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -
 # Source file availability:
 
 if [ ! -f ${SOURCE_HUGE} ]; then
-  echo "Source '$(basename ${SOURCE_HUGE})' not available yet..."
+ echo "Source '$(basename ${SOURCE_HUGE})' not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
   [ -w "${SRCDIR}" ] ||  ${SOURCE_HUGE}
   
@@ -137,20 +136,19 @@ if [ ! -f ${SOURCE_HUGE} ]; then
    tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
     cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
     
-  if [ -f /${BOOT}/${VMHUGE} ]; then
-   echo "Ah, found it /${BOOT}/${VMHUGE} .!";
-    ln -s /${BOOT}/${VMHUGE}     /${BOOT}/${HUGE_LNK}
-
-   if [ -f /${BOOT}/${SYSMAPHUGE} ]; then
-    echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
-     ln -s /${BOOT}/${SYSMAPHUGE} /${BOOT}/${HUGE_MAP}
+ if [ -f /${BOOT}/${VMHUGE} ]; then
+  echo "Ah, found it /${BOOT}/${VMHUGE} .!";
+   ln -s /${BOOT}/${VMHUGE}     /${BOOT}/${HUGE_LNK}
    fi
+ if [ -f /${BOOT}/${SYSMAPHUGE} ]; then
+  echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
+   ln -s /${BOOT}/${SYSMAPHUGE} /${BOOT}/${HUGE_MAP}
   fi
  fi
 fi
 
 if [ ! -f ${SOURCE_GENERIC} ]; then
-  echo "Source '$(basename ${SOURCE_GENERIC})' not available yet..."
+ echo "Source '$(basename ${SOURCE_GENERIC})' not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
   [ -w "${SRCDIR}" ] ||  ${SOURCE_GENERIC}
   
@@ -163,8 +161,9 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
     mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
      exit 1
   else
-    tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
-     cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
+   tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
+    cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
+    
   if [ -f /${BOOT}/${SYSMAPGENE} ]; then
    echo "Ah, found it /${BOOT}/${SYSMAPGENE} .!";
     ln -s /${BOOT}/${SYSMAPGENE} /${BOOT}/${GENERIC_MAP}
