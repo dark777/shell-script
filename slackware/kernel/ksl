@@ -1,0 +1,229 @@
+#!/bin/sh
+   
+if [ $(id -u) -ne 0 ]; then
+    echo -e "\n\e[1;34m Usuário \e[1;31m$USER\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n"
+      exit 1
+    else
+# Section verify Archteture Systems (U|Li)n(i|u)x begins
+if [ -z "${ARCH}" ]; then
+
+   case "$(uname -m)" in
+        x86_64) ARCH=64;;  #Downloads para arquitetura x86_64
+        i?86|x86) ARCH="";; #Downloads para arquitetura x86
+   esac
+
+fi
+# Section verify Archteture Systems (U|Li)n(i|u)x ends
+
+LIB=${LIB:-lib}
+
+LIBMODULES=${LIBMODULES:-/lib/modules}
+
+BOOT=${BOOT:-boot}
+
+FSTAB=${FSTAB:-/etc/fstab}
+
+LILO=${LILO:-/etc/lilo.conf}
+
+SLILO=${SLILO:-/sbin/lilo}
+
+# Where do we look for sources?
+SRCDIR=${SRCDIR:-$(pwd)}
+
+DEVDISK=${DEVDISK:-$(cat ${FSTAB} |tr '\t' ' ' |grep -v '^ *#' |tr -s ' ' |grep ' / ' |cut -f1 -d' ')}
+
+PART=${PART:-$(mount | grep ${DEVDISK} | cut -c6-9)}
+
+SYSARQ=${SYSARQ:-$(file -s ${DEVDISK} | awk '{print $5}')}
+
+FTP_URL=${FTP_URL:-http://ftp.slackware.com}
+
+KRNL_URL=${KRNL_URL:-${FTP_URL}/pub/slackware/slackware${ARCH}-current/slackware${ARCH}/a/}
+
+HUGE_PKG=${HUGE_PKG:-$(lynx --dump ${KRNL_URL} | egrep -o 'kernel-huge+-[0-9]+(.*).t?z$')}
+
+GENERIC_PKG=${GENERIC_PKG:-$(lynx --dump ${KRNL_URL} | egrep -o 'kernel-generic+-[0-9]+(.*).t?z$')}
+
+MODULES_PKG=${MODULES_PKG:-$(lynx --dump ${KRNL_URL} | egrep -o 'kernel-modules+-[0-9]+(.*).t?z$')}
+
+
+# Variavel que pega a versão dp pacotes
+
+VERSION=${VERSION:-$(echo ${HUGE_PKG} | rev | cut -f 3 -d - | rev )}
+
+
+# Variaveis que pegam os tipos dos pacotes
+
+HUGE_TYPE=${HUGE_TYPE:-$(echo ${HUGE_PKG} | rev | cut -f 4 -d - | rev )}
+
+GENERIC_TYPE=${GENERIC_TYPE:-$(echo ${GENERIC_PKG} | rev | cut -f 4 -d - | rev )}
+
+MODULES_TYPE=${MODULES_TYPE:-$(echo ${MODULES_PKG} | rev | cut -f 4 -d - | rev )}
+
+
+# Variaveis para instalação e linkagem do kernel
+
+VMHUGE=${VMHUGE:-vmlinuz-${HUGE_TYPE}-${VERSION}}
+
+VMGENE=${VMGENE:-vmlinuz-${GENERIC_TYPE}-${VERSION}}
+
+CONFHUGE=${CONFHUGE:-config-${HUGE_TYPE}-${VERSION}}
+
+CONFGENE=${CONFGENE:-config-${GENERIC_TYPE}-${VERSION}}
+
+SYSMAPHUGE=${SYSMAPHUGE:-System.map-${HUGE_TYPE}-${VERSION}}
+
+SYSMAPGENE=${SYSMAPGENE:-System.map-${GENERIC_TYPE}-${VERSION}}
+
+HUGE_LNK=${HUGE_LNK:-kernel_${HUGE_TYPE}-${VERSION}}
+
+GENERIC_LNK=${GENERIC_LNK:-kernel_${GENERIC_TYPE}-${VERSION}}
+
+HUGE_MAP=${HUGE_MAP:-sysmap_${HUGE_TYPE}-${VERSION}}
+
+GENERIC_MAP=${GENERIC_MAP:-sysmap_${GENERIC_TYPE}-${VERSION}}
+
+
+# Variaveis para downloads dos pacotes
+
+URL_HUGE=${URL_HUGE:-${KRNL_URL}${HUGE_PKG}}
+
+URL_GENERIC=${URL_GENERIC:-${KRNL_URL}${GENERIC_PKG}}
+
+URL_MODULES=${URL_MODULES:-${KRNL_URL}${MODULES_PKG}}
+
+SOURCE_HUGE=${SOURCE_HUGE:-${SRCDIR}/$(basename ${HUGE_PKG})}
+
+SOURCE_GENERIC=${SOURCE_GENERIC:-${SRCDIR}/$(basename ${GENERIC_PKG})}
+
+SOURCE_MODULE=${SOURCE_MODULE:-${SRCDIR}/$(basename ${MODULES_PKG})}
+
+MKINITRD=${MKINITRD:-/sbin/mkinitrd}
+
+INITRDGENERIC=${INITRDGENERIC:-/boot/initrd-${VERSION}-generic}
+
+LINKINITRD=${LINKINITRD:-initrd-${VERSION}}
+
+MKINITRDCOMMAND=${MKINITRDCOMMAND:-/usr/share/mkinitrd/mkinitrd_command_generator.sh}
+
+MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -c47-300 | cut -f1 -d ' ')}
+
+# Source file availability:
+
+if [ ! -f ${SOURCE_HUGE} ]; then
+  echo "Source '$(basename ${SOURCE_HUGE})' not available yet..."
+  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
+  [ -w "${SRCDIR}" ] ||  ${SOURCE_HUGE}
+  
+   echo "Will download file to ${SOURCE_HUGE}"
+    wget -nv -T 20 "${URL_HUGE}" || true
+     echo "Download complete."
+
+  if [ $? -ne 0 -o ! -s "${SOURCE_HUGE}" ]; then
+   echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build."
+    mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
+     exit 1
+  else
+   tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
+    cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
+    
+  if [ -f /${BOOT}/${VMHUGE} ]; then
+   echo "Ah, found it /${BOOT}/${VMHUGE} .!";
+    ln -s /${BOOT}/${VMHUGE}     /${BOOT}/${HUGE_LNK}
+
+   if [ -f /${BOOT}/${SYSMAPHUGE} ]; then
+    echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
+     ln -s /${BOOT}/${SYSMAPHUGE} /${BOOT}/${HUGE_MAP}
+   fi
+  fi
+ fi
+fi
+
+if [ ! -f ${SOURCE_GENERIC} ]; then
+  echo "Source '$(basename ${SOURCE_GENERIC})' not available yet..."
+  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
+  [ -w "${SRCDIR}" ] ||  ${SOURCE_GENERIC}
+  
+   echo "Will download file to ${SOURCE_GENERIC}"
+    wget -nv -T 20 "${URL_GENERIC}" || true
+     echo "Download complete."
+  
+  if [ $? -ne 0 -o ! -s "${SOURCE_GENERIC}" ]; then
+   echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build."
+    mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
+     exit 1
+  else
+    tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
+     cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
+  if [ -f /${BOOT}/${SYSMAPGENE} ]; then
+   echo "Ah, found it /${BOOT}/${SYSMAPGENE} .!";
+    ln -s /${BOOT}/${SYSMAPGENE} /${BOOT}/${GENERIC_MAP}
+    fi
+  if [ -f /${BOOT}/${VMGENE} ]; then
+   echo "Ah, found it /${BOOT}/${VMGENE} .!";
+    ln -s /${BOOT}/${VMGENE} /${BOOT}/${GENERIC_LNK}
+    fi
+  if [ -f /${BOOT}/${GENERIC_LNK} ]; then
+   echo "Ah, found it /${BOOT}/${GENERIC_LNK} .!";
+  fi
+ fi
+fi
+
+if [ ! -f ${SOURCE_MODULE} ]; then
+  echo "Source '$(basename ${SOURCE_MODULE})' not available yet..."
+  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
+  [ -w "${SRCDIR}" ] ||  ${SOURCE_MODULE}
+  
+   echo "Will download file to ${SOURCE_MODULE}"
+    wget -nv -T 20 "${URL_MODULES}" || true
+     echo "Download complete."
+  
+  if [ $? -ne 0 -o ! -s "${SOURCE_MODULE}" ]; then
+   echo "Downloading '$(basename ${SOURCE_MODULE})' failed... aborting the build."
+    mv -f "${SOURCE_MODULE}" "${SOURCE_MODULE}".FAIL
+     exit 1
+  else
+    tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
+     cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
+  if [ -d "${LIBMODULES}/${VERSION}" ]; then
+   echo "Ah, found it ${LIBMODULES}/${VERSION} .!";
+  fi
+ fi
+fi
+
+echo "Qual kernel deseja instalar?"
+read -p "Digite g(eneric) ou h(uge): " resposta
+
+if [[ ${resposta} == "g" || ${resposta} == "G"  ]]; then
+
+${MKINITRD} -c -k ${VERSION} -f ${SYSARQ} -r ${DEVDISK} -m ${MKINITRDSTRINGS} -u -o ${INITRDGENERIC}
+
+ln -s ${INITRDGENERIC} /${BOOT}/${LINKINITRD}
+
+echo "# Linux ${VERSION} bootable generic partition config begins
+image  = /${BOOT}/${GENERIC_LNK}
+initrd = /${BOOT}/${LINKINITRD}
+root   = /dev/${PART}
+label  = GNRC-${VERSION}
+read-only
+# Linux ${VERSION} bootable generic partition config ends " >> ${LILO}
+
+echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n"
+
+else
+
+echo "# Linux ${VERSION} bootable partition config begins
+image  = /${BOOT}/${HUGE_LNK}
+root   = /dev/${PART}
+label  = HG-${VERSION}
+read-only
+# Linux ${VERSION} bootable partition config ends " >> ${LILO}
+
+echo -e "\nKernel HG-${VERSION} install sucessfull.\n"
+
+fi
+
+${SLILO}
+
+rm -rf ${SRCDIR}/${BOOT} ${SRCDIR}/${LIB}
+fi
