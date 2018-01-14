@@ -135,16 +135,20 @@ if [ ! -f ${SOURCE_HUGE} ]; then
    tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
     cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
     
- if [ -f /${BOOT}/${VMHUGE} ]; then
-  echo "Ah, found it /${BOOT}/${VMHUGE} .!";
-   ln -s /${BOOT}/${VMHUGE} /${BOOT}/${HUGE_LNK}
-   fi
+  if [ ! -f /${BOOT}/${VMHUGE} ]; then
+   exit 1
+    else
+     echo "Ah, found it /${BOOT}/${VMHUGE} .!";
+      ln -s /${BOOT}/${VMHUGE} /${BOOT}/${HUGE_LNK}
+       fi
    
- if [ -f /${BOOT}/${SYSMAPHUGE} ]; then
-  echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
-   ln -s /${BOOT}/${SYSMAPHUGE} /${BOOT}/${HUGE_MAP}
+  if [ ! -f /${BOOT}/${SYSMAPHUGE} ]; then
+   exit 1
+    else
+     echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
+      ln -s /${BOOT}/${SYSMAPHUGE} /${BOOT}/${HUGE_MAP}
+       fi
   fi
- fi
 fi
 
 if [ ! -f ${SOURCE_GENERIC} ]; then
@@ -164,20 +168,26 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
    tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
     cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
     
-  if [ -f /${BOOT}/${SYSMAPGENE} ]; then
-   echo "Ah, found it /${BOOT}/${SYSMAPGENE} .!";
-    ln -s /${BOOT}/${SYSMAPGENE} /${BOOT}/${GENERIC_MAP}
-    fi
+  if [ ! -f /${BOOT}/${SYSMAPGENE} ]; then
+   exit 1
+    else
+     echo "Ah, found it /${BOOT}/${SYSMAPGENE} .!";
+      ln -s /${BOOT}/${SYSMAPGENE} /${BOOT}/${GENERIC_MAP}
+       fi
     
-  if [ -f /${BOOT}/${VMGENE} ]; then
-   echo "Ah, found it /${BOOT}/${VMGENE} .!";
-    ln -s /${BOOT}/${VMGENE} /${BOOT}/${GENERIC_LNK}
-    fi
+  if [ ! -f /${BOOT}/${VMGENE} ]; then
+   exit 1
+    else
+     echo "Ah, found it /${BOOT}/${VMGENE} .!";
+      ln -s /${BOOT}/${VMGENE} /${BOOT}/${GENERIC_LNK}
+       fi
     
-  if [ -f /${BOOT}/${GENERIC_LNK} ]; then
-   echo "Ah, found it /${BOOT}/${GENERIC_LNK} .!";
+  if [ ! -f /${BOOT}/${GENERIC_LNK} ]; then
+   exit 1
+    else
+     echo "Ah, found it /${BOOT}/${GENERIC_LNK} .!";
+      fi
   fi
- fi
 fi
 
 if [ ! -f ${SOURCE_MODULE} ]; then
@@ -196,8 +206,10 @@ if [ ! -f ${SOURCE_MODULE} ]; then
   else
     tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
      cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
-  if [ -d "${LIBMODULES}/${VERSION}" ]; then
-   echo "Ah, found it ${LIBMODULES}/${VERSION} .!";
+  if [ ! -d "${LIBMODULES}/${VERSION}" ]; then
+   exit 1
+    else
+     echo "Ah, found it ${LIBMODULES}/${VERSION} .!";
   fi
  fi
 fi
