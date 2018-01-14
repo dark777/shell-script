@@ -1,5 +1,15 @@
 #!/bin/sh
-
+######################################################################################################
+#                                                                                                    #
+# Autor: Jean Zonta                                                                                  #
+# Pseudonym: wiki.anon                                                                               #
+# Script Name: installconfigs                                                                        #
+# License: GNU/GPL V3                                                                                #
+# DateTime: dom 14 jan 2018 01:20:41                                                                 #
+# echo "}oqo4gtutF_gnuu4ius4hx" | perl -pe \ 's/(.)/chr(ord($1)-2*3)/ge'                             #
+# echo 'comhttps://slackwarewww' | sed 's@\(com\)\(https://\)\(slackware\)\(www\)@\2\4.\3.\1 ..!!!@' #
+#                                                                                                    #
+######################################################################################################
 LILO=${LILO:-/etc/lilo.conf}
 
 FSTAB=${FSTAB:-/etc/fstab}
