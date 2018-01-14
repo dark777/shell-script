@@ -138,7 +138,7 @@ if [ ! -f ${SOURCE_HUGE} ]; then
     
  if [ -f /${BOOT}/${VMHUGE} ]; then
   echo "Ah, found it /${BOOT}/${VMHUGE} .!";
-   ln -s /${BOOT}/${VMHUGE}     /${BOOT}/${HUGE_LNK}
+   ln -s /${BOOT}/${VMHUGE} /${BOOT}/${HUGE_LNK}
    fi
  if [ -f /${BOOT}/${SYSMAPHUGE} ]; then
   echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
