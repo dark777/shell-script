@@ -71,25 +71,25 @@ MODULES_TYPE=${MODULES_TYPE:-$(echo ${MODULES_PKG} | rev | cut -f 4 -d - | rev )
 
 # Variaveis para instalação e linkagem do kernel
 
-VMHUGE=${VMHUGE:-vmlinuz-${HUGE_TYPE}-${VERSION}}
+VMHUGE=${VMHUGE:-/${BOOT}/vmlinuz-${HUGE_TYPE}-${VERSION}}
 
-VMGENE=${VMGENE:-vmlinuz-${GENERIC_TYPE}-${VERSION}}
+VMGENE=${VMGENE:-/${BOOT}/vmlinuz-${GENERIC_TYPE}-${VERSION}}
 
-CONFHUGE=${CONFHUGE:-config-${HUGE_TYPE}-${VERSION}}
+CONFHUGE=${CONFHUGE:-/${BOOT}/config-${HUGE_TYPE}-${VERSION}}
 
-CONFGENE=${CONFGENE:-config-${GENERIC_TYPE}-${VERSION}}
+CONFGENE=${CONFGENE:-/${BOOT}/config-${GENERIC_TYPE}-${VERSION}}
 
-SYSMAPHUGE=${SYSMAPHUGE:-System.map-${HUGE_TYPE}-${VERSION}}
+SYSMAPHUGE=${SYSMAPHUGE:-/${BOOT}/System.map-${HUGE_TYPE}-${VERSION}}
 
-SYSMAPGENE=${SYSMAPGENE:-System.map-${GENERIC_TYPE}-${VERSION}}
+SYSMAPGENE=${SYSMAPGENE:-/${BOOT}/System.map-${GENERIC_TYPE}-${VERSION}}
 
-HUGE_LNK=${HUGE_LNK:-kernel_${HUGE_TYPE}-${VERSION}}
+HUGE_LNK=${HUGE_LNK:-/${BOOT}/kernel_${HUGE_TYPE}-${VERSION}}
 
-GENERIC_LNK=${GENERIC_LNK:-kernel_${GENERIC_TYPE}-${VERSION}}
+GENERIC_LNK=${GENERIC_LNK:-/${BOOT}/kernel_${GENERIC_TYPE}-${VERSION}}
 
-HUGE_MAP=${HUGE_MAP:-sysmap_${HUGE_TYPE}-${VERSION}}
+HUGE_MAP=${HUGE_MAP:-/${BOOT}/sysmap_${HUGE_TYPE}-${VERSION}}
 
-GENERIC_MAP=${GENERIC_MAP:-sysmap_${GENERIC_TYPE}-${VERSION}}
+GENERIC_MAP=${GENERIC_MAP:-/${BOOT}/sysmap_${GENERIC_TYPE}-${VERSION}}
 
 
 # Variaveis para downloads dos pacotes
@@ -108,9 +108,9 @@ SOURCE_MODULE=${SOURCE_MODULE:-${SRCDIR}/$(basename ${MODULES_PKG})}
 
 MKINITRD=${MKINITRD:-/sbin/mkinitrd}
 
-INITRDGENERIC=${INITRDGENERIC:-/boot/initrd-${VERSION}-generic}
+INITRDGENERIC=${INITRDGENERIC:-/${BOOT}/initrd-${VERSION}-generic}
 
-LINKINITRD=${LINKINITRD:-initrd-${VERSION}}
+LINKINITRD=${LINKINITRD:-/${BOOT}/initrd-${VERSION}}
 
 MKINITRDCOMMAND=${MKINITRDCOMMAND:-/usr/share/mkinitrd/mkinitrd_command_generator.sh}
 
@@ -135,20 +135,20 @@ if [ ! -f ${SOURCE_HUGE} ]; then
    tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
     cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
     
-  if [ ! -f /${BOOT}/${VMHUGE} ]; then
-   echo "Not, found it /${BOOT}/${VMHUGE} .!";
+  if [ ! -f ${VMHUGE} ]; then
+   echo "Not, found it ${VMHUGE} .!";
     exit 1
      else
-      echo "Ah, found it /${BOOT}/${VMHUGE} .!";
-       ln -s /${BOOT}/${VMHUGE} /${BOOT}/${HUGE_LNK}
+      echo "Ah, found it ${VMHUGE} .!";
+       ln -s ${VMHUGE} ${HUGE_LNK}
         fi
    
-  if [ ! -f /${BOOT}/${SYSMAPHUGE} ]; then
-   echo "Not, found it /${BOOT}/${SYSMAPHUGE} .!";
+  if [ ! -f ${SYSMAPHUGE} ]; then
+   echo "Not, found it ${SYSMAPHUGE} .!";
     exit 1
      else
-      echo "Ah, found it /${BOOT}/${SYSMAPHUGE} .!";
-       ln -s /${BOOT}/${SYSMAPHUGE} /${BOOT}/${HUGE_MAP}
+      echo "Ah, found it ${SYSMAPHUGE} .!";
+       ln -s ${SYSMAPHUGE} ${HUGE_MAP}
         fi
   fi
 fi
@@ -170,27 +170,27 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
    tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
     cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
     
-  if [ ! -f /${BOOT}/${SYSMAPGENE} ]; then
-   echo "Not, found it /${BOOT}/${SYSMAPGENE} .!";
+  if [ ! -f ${SYSMAPGENE} ]; then
+   echo "Not, found it ${SYSMAPGENE} .!";
     exit 1
      else
-      echo "Ah, found it /${BOOT}/${SYSMAPGENE} .!";
-       ln -s /${BOOT}/${SYSMAPGENE} /${BOOT}/${GENERIC_MAP}
+      echo "Ah, found it ${SYSMAPGENE} .!";
+       ln -s ${SYSMAPGENE} ${GENERIC_MAP}
         fi
     
-  if [ ! -f /${BOOT}/${VMGENE} ]; then
-   echo "Not, found it /${BOOT}/${VMGENE} .!";
+  if [ ! -f ${VMGENE} ]; then
+   echo "Not, found it ${VMGENE} .!";
     exit 1
      else
-      echo "Ah, found it /${BOOT}/${VMGENE} .!";
-       ln -s /${BOOT}/${VMGENE} /${BOOT}/${GENERIC_LNK}
+      echo "Ah, found it ${VMGENE} .!";
+       ln -s ${VMGENE} ${GENERIC_LNK}
         fi
     
-  if [ ! -f /${BOOT}/${GENERIC_LNK} ]; then
-   echo "Not, found it /${BOOT}/${GENERIC_LNK} .!";
+  if [ ! -f ${GENERIC_LNK} ]; then
+   echo "Not, found it ${GENERIC_LNK} .!";
     exit 1
      else
-      echo "Ah, found it /${BOOT}/${GENERIC_LNK} .!";
+      echo "Ah, found it ${GENERIC_LNK} .!";
        fi
   fi
 fi
@@ -227,7 +227,7 @@ if [[ ${resposta} == "g" || ${resposta} == "G"  ]]; then
 
 ${MKINITRD} -c -k ${VERSION} -f ${SYSARQ} -r ${DEVDISK} -m ${MKINITRDSTRINGS} -u -o ${INITRDGENERIC}
 
-ln -s ${INITRDGENERIC} /${BOOT}/${LINKINITRD}
+ln -s ${INITRDGENERIC} ${LINKINITRD}
 
 echo "# Linux ${VERSION} bootable generic partition config begins
 image  = /${BOOT}/${GENERIC_LNK}
