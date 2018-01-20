@@ -25,15 +25,15 @@ fi
 
 LIB=${LIB:-lib}
 
-LIBMODULES=${LIBMODULES:-/lib/modules}
-
 BOOT=${BOOT:-boot}
 
 FSTAB=${FSTAB:-/etc/fstab}
 
+SLILO=${SLILO:-/sbin/lilo}
+
 LILO=${LILO:-/etc/lilo.conf}
 
-SLILO=${SLILO:-/sbin/lilo}
+LIBMODULES=${LIBMODULES:-/${LIB}/modules}
 
 # Where do we look for sources?
 SRCDIR=${SRCDIR:-$(pwd)}
