@@ -1,9 +1,7 @@
 MAIN2=$(pwd)/shell
 
- . /$MAIN2
- 
- . /$VERSION
- 
+ ./$MAIN2
+
 echo -e " 
          $HELLO
          $LINUX2
