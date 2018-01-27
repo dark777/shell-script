@@ -7,10 +7,10 @@
 #
 #exemplo:
 #
-# cat ~/usuarios_senhas_ftp.txt
-#usuario1:senha1
-#usuario2:senha2
-#usuario3:senha3
+#  bash-4.4$ cat ~/usuarios_senhas_ftp.txt
+#  #usuario1:senha1
+#  #usuario2:senha2
+#  #usuario3:senha3
 #
 #Na hora de executar o script, basta passar o arquivo criado como parâmetro:
 #
@@ -19,9 +19,11 @@
 ##############################################################################
 
 ## Remove os comentarios e as linhas em branco.
-LISTA=$(sed "/^#/d" $1 | sed "/^$/d" > /tmp/list_$$.txt)
+LISTA=$(cat $1 | sed 's/^#//g'| sed "/^$/d" > user_senhas)
+
 ## Lista com os usuarios e senhas.
-LISTA=/tmp/list_$$.txt
+LISTA=$(pwd)/user_senhas
+
 ## Quantidade total de linhas do arquivo de usuarios e senhas.
 LINHA_QTD_TOTAL=$(cat $LISTA | wc -l)
 ## Primeira linha.
@@ -31,11 +33,21 @@ LINHA=1
 while [ $LINHA -le $LINHA_QTD_TOTAL ] ; do
    
    USUARIO=$(sed -n "$LINHA"p $LISTA | cut -f1 -d":")
+   
    SENHA=$(sed -n "$LINHA"p $LISTA | cut -f2 -d":")
+   
+   SENHACRIPT=$(openssl passwd -1 $SENHA)
+   
    LINHA=$(expr $LINHA + 1)
-   useradd -p $(openssl passwd -1 $SENHA) -m "$USUARIO"
+   
+   useradd -m $USUARIO -p $SENHACRIPT
+   
+   echo "Usuario: $USUARIO e Senha: $SENHACRIPT criada com sucesso..!!!" >> usuariofile$(date +%d).txt
+   #envia mensagem para email
+   echo "Usuario: $USUARIO e Senha: $SENHACRIPT criada com sucesso..!!!" | mail -s "Usuario e Senha" youremail@dominio.com.br
+   
+   #Envia anexo para email
+   mail -s "Usuario Criado" youremail@dominio.com.br < usuariofile$(date +%d).txt
    
 done
-rm -f $LISTA
-
-
+#rm -f $LISTA

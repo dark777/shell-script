@@ -19,7 +19,7 @@
 ##############################################################################
 
 ## Remove os comentarios e as linhas em branco.
-LISTA=$(sed "/^#/d" $1 | sed "/^$/d" > /tmp/list_$$.txt)
+LISTA=$(cat $1 | sed 's/^#//g'| sed '/^$/d' > /tmp/list_$$.txt)
 ## Lista com os usuarios e senhas.
 LISTA=/tmp/list_$$.txt
 ## Quantidade total de linhas do arquivo de usuarios e senhas.
