@@ -20,7 +20,7 @@ if [ -z "${ARCH}" ]; then
   x86_64) ARCH=64;;  #Downloads para arquitetura x86_64
    i?86|x86) ARCH="";; #Downloads para arquitetura x86
     esac
-fi
+     fi     
 # Section verify Archteture Systems (U|Li)n(i|u)x ends
 
 LIB=${LIB:-lib}
@@ -131,10 +131,11 @@ if [ ! -f ${SOURCE_HUGE} ]; then
    echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build.";
     mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
      exit 1
-  else
-   tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
-    cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
-    
+      else
+       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
+         fi
+         
   if [ ! -f ${VMHUGE} ]; then
    echo "Not, found it ${VMHUGE} .!";
     exit 1
@@ -150,7 +151,6 @@ if [ ! -f ${SOURCE_HUGE} ]; then
       echo "Ah, found it ${SYSMAPHUGE} .!";
        ln -s ${SYSMAPHUGE} ${HUGE_MAP}
         fi
-  fi
 fi
 
 if [ ! -f ${SOURCE_GENERIC} ]; then
@@ -166,10 +166,11 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
    echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build.";
     mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
      exit 1
-  else
-   tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
-    cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
-    
+      else
+       tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
+         fi
+         
   if [ ! -f ${SYSMAPGENE} ]; then
    echo "Not, found it ${SYSMAPGENE} .!";
     exit 1
@@ -192,7 +193,6 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
      else
       echo "Ah, found it ${GENERIC_LNK} .!";
        fi
-  fi
 fi
 
 if [ ! -f ${SOURCE_MODULE} ]; then
@@ -208,16 +208,17 @@ if [ ! -f ${SOURCE_MODULE} ]; then
    echo "Downloading '$(basename ${SOURCE_MODULE})' failed... aborting the build.";
     mv -f "${SOURCE_MODULE}" "${SOURCE_MODULE}".FAIL
      exit 1
-  else
-    tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
-     cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
+      else
+       tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
+        cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
+         fi
+         
   if [ ! -d "${LIBMODULES}/${VERSION}" ]; then
    echo "Not, found it ${LIBMODULES}/${VERSION} .!";
     exit 1
      else
       echo "Ah, found it ${LIBMODULES}/${VERSION} .!";
-  fi
- fi
+       fi
 fi
 
 echo "Qual kernel deseja instalar?";
