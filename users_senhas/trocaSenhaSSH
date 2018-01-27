@@ -40,5 +40,3 @@ expect "*password:*" {
     expect "*password:*"
     send "$senha_nova\r"
 }
-
- 

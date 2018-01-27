@@ -33,9 +33,8 @@ while [ $LINHA -le $LINHA_QTD_TOTAL ] ; do
    USUARIO=$(sed -n "$LINHA"p $LISTA | cut -f1 -d":")
    SENHA=$(sed -n "$LINHA"p $LISTA | cut -f2 -d":")
    LINHA=$(expr $LINHA + 1)
-   mkdir /var/ftp/$USUARIO  
-   useradd -d /var/ftp/$USUARIO $USUARIO -p $(openssl passwd -1 $SENHA) -s /bin/false
-
+   useradd -p $(openssl passwd -1 $SENHA) -m "$USUARIO"
+   
 done
 rm -f $LISTA
 
