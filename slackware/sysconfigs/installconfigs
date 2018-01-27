@@ -198,9 +198,9 @@ echo "[user]
 [merge]
        tool = diff
 [push]
-        default = matching
+       default = matching
 [web]
-        browser = mozilla-firefox
+       browser = mozilla-firefox
 [color \"branch\"]
        current = yellow bold
        local = green bold
@@ -243,7 +243,7 @@ if [ -f ${PROFILE} ]; then
 fi 
      " >> ${BASHRCUSER}
 
-echo "bash()
+echo "organize()
 {
 # Remove linha em branco:
 BLANK_LNRM=\${BLANK_LNRM:-\$(sed  -i '/^$/d' ~/.bash_history)}
