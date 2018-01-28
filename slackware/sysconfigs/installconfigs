@@ -288,11 +288,11 @@ sed -i '/^read-only/a # Linux bootable generic partition config ends' ${LILO}
 ## Adiciona partição no fim de lilo.conf
 #echo "
 # Linux bootable generic partition config begins
-#image = ${GENERIC}
-#  initrd = ${ZRAMINITRD} 
-#  root = ${DEVDISK}
-#  label = GNRCLNX
-#  read-only
+#image  = ${GENERIC}
+#initrd = ${ZRAMINITRD} 
+#root   = ${DEVDISK}
+#label  = GNRCLNX
+#read-only
 # Linux bootable generic partition config ends
 #" >> ${LILO}
 
