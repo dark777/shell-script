@@ -1,9 +1,9 @@
 #!/bin/bash
 #################################################
-#                  #
-#  Simples script para montagem de imagens iSO   #
-#         by André Ribeiro  :p      #
-#                  #
+#                                               #
+#  Simples script para montagem de imagens iSO  #
+#         by André Ribeiro  :p                  #
+#                                               #
 #################################################
 #TODO: funçao para desmontar a imagem. Fica pra depois =D
 
