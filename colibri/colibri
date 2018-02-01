@@ -80,11 +80,11 @@ jdk8_url5=$(curl -s $jdk8_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-p
  
 jdk8_url6=$(curl -s $jdk8_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/$progName\/[5-9][a-z][0-9]+\-(.*)+\/$progName-[5-9][a-z][0-9]+(.*)linux-$ARCH-$sufixeARM.$tgz")
  
-pkgName1=$(echo $jdk8_url4 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH.$tgz")
+pkgName1=$(basename $jdk8_url4 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH.$tgz")
  
-pkgName2=$(echo $jdk8_url5 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH.$tgz")
+pkgName2=$(basename $jdk8_url5 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH.$tgz")
  
-pkgName3=$(echo $jdk8_url6 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH-$sufixeARM.$tgz")
+pkgName3=$(basename $jdk8_url6 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH-$sufixeARM.$tgz")
  
 # Variable Oracle Site Packages Downloads ends
  
@@ -113,7 +113,7 @@ read -p "           # Escolha: " x
 case "$x" in
  
     1) # Section Downloads Packages (U|Li)n(i|u)x begins
-       if [ ! -f $homedownload/$pkgName1 -o "$ARCH" == "x64" -o "$ARCH" == "i586" ]; then
+       if [[ ! -f $homedownload/$pkgName1 && $ARCH == x64 || $ARCH == i586 ]]; then
            for jdk8_dl_url4 in ${jdk8_url4[@]};
             do
              wget -c -P $homedownload --no-cookies \
@@ -122,7 +122,7 @@ case "$x" in
               -N $jdk8_dl_url4
           done
              
-       elif [ ! -f $homedownload/$pkgName2 -o "$ARCH" == "sparcv9" ]; then
+       elif [[ ! -f $homedownload/$pkgName2 && $ARCH == sparcv9 ]]; then
            for jdk8_dl_url5 in ${jdk8_url5[@]};
             do
               wget -c -P $homedownload --no-cookies \
@@ -131,7 +131,7 @@ case "$x" in
               -N $jdk8_dl_url5
           done
          
-       elif [ ! -f $homedownload/$pkgName3 -o "$ARCH" = "arm64" -o "$ARCH" = "arm32" ]; then
+       elif [[ ! -f $homedownload/$pkgName3 && $ARCH == arm64 || $ARCH == arm32 ]]; then
            for jdk8_dl_url6 in ${jdk8_url6[@]};
             do
               wget -c -P $homedownload --no-cookies \
@@ -144,41 +144,41 @@ echo -e "\t ========================================"
 ;;   # Section Downloads Packages (U|Li)n(i|u)x ends
  
     2) # Section Extract Packages (U|Li)n(i|u)x begins
-     if [ -f $homedownload/$pkgName1 -a "$ARCH" == "x64" ]; then
+     if [[ -f $homedownload/$pkgName1 && $ARCH == x64 ]]; then
            
                tar -zxvf $homedownload/$pkgName1 -C /opt
            exit 1 
-        elif [ -f $homedownload/$pkgName1 -a "$ARCH" == "i586" ]; then
+        elif [[ -f $homedownload/$pkgName1 && $ARCH == i586 ]]; then
  
                tar -zxvf $homedownload/$pkgName1 -C /opt
            exit 1     
-        elif [ -f $homedownload/$pkgName2 -a "$ARCH" == "sparcv9" ]; then
+        elif [[ -f $homedownload/$pkgName2 && $ARCH == sparcv9 ]]; then
  
                tar -zxvf $homedownload/$pkgName2 -C /opt
            exit 1    
-        elif [ -f $homedownload/$pkgName2 -a "$ARCH" == "x64" ]; then
+        elif [[ -f $homedownload/$pkgName2 && $ARCH == x64 ]]; then
            
                tar -zxvf $homedownload/$pkgName2 -C /opt
            exit 1     
-        elif [ -f $homedownload/$pkgName3 -a "$ARCH" == "arm64" ]; then
+        elif [[ -f $homedownload/$pkgName3 && $ARCH == arm64 ]]; then
  
                tar -zxvf $homedownload/$pkgName3 -C /opt
            exit 1 
-        elif [ -f $homedownload/$pkgName3 -a "$ARCH" == "arm32" ]; then
+        elif [[ -f $homedownload/$pkgName3 && $ARCH == arm32 ]]; then
  
                tar -zxvf $homedownload/$pkgName3 -C /opt
            exit 1   
-        elif [ ! -f $homedownload/$pkgName1 ]; then
+        elif [[ ! -f $homedownload/$pkgName1 ]]; then
        
-               echo -e "\n\t \e[1;31mPacote \e[1;35m$pkgName1 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
+               echo -e "\n\t \e[1;31mPacote \e[1;35m$homedownload/$pkgName1 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
            exit 1
-        elif [ ! -f $homedownload/$pkgName2 ]; then
+        elif [[ ! -f $homedownload/$pkgName2 ]]; then
        
-               echo -e "\n\t \e[1;31mPacote \e[1;35m$pkgName2 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
+               echo -e "\n\t \e[1;31mPacote \e[1;35m$homedownload/$pkgName2 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
            exit 1
-        elif [ ! -f $homedownload/$pkgName3 ]; then
+        elif [[ ! -f $homedownload/$pkgName3 ]]; then
  
-               echo -e "\n\t \e[1;31mPacote \e[1;35m$pkgName3 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
+               echo -e "\n\t \e[1;31mPacote \e[1;35m$homedownload/$pkgName3 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
            exit 1
         else
                echo -e "\n \e[1;32mError\e[1;37m:\e[1;31m ARCH \e[1;34m$ARCH \e[1;31mnot configured\n"
@@ -187,7 +187,7 @@ echo -e "\t ========================================"
 ;; # Section Extract Packages (U|Li)n(i|u)x ends
 
     3) # Section Install Packages (U|Li)n(i|u)x begins
-     if [ -d /opt/$jdkverdir -a "$ARCH" == "x64" ]; then
+     if [[ -d /opt/$jdkverdir && "$ARCH" == "x64" ]]; then
            
            chown -R $user:$user /opt/$jdkverdir
            
@@ -218,7 +218,7 @@ echo -e "\t ========================================"
 
 echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================" 
            
-        elif [ -d /opt/$jdkverdir -a "$ARCH" == "i586" ]; then
+        elif [[ -d /opt/$jdkverdir && "$ARCH" == "i586" ]]; then
  
                chown -R $user:$user /opt/$jdkverdir
                
@@ -249,7 +249,7 @@ echo -e "\n\t    ========================================\n\t    # Java Instalad
 
 echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================" 
 
-        elif [ -d /opt/$jdkverdir -a "$ARCH" == "sparcv9" ]; then
+        elif [[ -d /opt/$jdkverdir && "$ARCH" == "sparcv9" ]]; then
        
                chown -R $user:$user /opt/$jdkverdir
                
@@ -276,7 +276,7 @@ echo -e "\n\t    ========================================\n\t    # Java Instalad
 
 echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================"
 
-        elif [ -d /opt/$jdkverdir -a "$ARCH" == "x64" ]; then
+        elif [[ -d /opt/$jdkverdir && "$ARCH" == "x64" ]]; then
            
                chown -R $user:$user /opt/$jdkverdir
                
@@ -307,7 +307,7 @@ echo -e "\n\t    ========================================\n\t    # Java Instalad
 
 echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================" 
                
-        elif [ -d /opt/$jdkverdir -a "$ARCH" == "arm64" ]; then
+        elif [[ -d /opt/$jdkverdir && "$ARCH" == "arm64" ]]; then
                
                chown -R $user:$user /opt/$jdkverdir
                
@@ -334,7 +334,7 @@ echo -e "\n\t    ========================================\n\t    # Java Instalad
 
 echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================"
 
-        elif [ -d /opt/$jdkverdir -a "$ARCH" == "arm32" ]; then
+        elif [[ -d /opt/$jdkverdir && "$ARCH" == "arm32" ]]; then
                
                chown -R $user:$user /opt/$jdkverdir
                
