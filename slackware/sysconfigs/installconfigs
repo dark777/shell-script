@@ -217,7 +217,15 @@ echo "[user]
        untracked = red bold 
      " >> ${GITCONFIG}
 
-echo "organize()
+echo "alias repo-pl=\"git commit -m \"scripts e comandos perl\"\"
+alias repo-py=\"git commit -m \"Python e Django\"\"
+alias repo-cpp=\"git commit -m \"Sources code C/C++\"\"
+alias repo-java=\"git commit -m \"Sources code Java\"\"
+alias repo-slack=\"git commit -m \"Packages e Settings\"\"
+alias repo-shell=\"git commit -m \"Scripts e Settings\"\"
+alias repo-dmars=\"git commit -m \"Sources code digital mars D\"\"
+
+bash()
 {
 # Remove linha em branco:
 BLANK_LNRM=\${BLANK_LNRM:-\$(sed  -i '/^$/d' ~/.bash_history)}
