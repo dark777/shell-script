@@ -251,7 +251,7 @@ if [ -f ${PROFILE} ]; then
 fi 
      " >> ${BASHRCUSER}
 
-echo "organize()
+echo "bash()
 {
 # Remove linha em branco:
 BLANK_LNRM=\${BLANK_LNRM:-\$(sed  -i '/^$/d' ~/.bash_history)}
