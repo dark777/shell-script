@@ -1,0 +1,56 @@
+#!/usr/bin/sh
+#https://www.postgresql.org/ftp/source/v10.2/
+#https://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.gz
+#https://ftp.postgresql.org/pub/latest/postgresql-10.2.tar.gz
+#PKGNAME=${PKGNAME:-$(lynx --dump http://downloads.dlang.org/releases/$ANOATUAL/|awk -F'/' '/^[ ]+[0-9]+.*linux\.tar\.xz$/ {print $6}'|head -n1)}
+CWD=$(pwd)
+
+PRGNAM=${PRGNAM:-postgresql}
+
+URL_PG=${URL_PG:-https://ftp.postgresql.org/pub/source}
+
+# SVERSION=1.08 1.09 10.0 10.1 10.2
+SVERSION=${SVERSION:-$(lynx --dump ${URL_PG}|awk -F'/' '/v[0-50]/ {print $1}'|head -n5|cut -c8-12)}
+
+# URL_DB=10.2
+DIR_DB=${DIR_DB:-$(echo ${URL_PG}/${SVERSION}|awk '{print $5}')}
+
+
+# URL_DB=https://ftp.postgresql.org/pub/source/v10.2
+URL_DB=${URL_DB:-${URL_PG}/v${DIR_DB}}
+
+# PKGNAME_DB=postgresql-10.2.tar.gz
+PKGNAME_DB=${PKGNAME_DB:-$(lynx --dump ${URL_DB}|awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}'|head -n1)}
+
+
+# URL_PKG=https://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.gz
+URL_PKG=${URL_PKG:-${URL_DB}/${PKGNAME_DB}}
+
+SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${DIR_DB}.tar.gz}
+
+
+if [ -f ${SOURCE} ]; then 
+
+echo "Ah, found it ${SOURCE} .!";
+
+# Source file availability:
+elif [ ! -f ${SOURCE} ]; then
+  echo "Source '$(basename ${SOURCE})' not available yet..."
+  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
+  [ -w "${CWD}" ] ||  ${SOURCE}
+  
+  if ! [ "x${URL_PKG}" == "x" ]; then
+   echo "Will download file to $(dirname $SOURCE)"
+    wget -nv -T 20 "${URL_PKG}" || true
+     echo "Download complete."
+    
+    if [ $? -ne 0 -o ! -s "${SOURCE}" ]; then
+     echo "Downloading '${SOURCE}' failed... aborting the build."
+      mv -f "${SOURCE}" "${SOURCE}".FAIL
+       exit 1
+    fi
+  else
+    echo "File '$(basename ${SOURCE})' not available... aborting the build."
+     exit 1
+  fi
+fi

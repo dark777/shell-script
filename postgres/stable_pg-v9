@@ -1,0 +1,52 @@
+#!/usr/bin/sh
+
+CWD=$(pwd)
+
+PRGNAM=${PRGNAM:-postgresql}
+
+URL_PG=${URL_PG:-https://ftp.postgresql.org/pub/source}
+
+# SVERSION=v9.6.7
+SVERSION=${SVERSION:-$(lynx --dump ${URL_PG}|sed -n '$p'| awk '{print $2}' | cut -f6 -d'/')}
+
+# URL_DB=https://ftp.postgresql.org/pub/source/v9.6.7/
+URL_DB=${URL_DB:-${URL_PG}/${SVERSION}}
+
+#PKG_DB=postgresql-9.6.7.tar.gz
+PKG_DB=${PKG_DB:-$(lynx --dump ${URL_DB}| awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}'|head -n1)}
+
+# URL_PKG=https://ftp.postgresql.org/pub/source/v9.6.7/postgresql-9.6.7.tar.gz
+URL_PKG=${URL_PKG:-${URL_DB}/${PKG_DB}}
+
+# VERSION=9.6.7
+VERSION=${VERSION:-$(echo ${PKG_DB} |cut -f2 -d- | cut -f1,2,3 -d.)}
+
+
+SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${VERSION}.tar.gz}
+
+
+if [ -f ${SOURCE} ]; then 
+
+echo "Ah, found it ${SOURCE} .!";
+
+# Source file availability:
+elif [ ! -f ${SOURCE} ]; then
+  echo "Source '${SOURCE}' not available yet..."
+  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
+  [ -w "${CWD}" ] ||  ${SOURCE}
+  
+  if ! [ "x${URL_PKG}" == "x" ]; then
+   echo "Will download file to $(dirname $SOURCE)"
+    wget -nv -T 20 "${URL_PKG}" || true
+     echo "Download complete."
+    
+    if [ $? -ne 0 -o ! -s "${SOURCE}" ]; then
+     echo "Downloading '${SOURCE}' failed... aborting the build."
+      mv -f "${SOURCE}" "${SOURCE}".FAIL
+       exit 1
+    fi
+  else
+    echo "File '$(basename ${SOURCE})' not available... aborting the build."
+     exit 1
+  fi
+fi
