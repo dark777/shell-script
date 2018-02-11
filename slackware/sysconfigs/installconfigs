@@ -217,13 +217,13 @@ echo "[user]
        untracked = red bold 
      " >> ${GITCONFIG}
 
-echo "alias repo-pl=\"git commit -m \"scripts e comandos perl\"\"
-alias repo-py=\"git commit -m \"Python e Django\"\"
-alias repo-cpp=\"git commit -m \"Sources code C/C++\"\"
-alias repo-java=\"git commit -m \"Sources code Java\"\"
-alias repo-slack=\"git commit -m \"Packages e Settings\"\"
-alias repo-shell=\"git commit -m \"Scripts e Settings\"\"
-alias repo-dmars=\"git commit -m \"Sources code digital mars D\"\"
+echo "alias repo-pl=\"git add . && git commit -m \"scripts e comandos perl\"; git push\"
+alias repo-py=\"git add . && git commit -m \"Python e Django\"; git push\"
+alias repo-cpp=\"git add . && git commit -m \"Sources code C/C++\"; git push\"
+alias repo-java=\"git add . && git commit -m \"Sources code Java\"; git push\"
+alias repo-slack=\"git add . && git commit -m \"Packages e Settings\"; git push\"
+alias repo-shell=\"git add . && git commit -m \"Scripts e Settings\"; git push\"
+alias repo-dmars=\"git add . && git commit -m \"Sources code digital mars D\"; git push\"
 
 bash()
 {
