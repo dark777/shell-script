@@ -78,7 +78,7 @@ MKINITRDCOMMAND=${MKINITRDCOMMAND:-/usr/share/mkinitrd/mkinitrd_command_generato
 
 MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -c47-300 | cut -f1 -d ' ')}
 
-RMOZILLA_FIREFOX=${RMOZILLA_FIREFOX:-$(ls -a /var/log/packages/mozilla-firefox* | cut -c19-54)}
+RMOZILLA_FIREFOX=${RMOZILLA_FIREFOX:-$(basename /var/log/packages/mozilla-firefox*)}
 
 ${GROUPADD} tar
 ${GROUPADD} sudo
@@ -224,7 +224,7 @@ alias repo-java=\"git add . && git commit -m \"Sources code Java\"; git push\"
 alias repo-slack=\"git add . && git commit -m \"Packages e Settings\"; git push\"
 alias repo-shell=\"git add . && git commit -m \"Scripts e Settings\"; git push\"
 alias repo-dmars=\"git add . && git commit -m \"Sources code digital mars D\"; git push\"
-alias rm=\"mv \$@ --target-directory=\${HOME}/.local/share/Trash/files/\"
+alias del=\"mv \$@ --target-directory=\${HOME}/.local/share/Trash/files/\"
 alias trash=\"su -c \"rm -rf \${HOME}/.local/share/Trash/files/*; rm -rf \${HOME}/.local/share/Trash/info/*\"\"
 
 bash()
