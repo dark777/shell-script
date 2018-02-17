@@ -57,16 +57,16 @@ MODULES_PKG=${MODULES_PKG:-$(lynx --dump ${KRNL_URL} | egrep -o 'kernel-modules+
 
 # Variavel que pega a versão dp pacotes
 
-VERSION=${VERSION:-$(echo ${HUGE_PKG} | rev | cut -f 3 -d - | rev )}
+VERSION=${VERSION:-$(echo ${HUGE_PKG} | cut -f3 -d -)}
 
 
 # Variaveis que pegam os tipos dos pacotes
 
-HUGE_TYPE=${HUGE_TYPE:-$(echo ${HUGE_PKG} | rev | cut -f 4 -d - | rev )}
+HUGE_TYPE=${HUGE_TYPE:-$(echo ${HUGE_PKG} | cut -f2 -d -)}
 
-GENERIC_TYPE=${GENERIC_TYPE:-$(echo ${GENERIC_PKG} | rev | cut -f 4 -d - | rev )}
+GENERIC_TYPE=${GENERIC_TYPE:-$(echo ${GENERIC_PKG} | cut -f2 -d -)}
 
-MODULES_TYPE=${MODULES_TYPE:-$(echo ${MODULES_PKG} | rev | cut -f 4 -d - | rev )}
+MODULES_TYPE=${MODULES_TYPE:-$(echo ${MODULES_PKG} | cut -f2 -d -)}
 
 
 # Variaveis para instalação e linkagem do kernel
