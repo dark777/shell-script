@@ -1,6 +1,6 @@
 MAIN2=$(pwd)/shell
 
- ./$MAIN2
+ . /$MAIN2
 
 echo -e " 
          $HELLO

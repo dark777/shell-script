@@ -1,5 +1,4 @@
-
-source VERSION=$(pwd)/kernel
+VERSION=$(pwd)/kernel
 
 NAME=$OSTYPE
 USER=$USER
