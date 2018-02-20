@@ -47,9 +47,9 @@ match($0, /[0-9]+([.]?[0-9]+)+/)
 
 bash --version 2>&1 | grep "GNU bash" | awk '{print "GNU bash\t\t"$4}'| cut -d '(' -f1
 
-grep --version 2>&1 | grep "GNU grep" | awk '{print "GNU (e)grep\t\t"$4}'
+grep --version 2>&1 | grep "GNU grep" | awk '{print "GNU grep\t\t"$4}'
 
-zgrep --version 2>&1 | zgrep "(gzip)" | awk '{print "GNU z(grep/cat)\t\t"$3}'
+zgrep --version 2>&1 | zgrep "(gzip)" | awk '{print "GNU zgrep\t\t"$3}'
 
 bzcat --version 2>&1 | grep "Version" | awk '{print "GNU bzcat\t\t"$7}'|sed 's/,//g;' 
 
@@ -64,7 +64,7 @@ mount --version 2>&1 |
 awk '/[0-9]+([.]?[0-9]+)+/ && !/not found$/{
 	match($0, /[0-9]+([.]?[0-9]+)+/)
 	$0 = substr($0,RSTART,RLENGTH)
-	printf("Util-linux\t\t%s\n(U)Mount\t\t\t%s\n",$0,$0)
+	printf("Mount\t\t\t%s\n",$0,$0)
 }'
 
 depmod -V  2>&1 |
