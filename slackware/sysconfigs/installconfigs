@@ -225,7 +225,7 @@ alias repo-slack=\"git add . && git commit -m \"Packages e Settings\"; git push\
 alias repo-shell=\"git add . && git commit -m \"Scripts e Settings\"; git push\"
 alias repo-dmars=\"git add . && git commit -m \"Sources code digital mars D\"; git push\"
 alias del=\"mv \$@ --target-directory=\${HOME}/.local/share/Trash/files/\"
-alias trash=\"su -c \"rm -rf ${HOME}/.local/share/Trash/{files/*,info/*}\"\"
+alias trash=\"su -c \"rm -rf \${HOME}/.local/share/Trash/{files/*,info/*}\"\"
 
 bash()
 {
