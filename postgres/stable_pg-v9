@@ -7,19 +7,19 @@ PRGNAM=${PRGNAM:-postgresql}
 URL_PG=${URL_PG:-https://ftp.postgresql.org/pub/source}
 
 # SVERSION=v9.6.7
-SVERSION=${SVERSION:-$(lynx --dump ${URL_PG}|sed -n '$p'| awk '{print $2}' | cut -f6 -d'/')}
+SVERSION=${SVERSION:-$(lynx --dump ${URL_PG} | sed -n '$p' | awk '{print $2}' | cut -f6 -d'/')}
 
 # URL_DB=https://ftp.postgresql.org/pub/source/v9.6.7/
 URL_DB=${URL_DB:-${URL_PG}/${SVERSION}}
 
 #PKG_DB=postgresql-9.6.7.tar.gz
-PKG_DB=${PKG_DB:-$(lynx --dump ${URL_DB}| awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}'|head -n1)}
+PKG_DB=${PKG_DB:-$(lynx --dump ${URL_DB} | awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}' | head -n1)}
 
 # URL_PKG=https://ftp.postgresql.org/pub/source/v9.6.7/postgresql-9.6.7.tar.gz
 URL_PKG=${URL_PKG:-${URL_DB}/${PKG_DB}}
 
 # VERSION=9.6.7
-VERSION=${VERSION:-$(echo ${PKG_DB} |cut -f2 -d- | cut -f1,2,3 -d.)}
+VERSION=${VERSION:-$(echo ${PKG_DB} | cut -f2 -d- | cut -f1,2,3 -d.)}
 
 
 SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${VERSION}.tar.gz}

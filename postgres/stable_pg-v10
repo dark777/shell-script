@@ -17,10 +17,10 @@ SVERSION=${SVERSION:-$(curl -s ${URL_PG} | sed -n ${HREF_PATTERN} | grep "v" | s
 URL_DB=${URL_DB:-${URL_PG}${SVERSION}}
 
 # URL_DB=10.3
-VER_DB=${VER_DB:-$(echo ${URL_PG}${SVERSION}|cut -f6 -d'/'|sed 's/v//g')}
+VER_DB=${VER_DB:-$(echo ${URL_PG}${SVERSION} | cut -f6 -d'/' | sed 's/v//g')}
 
 # PKGNAME_DB=postgresql-10.3.tar.gz
-PKGNAME_DB=${PKGNAME_DB:-$(lynx --dump ${URL_DB}|awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}'|head -n1)}
+PKGNAME_DB=${PKGNAME_DB:-$(lynx --dump ${URL_DB} | awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}' | head -n1)}
 
 # URL_PKG=https://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.gz
 URL_PKG=${URL_PKG:-${URL_DB}${PKGNAME_DB}}
