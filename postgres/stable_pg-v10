@@ -2,7 +2,6 @@
 #https://www.postgresql.org/ftp/source/v10.2/
 #https://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.gz
 #https://ftp.postgresql.org/pub/latest/postgresql-10.2.tar.gz
-#PKGNAME=${PKGNAME:-$(lynx --dump http://downloads.dlang.org/releases/$ANOATUAL/|awk -F'/' '/^[ ]+[0-9]+.*linux\.tar\.xz$/ {print $6}'|head -n1)}
 CWD=$(pwd)
 
 PRGNAM=${PRGNAM:-postgresql}
