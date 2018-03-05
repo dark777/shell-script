@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 #https://www.postgresql.org/ftp/source/v10.2/
 #https://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.gz
 #https://ftp.postgresql.org/pub/latest/postgresql-10.2.tar.gz
@@ -6,26 +6,26 @@ CWD=$(pwd)
 
 PRGNAM=${PRGNAM:-postgresql}
 
-URL_PG=${URL_PG:-https://ftp.postgresql.org/pub/source}
+URL_PG=${URL_PG:-https://ftp.postgresql.org/pub/source/}
 
-# SVERSION=1.08 1.09 10.0 10.1 10.2
-SVERSION=${SVERSION:-$(lynx --dump ${URL_PG}|awk -F'/' '/v[0-50]/ {print $1}'|head -n5|cut -c8-12)}
+HREF_PATTERN=${HREF_PATTERN:-'s/.*href="\([^"]*\).*/\1/p'}
 
-# URL_DB=10.2
-DIR_DB=${DIR_DB:-$(echo ${URL_PG}/${SVERSION}|awk '{print $5}')}
+# SVERSION=v10.3/
+SVERSION=${SVERSION:-$(curl -s ${URL_PG} | sed -n ${HREF_PATTERN} | grep "v" | sort -V | tail -n 1)}
 
+# URL_DB=https://ftp.postgresql.org/pub/source/v10.3/
+URL_DB=${URL_DB:-${URL_PG}${SVERSION}}
 
-# URL_DB=https://ftp.postgresql.org/pub/source/v10.2
-URL_DB=${URL_DB:-${URL_PG}/v${DIR_DB}}
+# URL_DB=10.3
+VER_DB=${VER_DB:-$(echo ${URL_PG}${SVERSION}|cut -f6 -d'/'|sed 's/v//g')}
 
-# PKGNAME_DB=postgresql-10.2.tar.gz
+# PKGNAME_DB=postgresql-10.3.tar.gz
 PKGNAME_DB=${PKGNAME_DB:-$(lynx --dump ${URL_DB}|awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}'|head -n1)}
 
-
 # URL_PKG=https://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.gz
-URL_PKG=${URL_PKG:-${URL_DB}/${PKGNAME_DB}}
+URL_PKG=${URL_PKG:-${URL_DB}${PKGNAME_DB}}
 
-SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${DIR_DB}.tar.gz}
+SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${VER_DB}.tar.gz}
 
 
 if [ -f ${SOURCE} ]; then 
