@@ -17,6 +17,8 @@ ou
 
 # Você pode usar o comando acima dois no próprio script shell:
 
+---
+script:
 #!/bin/bash
  clear
 #turn on debug mode
@@ -29,9 +31,12 @@ done
 set +x
 ls
 #more commands
+---
 
-# Você pode substituir a linha padrão de Shebang com o seguinte código (para depuração)
+# Você pode substituir a linha padrão de Shebang para depuração
 
+de #!/bin/bash
+para
 #!/bin/bash -x
 ou
 #!/bin/bash -vx
