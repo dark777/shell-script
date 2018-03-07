@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# NÃO UTRAPASSE O '|'
+#-------HEADER---------------------------------------------------------------------|
+#AUTOR
+#   Jefferson Rocha <lrcjefferson@gmail.com>
+#
+#HOMEPAGE
+#   https://slackjeff.github.io/
+#
+#PROGRAMA
+#   dep-info
+#
+#DESCRIÇÃO
+#   Verificar se o programa existe no sistema.
+#
+#PARA MAIS PROGRAMAS COMO ESTE
+#   https://notabug.org/jeffersonrocha
+#
+# Uso:
+# bash-4.4$ sh dep-info firefox dialog google-chrome
+#
+#Saída:
+#
+# $ sh dep-info firefox dialog google-chrome leafpad mousepad
+#    firefox......[OK]
+#    dialog......[OK]
+#    google-chrome......[NO]
+#    leafpad......[NO]
+#    mousepad......[NO]
+#
+#----------------------------------------------------------------------------------|
+
+# Colors
+end="\033[m"
+green="\033[32;1m"
+red="\033[31;1m"
+
+# Conferindo se existe no sistema.
+while :; do
+  for i in $1; do
+      if ! type -P $i >/dev/null; then
+          echo -e "$i......${red}[NO]${end}"
+      else
+          echo -e "$i......${green}[OK]${end}"
+      fi        
+  done
+  # Se é a entrada é nula para, se não rebaixa e continua.
+  if [[ -z "$1" ]]; then
+      break
+  else
+      shift
+  fi         
+done # fecha while 
