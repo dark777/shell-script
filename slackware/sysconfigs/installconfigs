@@ -26,6 +26,8 @@ SUDOERS=${SUDOERS:-/etc/sudoers}
 
 MODULES=${MODULES:-/lib/modules}
 
+ETCPHP=$ETCPHP:-/etc/php.ini}
+
 RCNTPD=${RCNTPD:-/etc/rc.d/rc.ntpd}
 
 ETCNTP=${ETCNTP:-/etc/ntp.conf}
@@ -147,11 +149,22 @@ if [ -f ${MODULESLOCAL} ]; then
  echo "/sbin/modprobe zram" >> ${MODULESLOCAL}
 fi
 
+if [ -f ${ETCPHP} ]; then
+
+sed -i 's/memory_limit =.*/memory_limit = 512M /g;' ${ETCPHP}
+sed -i 's/upload_max_filesize =.*/upload_max_filesize = 3M /g;' ${ETCPHP}
+sed -i 's/post_max_size =.*/post_max_size = 20M/g;' ${ETCPHP}
+sed -i 's/max_execution_time =.*/max_execution_time = 90M/g;' ${ETCPHP}
+sed -i 's/max_input_time =.*/max_input_time = 120M/' ${ETCPHP}
+sed -i 's/\;date.timezone =.*/date.timezone = America\/Sao_Paulo/' ${ETCPHP}
+
+fi
+
 chmod 755 -v /etc/rc.d/rc.{zram,ntpd,httpd,mysqld,networkmanager}
-   ${NETWORKMANAGER} start
-   nmtui
-   ntpdate pool.ntp.br
-   ${RCNTPD} start
+${NETWORKMANAGER} start
+nmtui
+ntpdate pool.ntp.br
+${RCNTPD} start
 
 if [ -f ${SLVERSION} ]; then
  echo "Welcome to ${VERSION} \s-\r.\m \l" > ${ISSUE}
@@ -214,7 +227,7 @@ echo "[user]
 [color \"status\"]
        added = green bold
        changed = yellow bold
-       untracked = red bold 
+       untracked = red bold
      " >> ${GITCONFIG}
 
 echo "alias repo-pl=\"git add . && git commit -m \"scripts e comandos perl\"; git push\"
@@ -288,7 +301,7 @@ ln -s ${INITRDZRAM} ${ZRAMINITRD}
 
 read -p "Deseja adicionar a(pos) ou no f(im) de lilo.conf? " resposta
 
-if [[ ${resposta} == "a" || ${resposta} == "A"  ]]; then
+if [[ ${resposta} == "a" || ${resposta} == "A" ]]; then
 
 ## Adiciona partição após "# End LILO global section" no lilo.conf
 sed -i '/# End LILO global section/a # Linux bootable generic partition config begins' ${LILO}
@@ -310,7 +323,7 @@ root   = ${DEVDISK}
 label  = GNRCLNX
 read-only
 # Linux bootable generic partition config ends
-" >> ${LILO}
+     " >> ${LILO}
 
 fi
 
