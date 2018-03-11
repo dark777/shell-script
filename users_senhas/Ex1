@@ -23,7 +23,7 @@ do
         useradd -m -d /home/$CONTA $CONTA
  
         # altera a senha
-        # Nem tudas as versões do passwd possuem suporte ao parametro --stdin
+        # Nem todas as versões do passwd possuem suporte ao parametro --stdin
         #echo  $SENHA  | passwd --stdin $CONTA
         echo "$CONTA:$SENHA" | chpasswd -m
  
