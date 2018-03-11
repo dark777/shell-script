@@ -25,7 +25,9 @@ PKGNAME_DB=${PKGNAME_DB:-$(lynx --dump ${URL_DB} | awk -F'/' '/postgresql+-[0-9]
 # URL_PKG=https://ftp.postgresql.org/pub/source/v10.2/postgresql-10.2.tar.gz
 URL_PKG=${URL_PKG:-${URL_DB}${PKGNAME_DB}}
 
-SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${VER_DB}.tar.gz}
+EXTENSION_PKG=${EXTENSION_PKG:-$(echo ${PKGNAME_DB} | cut -f3,4 -d.)}
+
+SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${VER_DB}.${EXTENSION_PKG}}
 
 
 if [ -f ${SOURCE} ]; then 

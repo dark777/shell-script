@@ -21,8 +21,9 @@ URL_PKG=${URL_PKG:-${URL_DB}/${PKG_DB}}
 # VERSION=9.6.7
 VERSION=${VERSION:-$(echo ${PKG_DB} | cut -f2 -d- | cut -f1,2,3 -d.)}
 
+EXTENSION_PKG=${EXTENSION_PKG:-$(echo ${PKG_DB} | cut -f3,4 -d.)}
 
-SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${VERSION}.tar.gz}
+SOURCE=${SOURCE:-${CWD}/${PRGNAM}-${VERSION}.${EXTENSION_PKG}}
 
 
 if [ -f ${SOURCE} ]; then 
