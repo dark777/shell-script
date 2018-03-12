@@ -40,7 +40,7 @@ SRCDIR=${SRCDIR:-$(pwd)}
 
 DEVDISK=${DEVDISK:-$(cat ${FSTAB} |tr '\t' ' ' |grep -v '^ *#' |tr -s ' ' |grep ' / ' |cut -f1 -d' ')}
 
-PART=${PART:-$(mount | grep ${DEVDISK} | cut -c6-9)}
+PART=${PART:-$(mount | grep ${DEVDISK} | awk '{print $1}' | cut -f3 -d/)}
 
 SYSARQ=${SYSARQ:-$(file -s ${DEVDISK} | awk '{print $5}')}
 
