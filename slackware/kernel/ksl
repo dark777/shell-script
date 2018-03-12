@@ -114,7 +114,7 @@ LINKINITRD=${LINKINITRD:-/${BOOT}/initrd-${VERSION}}
 
 MKINITRDCOMMAND=${MKINITRDCOMMAND:-/usr/share/mkinitrd/mkinitrd_command_generator.sh}
 
-MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -c47-300 | cut -f1 -d ' ')}
+MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -f10 -d ' ')}
 
 # Source file availability:
 
