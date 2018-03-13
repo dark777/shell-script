@@ -74,6 +74,8 @@ SETPASSWORD=${SETPASSWORD:-/usr/bin/passwd}
 
 BASHRCADM=${BASHRCADM:-/root/.bashrc}
 
+GITCONFIGADM=${GITCONFIGADM:-/root/.gitconfig}
+
 MKINITRD=${MKINITRD:-/sbin/mkinitrd}
 
 MKINITRDCOMMAND=${MKINITRDCOMMAND:-/usr/share/mkinitrd/mkinitrd_command_generator.sh}
@@ -180,9 +182,14 @@ installpkg python/python-django-1.10-x86_64-1_slonly.txz
 installpkg vlc/flash-player-npapi-26.0.0.151-release.x86_64.tgz
 installpkg vlc/npapi-vlc-20170523-x86_64-1alien.txz
 installpkg vlc/vlc-2.2.6-x86_64-1alien.txz
-installpkg navegadores/mozilla-firefox-56.0b2-x86_64-1.txz
+installpkg navegadores/mozilla-firefox-pt-BR_59.0b8-x86_64-1.txz
+#installpkg navegadores/mozilla-firefox-56.0b2-x86_64-1.txz
 installpkg navegadores/tor-browser-7.0.4-x86_64-1_SBo.tgz
-installpkg database/postgresql-9.6.4-x86_64-1_slonly.txz
+#installpkg database/postgresql-9.6.4-x86_64-1_slonly.txz
+installpkg database/postgresql-10.2-x86_64-1_SBo.tgz
+installpkg digitalmars/dmd-2.075.0-x86_64-1_SBo.tgz
+installpkg glade/glade-3.18.3-x86_64-1_SBo.tgz
+upgradepkg --reinstall --install-new php/php-7.1.13-x86_64-1.txz
 
 read -p "Crie um usuario: " USUARIO
 
@@ -200,7 +207,7 @@ usermod -aG sudo,tar,users,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scan
 
 BASHRCUSER=${BASHRCUSER:-/home/${USUARIO}/.bashrc}
 
-GITCONFIG=${GITCONFIG:-/home/${USUARIO}/.gitconfig}
+GITCONFIGUSER=${GITCONFIGUSER:-/home/${USUARIO}/.gitconfig}
 
 echo "[user]
        name = Jean Zonta
@@ -228,7 +235,9 @@ echo "[user]
        added = green bold
        changed = yellow bold
        untracked = red bold
-     " >> ${GITCONFIG}
+     " >> ${GITCONFIGUSER}
+
+cat ${GITCONFIGUSER} >> ${GITCONFIGADM}
 
 echo "alias repo-pl=\"git add .;git commit -m \"scripts e comandos perl\";git push;\"
 alias repo-py=\"git add .;git commit -m \"Python e Django\";git push;\"
@@ -266,30 +275,7 @@ if [ -f ${PROFILE} ]; then
   . ${PROFILE}
 fi " >> ${BASHRCUSER}
 
-echo "bash()
-{
-# Remove linha em branco:
-BLANK_LNRM=\${BLANK_LNRM:-\$(sed  -i '/^$/d' ~/.bash_history)}
-
-# Remove caracteres em branco no inicio da linha:
-BLANK_INIRM=\${BLANK_INIRM:-\$(sed -i 's/^ *//g' ~/.bash_history)}
-
-# Remove caracteres em branco no final da linha:
-BLANK_FIMRM=\${BLANK_FIMRM:-\$(sed -i 's/ *$//g' ~/.bash_history)}
-
-# Remove linhas duplicadas
-RMDUP=\${RMDUP:-\$(sort -u ~/.bash_history > str_history)}
-
-# Salva os comandos devolta em .bash_history
-NEWSTORE=\${NEWSTORE:-\$(cat str_history > ~/.bash_history)}
-
-#Remove os arquivos de suporte
-RMFILES=\${RMFILES:-\$(rm -rf str_history)}
-}
-
-if [ -f ${PROFILE} ]; then
-  . ${PROFILE}
-fi " >> ${BASHRCADM}
+cat  ${BASHRCUSER} >> ${BASHRCADM}
 
 echo -e "\n\t\e[0m${USUARIO} \e[1;31mAdicionado com sucesso..\n\e[0m"
 
@@ -322,7 +308,6 @@ label  = GNRCLNX
 read-only
 # Linux bootable generic partition config ends
      " >> ${LILO}
-
 fi
 
 ${SBINLILO}
