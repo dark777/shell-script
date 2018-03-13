@@ -264,8 +264,7 @@ RMFILES=\${RMFILES:-\$(rm -rf str_history)}
 
 if [ -f ${PROFILE} ]; then
   . ${PROFILE}
-fi 
-     " >> ${BASHRCUSER}
+fi " >> ${BASHRCUSER}
 
 echo "bash()
 {
@@ -290,9 +289,8 @@ RMFILES=\${RMFILES:-\$(rm -rf str_history)}
 
 if [ -f ${PROFILE} ]; then
   . ${PROFILE}
-fi
-     " >> ${BASHRCADM}
-     
+fi " >> ${BASHRCADM}
+
 echo -e "\n\t\e[0m${USUARIO} \e[1;31mAdicionado com sucesso..\n\e[0m"
 
 
