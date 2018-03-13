@@ -230,14 +230,14 @@ echo "[user]
        untracked = red bold
      " >> ${GITCONFIG}
 
-echo "alias repo-pl=\"git add . && git commit -m \"scripts e comandos perl\"; git push\"
-alias repo-py=\"git add . && git commit -m \"Python e Django\"; git push\"
-alias repo-cs=\"git add . && git commit -m \"Sources code Asp.net/C-Sharp\"; git push\"
-alias repo-cpp=\"git add . && git commit -m \"Sources code C/C++\"; git push\"
-alias repo-java=\"git add . && git commit -m \"Sources code Java\"; git push\"
-alias repo-slack=\"git add . && git commit -m \"Packages e Settings\"; git push\"
-alias repo-shell=\"git add . && git commit -m \"Scripts e Settings\"; git push\"
-alias repo-dmars=\"git add . && git commit -m \"Sources code digital mars D\"; git push\"
+echo "alias repo-pl=\"git add .;git commit -m \"scripts e comandos perl\";git push;\"
+alias repo-py=\"git add .;git commit -m \"Python e Django\";git push;\"
+alias repo-cs=\"git add .;git commit -m \"Sources code Asp.net/C-Sharp\";git push;\"
+alias repo-cpp=\"git add .;git commit -m \"Sources code C/C++\";git push;\"
+alias repo-java=\"git add .;git commit -m \"Sources code Java\";git push;\"
+alias repo-slack=\"git add .;git commit -m \"Packages e Settings\";git push;\"
+alias repo-shell=\"git add .;git commit -m \"Scripts e Settings\";git push;\"
+alias repo-dmars=\"git add .;git commit -m \"Sources code digital mars D\";git push;\"
 alias del=\"mv \$@ --target-directory=\${HOME}/.local/share/Trash/files/\"
 alias trash=\"su -c \"rm -rf \${HOME}/.local/share/Trash/{files/*,info/*}\"\"
 
