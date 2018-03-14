@@ -1,0 +1,25 @@
+http://wiki.colivre.net/bin/view/Aurium/InkBash
+
+Install:
+
+Usuários GNU/Linux:
+persons Instalação Global: (para todos)
+/usr/share/inkscape/extensions
+person Instalação Local: (apenas para você)
+~/.inkscape/extensions
+
+
+Usuários OS X:
+
+persons Instalação Global: (para todos)
+/Applications/Inkscape.app/Contents/Resources/extensions
+person Instalação Local: (apenas para você)
+~/.inkscape/extensions
+
+
+Usuários Windows:
+
+C:\Arquivos de programa\Inkscape\share\extensions
+warning Execute "inkscape -x" para confirmar!
+
+Não esqueça de descompactar o arquivo ink-bash.tar.gz no diretório escolhido. ;-]
