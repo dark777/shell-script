@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #http://www.guj.com.br/t/mysql-ssl/290317/5
+#https://askubuntu.com/questions/194074/enabling-ssl-in-mysql/439274
 set -eux
 
 # Make sure there is an /etc/mysql
