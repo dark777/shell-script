@@ -1,7 +1,5 @@
 #!/bin/sh
 ############################################################################
-#A senha passada tem que já está criptografada, por isso está dando erro.
-#Se ainda quiser um script que crie vários usuário de uma vez só:
 #Para usar esse script, basta criar um arquivo com todos os 
 #nomes de usuários e senhas separando-os por ":" (dois pontos).
 #

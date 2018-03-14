@@ -7,10 +7,10 @@
 #
 #exemplo:
 #
-#  bash-4.4$ cat ~/usuarios_senhas_ftp.txt
-#  #usuario1:senha1
-#  #usuario2:senha2
-#  #usuario3:senha3
+#bash-4.4$ cat ~/usuarios_senhas_ftp.txt
+#usuario1:senha1
+#usuario2:senha2
+#usuario3:senha3
 #
 #Na hora de executar o script, basta passar o arquivo criado como parâmetro:
 #
