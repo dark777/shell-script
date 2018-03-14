@@ -27,7 +27,20 @@ ssl-key=/etc/mysql/private/client/client-key.pem
 [mysqld]
 ssl-ca=/etc/mysql/certs/ca-cert.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
-ssl-key=/etc/mysql/private/certs/server-key.pem" >> my.cnf
+ssl-key=/etc/mysql/private/certs/server-key.pem" >> /etc/my.cnf
 
 chown -R mysql.mysql /etc/mysql
 /etc/rc.d/rc.mysqld start
+
+cat <<COMMENT
+
+Created new mysql ssluser user
+
+MariaDB [mysql]> CREATE USER 'ssluser'@'%' IDENTIFIED BY 'MyPassword1';
+MariaDB [mysql]> GRANT USAGE ON *.* TO 'ssluser'@'%' REQUIRE X509;
+MariaDB [mysql]> FLUSH PRIVILEGES;
+
+Than I am trying to connect from shell
+bash-4.4$ mysql --user=ssluser --password  --ssl-ca=/etc/mysql/client/ca-cert.pem --ssl-cert=/etc/mysql/client/client-cert.pem --ssl-key=/etc/mysql/private/client/client-key.pem
+
+COMMENT

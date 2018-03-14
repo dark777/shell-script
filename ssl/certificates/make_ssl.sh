@@ -16,3 +16,5 @@ openssl x509 -req -in server-req.pem -days 1000 -CA ca-cert.pem -CAkey ca-key.pe
 openssl req -newkey rsa:2048 -days 1000 -nodes -keyout client-key.pem > client-req.pem
 
 openssl x509 -req -in client-req.pem -days 1000 -CA ca-cert.pem -CAkey ca-key.pem -set_serial 01 > client-cert.pem
+
+openssl verify -CAfile ca-cert.pem server-cert.pem client-cert.pem
