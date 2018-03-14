@@ -1,22 +1,39 @@
-DIR=`pwd`/openssl
-PRIV=$DIR/private
+DIR=${DIR:-/etc/mysql}
+PRIV=${PRIV:-${DIR}/private}
+
+OPENSSLCNF=${OPENSSLCNF:-$(locate openssl.cnf)}
+
 #https://dev.mysql.com/doc/refman/5.7/en/creating-ssl-files-using-openssl.html
-mkdir $DIR $PRIV $DIR/newcerts
-cp /usr/share/ssl/openssl.cnf $DIR
-replace ./demoCA $DIR -- $DIR/openssl.cnf
+
+# Make sure there is an /etc/mysql
+
+#/etc/mysql/certs
+mkdir -p ${DIR}/certs
+
+#/etc/mysql/private/certs
+mkdir -p ${PRIV}/certs
+
+#/etc/mysql/client
+mkdir -p ${DIR}/client
+
+#/etc/mysql/private/client
+mkdir -p ${PRIV}/client
+
+
+cp ${OPENSSLCNF} ${DIR}
+replace ./demoCA ${DIR} -- ${DIR}/openssl.cnf
 
 # Create necessary files: $database, $serial and $new_certs_dir
 # directory (optional)
 
-touch $DIR/index.txt
-echo "01" > $DIR/serial
+touch ${DIR}/index.txt
+echo "01" > ${DIR}/serial
 
 #
 # Generation of Certificate Authority(CA)
 #
 
-openssl req -new -x509 -keyout $PRIV/cakey.pem -out $DIR/ca.pem \
-    -days 3600 -config $DIR/openssl.cnf
+openssl req -new -x509 -keyout ${PRIV}/cakey.pem -out ${DIR}/ca.pem -days 3600 -config ${DIR}/openssl.cnf
 
 # Sample output:
 # Using configuration from /home/finley/openssl/openssl.cnf
@@ -46,8 +63,7 @@ openssl req -new -x509 -keyout $PRIV/cakey.pem -out $DIR/ca.pem \
 #
 # Create server request and key
 #
-openssl req -new -keyout $DIR/server-key.pem -out \
-    $DIR/server-req.pem -days 3600 -config $DIR/openssl.cnf
+openssl req -new -keyout ${DIR}/server-key.pem -out ${DIR}/server-req.pem -days 3600 -config ${DIR}/openssl.cnf
 
 # Sample output:
 # Using configuration from /home/finley/openssl/openssl.cnf
@@ -82,14 +98,12 @@ openssl req -new -keyout $DIR/server-key.pem -out \
 #
 # Remove the passphrase from the key
 #
-openssl rsa -in $DIR/server-key.pem -out $DIR/server-key.pem
+openssl rsa -in ${DIR}/server-key.pem -out ${DIR}/server-key.pem
 
 #
 # Sign server cert
 #
-openssl ca -cert $DIR/ca.pem -policy policy_anything \
-    -out $DIR/server-cert.pem -config $DIR/openssl.cnf \
-    -infiles $DIR/server-req.pem
+openssl ca -cert ${DIR}/ca.pem -policy policy_anything -out ${DIR}/server-cert.pem -config ${DIR}/openssl.cnf -infiles ${DIR}/server-req.pem
 
 # Sample output:
 # Using configuration from /home/finley/openssl/openssl.cnf
@@ -112,8 +126,7 @@ openssl ca -cert $DIR/ca.pem -policy policy_anything \
 #
 # Create client request and key
 #
-openssl req -new -keyout $DIR/client-key.pem -out \
-    $DIR/client-req.pem -days 3600 -config $DIR/openssl.cnf
+openssl req -new -keyout ${DIR}/client-key.pem -out ${DIR}/client-req.pem -days 3600 -config ${DIR}/openssl.cnf
 
 # Sample output:
 # Using configuration from /home/finley/openssl/openssl.cnf
@@ -154,9 +167,7 @@ openssl rsa -in $DIR/client-key.pem -out $DIR/client-key.pem
 # Sign client cert
 #
 
-openssl ca -cert $DIR/ca.pem -policy policy_anything \
-    -out $DIR/client-cert.pem -config $DIR/openssl.cnf \
-    -infiles $DIR/client-req.pem
+openssl ca -cert $DIR/ca.pem -policy policy_anything -out $DIR/client-cert.pem -config $DIR/openssl.cnf -infiles $DIR/client-req.pem
 
 # Sample output:
 # Using configuration from /home/finley/openssl/openssl.cnf
@@ -180,13 +191,13 @@ openssl ca -cert $DIR/ca.pem -policy policy_anything \
 # Create a my.cnf file that you can use to test the certificates
 #
 
-cat <<EOF > $DIR/my.cnf
-[client]
-ssl-ca=$DIR/ca.pem
-ssl-cert=$DIR/client-cert.pem
-ssl-key=$DIR/client-key.pem
-[mysqld]
-ssl-ca=$DIR/ca.pem
-ssl-cert=$DIR/server-cert.pem
-ssl-key=$DIR/server-key.pem
-EOF 
+#cat <<EOF > $DIR/my.cnf
+#[client]
+#ssl-ca=$DIR/ca.pem
+#ssl-cert=$DIR/client-cert.pem
+#ssl-key=$DIR/client-key.pem
+#[mysqld]
+#ssl-ca=$DIR/ca.pem
+#ssl-cert=$DIR/server-cert.pem
+#ssl-key=$DIR/server-key.pem
+#EOF
