@@ -302,7 +302,7 @@ else
 ## Adiciona partição no fim de lilo.conf
 echo "# Linux bootable generic partition config begins
 image  = ${GENERIC}
-initrd = ${ZRAMINITRD} 
+initrd = ${ZRAMINITRD}
 root   = ${DEVDISK}
 label  = GNRCLNX
 read-only
