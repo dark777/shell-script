@@ -19,7 +19,7 @@ do
     if [ $filtra ]; then
      corpo=$(echo $i | awk -F "." '{print $1}')
       extensao=$(echo $i | awk -F "." '{print $2}')
-       under=$( echo $corpo | sed 's/^ //g;s/ - /_/g;s/ /_/g;')
+       under=$(echo $corpo | sed 's/^ //g;s/ - /_/g;s/ /_/g;')
         final=$(echo $under.$extensao | sed 's/ $//g;')
          mv $filtra $final
      
