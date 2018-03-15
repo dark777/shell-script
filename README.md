@@ -1,2 +1,1 @@
-# shell-script
-scripts em shell bash
+# Scripts e Settings
