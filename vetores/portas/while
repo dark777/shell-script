@@ -1,0 +1,42 @@
+#!/bin/sh
+
+if [ -z $1 ]
+then
+echo -e "Parametro PID deve ser informado!"
+exit
+fi
+
+# TIME_WAIT eh em segundos entao temos (60s * VALOR) para intervalo em minutos de espera
+#TIME_WAIT=60 # 1 minuto
+#TIME_WAIT=300 # 5 minutos
+TIME_WAIT=3600 # 1 hora
+
+LOCK_FILE="/tmp/$RANDOM"
+PID=$1
+echo -e "Arquivo de log criado com sucesso em $LOCK_FILE"
+echo -e "Iniciando monitoramento..."
+echo -e "Inicio do log `date +%D_%T`" > $LOCK_FILE
+
+while [ -d /proc/$PID ];
+do
+if [ `date +%H%M` -ge 1200 ];
+then
+echo -e "O processo $$ deve ser morto, passou 12horas de execucao" >> $LOCK_FILE
+# Enviar e-mail para sysadmin com sendmail e como corpo o $LOCK_FILE
+# COMANDO AQUI
+rm -Rf $LOCK_FILE
+exit
+else
+echo -e "Script executando. Data/Hora: `date +%D_%T`" >> $LOCK_FILE
+echo -e "Comando: `cat /proc/$PID/cmdline`" >> $LOCK_FILE
+echo -e "n" >> $LOCK_FILE
+fi
+
+sleep $TIME_WAIT
+done
+
+echo -e "Processo finalizado com sucesso." >> $LOCK_FILE
+echo -e "Data/hora: `date +%D_%T`" >> $LOCK_FILE
+# Enviar e-mail para sysadmin com sendmail e como corpo o $LOCK_FILE
+# COMANDO AQUI
+rm -Rf $LOCK_FILE 

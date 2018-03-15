@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#Parte1
+SRC="/home/wiki/Projetos/shell_script/"
+DST="/mnt/backups/"
+mkdir -p $DST
+cd $SRC
+LS_DIR=$(find * -maxdepth 0 -type d)
+
+for folder in $LS_DIR;
+do
+tar -czf $DST$folder.tgz $folder > /dev/null
+done
+
+#Parte2
+USER_ID=($(cat /etc/passwd | cut -d: -f3))
+USER_DIR=($(cat /etc/passwd | cut -d: -f6))
+
+DST_HOME="/tmp/"
+for ((i=0; i<${#USER_ID[@]}; i++)) do if [ ${USER_ID[$i]} -ge 1001 -a ${USER_ID[$i]} -lt 65500 ]; then USER_NAME=$(cat /etc/passwd | grep ${USER_DIR[$i]} | cut -d: -f1) echo -e "UID ${USER_ID[$i]} > 1000tDIR ${USER_DIR[$i]}"
+tar -czf $DST_HOME$USER_NAME.tgz ${USER_DIR[$i]} > /dev/null
+fi
+done 

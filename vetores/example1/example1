@@ -1,0 +1,46 @@
+#!/bin/sh
+ 
+
+idade[0]="40"
+idade[1]="30"
+idade[2]="50"
+idade[3]="20"
+
+nomes=("Cleverson" "Manoel" "Pedro" "Paulo")
+apelidos=("Maluco" "Esperto" "Mulherengo" "Bebun")
+
+
+
+# O que diferencia de uma variavel comun é o ${ } e dentro o array com a posição
+echo ""
+for ((i=0; i<4; i++))
+do
+echo "Nome ${i}: ${nomes[$i]} idade: ${idade[$i]} apelido: ${apelidos[$i]}"
+done
+
+
+# Cria um vetor pegando as informaçoes do arquivo
+NOMES=($(awk -F'-' '{printf "%s", $1}' file/names.conf))
+APELIDOS=($(awk -F'-' '{printf "%s", $1}' file/apelidos.conf))
+echo ""
+for ((j = 0; j < ${#NOMES[@]}; j++))
+do
+echo "Nome ${j}: ${NOMES[$j]} idade: ${idade[$j]} apelido: ${APELIDOS[$j]}"
+done
+
+#version=4.14.16
+# este arquivo se encontra em /usr/src/linux/include/config/kernel.release
+version=($(awk -F'.' '{printf "%s %s %s", $1, $2, $3}' file/kernel.release))
+for ((k = 0; k < 1; k++))
+do
+
+for ((l = 1; l < 2; l++))
+do
+
+for ((m = 2; m < 3; m++))
+do
+echo -e "\nMajor.......: ${version[$k]} \nMinor.......: ${version[$l]} \nPatch Leven.: ${version[$m]}"
+done #fim terceiro for
+done #fim segundo for
+done #fim primeiro for
+echo ""

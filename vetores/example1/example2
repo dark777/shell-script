@@ -1,0 +1,42 @@
+#!/bin/sh
+ 
+
+idade[0]="40"
+idade[1]="30"
+idade[2]="50"
+idade[3]="20"
+
+
+# Cria um vetor pegando as informaçoes do arquivo
+#NOMES=Cleverson Manoel Pedro Paulo Maluco Esperto Mulherengo Bebun
+NOMES=($(awk -F'-' '{printf "%s %s %s %s %s %s %s %s", $1, $2, $3, $4, $5, $6, $7, $8}' file/allnames.conf))
+
+echo ""
+for ((l=0; l<4; l++))
+do
+
+for ((m=4; m<5; m++))
+do
+#Maluco Esperto Mulherengo Bebun
+echo "Nome ${l}: ${NOMES[$l]} idade: ${idade[$l]} apelido: ${NOMES[$(($l+$m))]}"
+done #fim segundo for
+
+done #fim primeiro for
+
+echo ""
+for ((n=0; n<4; n++))
+do
+j=4
+#Maluco Esperto Mulherengo Bebun
+  echo "Nome ${n}: ${NOMES[$n]} idade: ${idade[$n]} apelido: ${NOMES[$(($n+$j))]}"
+done
+
+echo ""
+#
+for ((o=0; o<4; o++))
+do
+#Bebun Mulherengo Esperto Maluco
+  echo "Nome ${o}: ${NOMES[$((3-$o))]} idade: ${idade[$((${#idade[@]}-$o-1))]} apelido: ${NOMES[$((${#NOMES[@]}-$o-1))]}"
+done
+
+echo ""
