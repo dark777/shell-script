@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#export semana=$(date +%a)
+#semana=sex
+
+#export dia=$(date +%d)
+#dia=16
+
+#export mes=$(date +%b)
+#mes=mar
+
+#export ano=$(date +%Y)
+#ano=2018
+
+#export hora=$(date +%H:%M:%S)
+#hora=15:25:17
+
+#altertime=$(date "+%a %d %b %Y %H:%M:%S")
+
+#MODIFICA=${MODIFICA:-$(sed '/DateTime:/ s/'$(date +%b)'.*/"'${altertime}'"/g;' Makefile)}

@@ -1,0 +1,6 @@
+#!/bin/bash
+#sh cmd /home/wiki/Workspace/GitHub/standard-cxx
+#mv Makefile makefile;cat edit > Makefile;cat makefile >> Makefile; rm makefile
+#sh cmd /home/wiki/Workspace/GitHub/standard-cxx/{KernelModules/*,menuclass/*,char/*,string/*,srcmain/*,Overload/*,Override/*,Polymorphism/*,Aggregation/*,agenda/*,Composition/*,Cadastros/*,Regex/*,TermPaper/*}
+
+find /home/wiki/Workspace/GitHub/standard-cxx/{libmenu/*,StringSet/*,TermPaper/*,Overload/*,Override/*,Polymorphism/*,DataStructure/*,Composition/*,Cadastros/*,Regex/*} -name "Makefile" > locates
