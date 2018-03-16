@@ -1,1 +1,1 @@
-# Scripts e Settings
+# Scripts e Settings em bash
