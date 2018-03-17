@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Script que renomeia pastas e arquivos que contem espacos e ifen's,
 # que de certa forma eh desconfortavel manipula-los via terminal.
 # Para resolver isso fiz um script shell que substitue todos
@@ -29,9 +29,8 @@ do
         
         for ((j = 0; j < ${qtd}; j++))
         do
-        final=$(echo ${under}"${j}".${extensao} | sed 's/ $//g;')
+        final=$(echo ${under}.${extensao} | sed 's/ $//g;')
         mv ${filtra} ${final}
-        ((j++))
         done
         
        if [ $? -ne 0 ]; then
