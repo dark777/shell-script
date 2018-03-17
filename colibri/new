@@ -1,0 +1,35 @@
+#!/bin/bash
+
+version=${version:-8}
+
+oracle_url=${oracle_url:-http://www.oracle.com}
+
+jdk_url1=${jdk_url1:-${oracle_url}/technetwork/java/javase/downloads/index.html}
+
+jdk_url2=${jdk_url2:-$(curl -s ${jdk_url1} | egrep -o "\/technetwork\/java/\javase\/downloads\/jdk${version}-downloads-.+?\.html" | head -1 | cut -d '"' -f1)}
+
+jdk_url3=${jdk_url3:-${oracle_url}${jdk_url2}}
+
+jdk_url4=${jdk_url4:-$(curl -s ${jdk_url3} | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-x64.tar.gz" | head -2)}
+
+echo ${jdk_url3}
+echo ${jdk_url4}
+
+ if [ -z "$ARCH" ]; then 
+                case $(uname -m) in
+                            x86_64|e*) ARCH=x64 ;;     #Downloads para arquitetura x86_64 e processadores x64 / EM64T:
+                             i?86|x86) ARCH=i586 ;;    #Downloads para arquitetura x86, i386, i486, i586 e i686
+                             sp*|sun*) ARCH=sparcv9;;  #Downloads para arquitetura sparc, sun4u, sparc64 e sunOS
+                      aarch64*|armv8*) ARCH=arm64 ;;   #Download para arquitetura arm com suporte a 64 bits
+     arm.*|sa110|armv5*|armv6*|armv7*) ARCH=arm32 ;;   #Downloads para arquitetura ARM  arm.* sa110 armv6l armv7l
+                esac
+                
+     fi # Section verify Archteture Systems (U|Li)n(i|u)x ends
+     
+jdk_url5=$(curl -s $jdk_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-${ARCH}.tar.gz" | head -2)
+
+pkgName1=$(basename $jdk_url5 | egrep -o "jdk-[5-9][a-z][0-9]+(.*)${ARCH}.tar.gz")
+
+echo ${jdk_url5}
+
+echo ${pkgName1}

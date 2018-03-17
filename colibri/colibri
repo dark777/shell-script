@@ -18,53 +18,47 @@
 # Autor: Jean Zonta
 # Email: wiki.anon@yahoo.com.br
 # Dicas, criticas e sugestões mande nos para o email acima.
+#
+# Package Java variables version config begins
+tgz=${tgz:-tar.gz}
+version=${version:-8}
+sufixeARM=${sufixeARM:-vfp-hflt}
+# Package Java variables version config ends
+
+PROFILE=${PROFILE:-/etc/profile}
 
 # Others Variables Systems (U|Li)n(i|u)x config begins
-scriptversion="0.0.3"
-scriptname="Colibri $scriptversion"
+scriptversion=${scriptversion:-0.0.4}
+scriptname=${scriptname:-Colibri ${scriptversion}}
 
-x=""
-jdkverdir=$(ls -t /opt/ | grep -m 1 jdk | sed 's/\///g';)
-user=$(cat /etc/passwd | grep -vE "nologin|ftp" | grep home | awk -F':' '{ print $1}')
-homedownload=/home/$user/Downloads
+jdkverdir=${jdkverdir:-$(ls -t /opt/ | grep -m 1 jdk | sed 's/\///g;')}
 
-osarch=$(uname -a | cut -d' ' -f1 | file /bin/ls | cut -d ' ' -f2,3,4,6,7,9 | sed s'/,//g';)
-os="| $osarch |"
+user=${user:-$(cat /etc/passwd | grep -vE "nologin|ftp" | grep home | awk -F':' '{ print $1}')}
 
+homedownload=${homedownload:-/home/${user}/Downloads}
+
+osarch=${osarch:-$(uname -a | cut -d' ' -f1 | file /bin/ls | cut -d ' ' -f2,3,4,6,7,9 | sed s'/,//g';)}
+
+os=${os:-"| ${osarch} |"}
 # Others Variables Systems (U|Li)n(i|u)x config ends
  
-# Package Java variables version config begins
-tgz=tar.gz
-progName=jdk
-sufixeARM=vfp-hflt
-jdkVersion=${jdkVersion:-8}
-# Package Java variables version config ends
- 
-# Linux x64 variables plugin config begins
-pluginX64=/usr/lib64/mozilla/plugins
-libnpjp2X64=/opt/$jdkverdir/jre/lib/amd64/libnpjp2.so
-# Linux x64 variables plugin config ends
- 
-# Linux x86 variables plugin config begins
-pluginX86=/usr/lib/mozilla/plugins
-libnpjp2X86=/opt/$jdkverdir/jre/lib/i386/libnpjp2.so
-# Linux x86 variables plugin config ends
- 
 # Variable Oracle Site Packages Downloads begins
-oracle8_url="http://www.oracle.com"
-jdk8_url1="$oracle8_url/technetwork/java/javase/downloads/index.html"
- 
-jdk8_url2=$(curl -s $jdk8_url1 | egrep -o "\/technetwork\/java/\javase\/downloads\/$progName$jdkVersion-downloads-.+?\.html" | head -1 | cut -d '"' -f 1)
-jdk8_url3="${oracle8_url}${jdk8_url2}"
+oracle_url=${oracle_url:-http://www.oracle.com}
+
+jdk_url1=${jdk_url1:-${oracle_url}/technetwork/java/javase/downloads/index.html}
+
+jdk_url2=${jdk_url2:-$(curl -s ${jdk_url1} | egrep -o "\/technetwork\/java/\javase\/downloads\/jdk${version}-downloads-.+?\.html" | head -1 | cut -d '"' -f1)}
+
+jdk_url3=${jdk_url3:-${oracle_url}${jdk_url2}}
  
 # Section Verify Admin (U|Li)n(i|u)x not logged begins
 if [ $(id -u) -ne 0 ]; then
-    echo -e "\n\e[1;34m Usuário \e[1;31m$USER\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n"
+    echo -e "\n\e[1;34m Usuário \e[1;31m${USER}\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n"
       exit 1
     else
-     if [ -z "$ARCH" ]; then  # Section verify Archteture Systems (U|Li)n(i|u)x begins
+     if [ -z ${ARCH} ]; then  # Section verify Archteture Systems (U|Li)n(i|u)x begins
                 
-                case "$(uname -m)" in
+                case $(uname -m) in
                             x86_64|e*) ARCH=x64 ;;     #Downloads para arquitetura x86_64 e processadores x64 / EM64T:
                              i?86|x86) ARCH=i586 ;;    #Downloads para arquitetura x86, i386, i486, i586 e i686        
                              sp*|sun*) ARCH=sparcv9;;  #Downloads para arquitetura sparc, sun4u, sparc64 e sunOS
@@ -74,29 +68,29 @@ if [ $(id -u) -ne 0 ]; then
                 
      fi # Section verify Archteture Systems (U|Li)n(i|u)x ends
      
-jdk8_url4=$(curl -s $jdk8_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/$progName\/[5-9][a-z][0-9]+\-(.*)+\/$progName-[5-9][a-z][0-9]+(.*)linux-$ARCH.$tgz")
+jdk_url4=${jdk_url4:-$(curl -s ${jdk_url3} | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-${ARCH}.${tgz}" | head -1)}
  
-jdk8_url5=$(curl -s $jdk8_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/$progName\/[5-9][a-z][0-9]+\-(.*)+\/$progName-[5-9][a-z][0-9]+(.*)solaris-$ARCH.$tgz")
+jdk_url5=${jdk_url5:-$(curl -s ${jdk_url3} | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)solaris-${ARCH}.${tgz}" | head -1)}
  
-jdk8_url6=$(curl -s $jdk8_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/$progName\/[5-9][a-z][0-9]+\-(.*)+\/$progName-[5-9][a-z][0-9]+(.*)linux-$ARCH-$sufixeARM.$tgz")
+jdk_url6=${jdk_url6:-$(curl -s ${jdk_url3} | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-${ARCH}-${sufixeARM}.${tgz}" | head -1)}
  
-pkgName1=$(basename $jdk8_url4 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH.$tgz")
+pkgName1=${pkgName1:-$(basename "${jdk_url4}" | egrep -o "jdk-[5-9][a-z][0-9]+(.*)${ARCH}.${tgz}")}
  
-pkgName2=$(basename $jdk8_url5 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH.$tgz")
+pkgName2=${pkgName2:-$(basename "${jdk_url5}" | egrep -o "jdk-[5-9][a-z][0-9]+(.*)${ARCH}.${tgz}")}
  
-pkgName3=$(basename $jdk8_url6 | egrep -o "$progName-[5-9][a-z][0-9]+(.*)$ARCH-$sufixeARM.$tgz")
+pkgName3=${pkgName3:-$(basename "${jdk_url6}" | egrep -o "jdk-[5-9][a-z][0-9]+(.*)${ARCH}-${sufixeARM}.${tgz}")}
  
 # Variable Oracle Site Packages Downloads ends
  
 # Start Menu begins
-while true $x -ne "6"
+while true ${x} -ne "6"
 
 # Do Start begins
 do
  
 echo -e "\n\t    .**************************************.
-            $os\n\t   ******************************************
-           # Welcome to $scriptname (U|Li)n(i|u)x #\n\t   ******************************************  
+            ${os}\n\t   ******************************************
+           # Welcome to ${scriptname} (U|Li)n(i|u)x #\n\t   ******************************************  
            # License: GNU/GPL v2                    #\n\t   ******************************************
            # Criado por: Jean Zonta                 #\n\t   ******************************************
            # Dists: Linux, SunOS e etc..            #
@@ -110,254 +104,161 @@ echo -e "\n\t    .**************************************.
 read -p "           # Escolha: " x
  
 #Cases Start begins
-case "$x" in
+case "${x}" in
  
     1) # Section Downloads Packages (U|Li)n(i|u)x begins
-       if [[ ! -f $homedownload/$pkgName1 && $ARCH == x64 || $ARCH == i586 ]]; then
-           for jdk8_dl_url4 in ${jdk8_url4[@]};
+       if [[ ! -f ${homedownload}/${pkgName1} && ${ARCH} == x64 || ${ARCH} == i586 ]]; then
+           for jdk_dl_url4 in ${jdk_url4[@]};
             do
-             wget -c -P $homedownload --no-cookies \
+             wget -c -P ${homedownload} --no-cookies \
               --no-check-certificate \
               --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-              -N $jdk8_dl_url4
+              -N ${jdk_dl_url4}
           done
              
-       elif [[ ! -f $homedownload/$pkgName2 && $ARCH == sparcv9 ]]; then
-           for jdk8_dl_url5 in ${jdk8_url5[@]};
+       elif [[ ! -f ${homedownload}/${pkgName2} && ${ARCH} == sparcv9 ]]; then
+           for jdk_dl_url5 in ${jdk_url5[@]};
             do
-              wget -c -P $homedownload --no-cookies \
+              wget -c -P ${homedownload} --no-cookies \
               --no-check-certificate \
               --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-              -N $jdk8_dl_url5
+              -N ${jdk_dl_url5}
           done
          
-       elif [[ ! -f $homedownload/$pkgName3 && $ARCH == arm64 || $ARCH == arm32 ]]; then
-           for jdk8_dl_url6 in ${jdk8_url6[@]};
+       elif [[ ! -f ${homedownload}/${pkgName3} && ${ARCH} == arm64 || ${ARCH} == arm32 ]]; then
+           for jdk_dl_url6 in ${jdk_url6[@]};
             do
-              wget -c -P $homedownload --no-cookies \
+              wget -c -P ${homedownload} --no-cookies \
               --no-check-certificate \
               --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-              -N $jdk8_dl_url6
+              -N ${jdk_dl_url6}
           done
       fi
 echo -e "\t ========================================"
 ;;   # Section Downloads Packages (U|Li)n(i|u)x ends
  
     2) # Section Extract Packages (U|Li)n(i|u)x begins
-     if [[ -f $homedownload/$pkgName1 && $ARCH == x64 ]]; then
+     if [[ -f ${homedownload}/${pkgName1} && ${ARCH} == x64 ]]; then
            
-               tar -zxvf $homedownload/$pkgName1 -C /opt
+               tar -zxvf ${homedownload}/${pkgName1} -C /opt
            exit 1 
-        elif [[ -f $homedownload/$pkgName1 && $ARCH == i586 ]]; then
+        elif [[ -f ${homedownload}/${pkgName1} && ${ARCH} == i586 ]]; then
  
-               tar -zxvf $homedownload/$pkgName1 -C /opt
+               tar -zxvf ${homedownload}/${pkgName1} -C /opt
            exit 1     
-        elif [[ -f $homedownload/$pkgName2 && $ARCH == sparcv9 ]]; then
+        elif [[ -f ${homedownload}/${pkgName2} && ${ARCH} == sparcv9 ]]; then
  
-               tar -zxvf $homedownload/$pkgName2 -C /opt
+               tar -zxvf ${homedownload}/${pkgName2} -C /opt
            exit 1    
-        elif [[ -f $homedownload/$pkgName2 && $ARCH == x64 ]]; then
+        elif [[ -f ${homedownload}/${pkgName2} && ${ARCH} == x64 ]]; then
            
-               tar -zxvf $homedownload/$pkgName2 -C /opt
+               tar -zxvf ${homedownload}/${pkgName2} -C /opt
            exit 1     
-        elif [[ -f $homedownload/$pkgName3 && $ARCH == arm64 ]]; then
+        elif [[ -f ${homedownload}/${pkgName3} && ${ARCH} == arm64 ]]; then
  
-               tar -zxvf $homedownload/$pkgName3 -C /opt
+               tar -zxvf ${homedownload}/${pkgName3} -C /opt
            exit 1 
-        elif [[ -f $homedownload/$pkgName3 && $ARCH == arm32 ]]; then
+        elif [[ -f ${homedownload}/${pkgName3} && ${ARCH} == arm32 ]]; then
  
-               tar -zxvf $homedownload/$pkgName3 -C /opt
+               tar -zxvf ${homedownload}/${pkgName3} -C /opt
            exit 1   
-        elif [[ ! -f $homedownload/$pkgName1 ]]; then
+        elif [[ ! -f ${homedownload}/${pkgName1} ]]; then
        
-               echo -e "\n\t \e[1;31mPacote \e[1;35m$homedownload/$pkgName1 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
+               echo -e "\n\t \e[1;31mPacote \e[1;35m${homedownload}/${pkgName1} \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
            exit 1
-        elif [[ ! -f $homedownload/$pkgName2 ]]; then
+        elif [[ ! -f ${homedownload}/${pkgName2} ]]; then
        
-               echo -e "\n\t \e[1;31mPacote \e[1;35m$homedownload/$pkgName2 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
+               echo -e "\n\t \e[1;31mPacote \e[1;35m${homedownload}/${pkgName2} \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
            exit 1
-        elif [[ ! -f $homedownload/$pkgName3 ]]; then
+        elif [[ ! -f ${homedownload}/${pkgName3} ]]; then
  
-               echo -e "\n\t \e[1;31mPacote \e[1;35m$homedownload/$pkgName3 \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
+               echo -e "\n\t \e[1;31mPacote \e[1;35m${homedownload}/${pkgName3} \e[1;31mnão encontrado\n\t Impossivel Descompactar\n"
            exit 1
         else
-               echo -e "\n \e[1;32mError\e[1;37m:\e[1;31m ARCH \e[1;34m$ARCH \e[1;31mnot configured\n"
+               echo -e "\n \e[1;32mError\e[1;37m:\e[1;31m ARCH \e[1;34m${ARCH} \e[1;31mnot configured\n"
            exit 1        
        fi
 ;; # Section Extract Packages (U|Li)n(i|u)x ends
 
     3) # Section Install Packages (U|Li)n(i|u)x begins
-     if [[ -d /opt/$jdkverdir && "$ARCH" == "x64" ]]; then
-           
-           chown -R $user:$user /opt/$jdkverdir
-           
-           ln -s /opt/$jdkverdir/bin/jar /bin/
-           ln -s /opt/$jdkverdir/bin/jar /sbin/
-           ln -s /opt/$jdkverdir/bin/jar /usr/bin/
-           ln -s /opt/$jdkverdir/bin/jar /usr/sbin/
-           ln -s /opt/$jdkverdir/bin/jar /usr/local/bin/
-           ln -s /opt/$jdkverdir/bin/jar /usr/local/sbin/
-
-           ln -s /opt/$jdkverdir/bin/java /bin/
-           ln -s /opt/$jdkverdir/bin/java /sbin/           
-           ln -s /opt/$jdkverdir/bin/java /usr/bin/
-           ln -s /opt/$jdkverdir/bin/java /usr/sbin/
-           ln -s /opt/$jdkverdir/bin/java /usr/local/bin/
-           ln -s /opt/$jdkverdir/bin/java /usr/local/sbin/
-          
-           ln -s /opt/$jdkverdir/bin/javac /bin/
-           ln -s /opt/$jdkverdir/bin/javac /sbin/ 
-           ln -s /opt/$jdkverdir/bin/javac /usr/bin/
-           ln -s /opt/$jdkverdir/bin/javac /usr/sbin/
-           ln -s /opt/$jdkverdir/bin/javac /usr/local/bin/
-           ln -s /opt/$jdkverdir/bin/javac /usr/local/sbin/
-           
-           cd $pluginX64
-           ln -s  $libnpjp2X64 libnpjp2.so
-           chmod -v 755 $pluginX64/libnpjp2.so
-
-echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================" 
-           
-        elif [[ -d /opt/$jdkverdir && "$ARCH" == "i586" ]]; then
+     if [[ -d /opt/${jdkverdir} && ${ARCH} == "x64" || ${ARCH} == "i586" ]]; then
  
-               chown -R $user:$user /opt/$jdkverdir
+               chown -R ${user}:${user} /opt/${jdkverdir}
                
-               ln -s /opt/$jdkverdir/bin/jar /bin/
-               ln -s /opt/$jdkverdir/bin/jar /sbin/        
-               ln -s /opt/$jdkverdir/bin/jar /usr/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/jar /bin/
+               ln -s /opt/${jdkverdir}/bin/jar /sbin/        
+               ln -s /opt/${jdkverdir}/bin/jar /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/jar /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/jar /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/jar /usr/local/sbin/
  
-               ln -s /opt/$jdkverdir/bin/java /bin/
-               ln -s /opt/$jdkverdir/bin/java /sbin/              
-               ln -s /opt/$jdkverdir/bin/java /usr/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/java /bin/
+               ln -s /opt/${jdkverdir}/bin/java /sbin/              
+               ln -s /opt/${jdkverdir}/bin/java /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/java /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/java /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/java /usr/local/sbin/
  
-               ln -s /opt/$jdkverdir/bin/javac /bin/
-               ln -s /opt/$jdkverdir/bin/javac /sbin/              
-               ln -s /opt/$jdkverdir/bin/javac /usr/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/sbin/
-               
-               cd $pluginX86
-               ln -s $libnpjp2X86 libnpjp2.so  
-               chmod -v 755 $pluginX86/libnpjp2.so
+               ln -s /opt/${jdkverdir}/bin/javac /bin/
+               ln -s /opt/${jdkverdir}/bin/javac /sbin/              
+               ln -s /opt/${jdkverdir}/bin/javac /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/javac /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/javac /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/javac /usr/local/sbin/
 
 echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================" 
 
-        elif [[ -d /opt/$jdkverdir && "$ARCH" == "sparcv9" ]]; then
+        elif [[ -d /opt/${jdkverdir} && ${ARCH} == "sparcv9" ]]; then
        
-               chown -R $user:$user /opt/$jdkverdir
+               chown -R ${user}:${user} /opt/${jdkverdir}
                
-               ln -s /opt/$jdkverdir/bin/sparcv9/jar /bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/jar /sbin/        
-               ln -s /opt/$jdkverdir/bin/sparcv9/jar /usr/bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/jar /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/jar /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/jar /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/jar /bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/jar /sbin/        
+               ln -s /opt/${jdkverdir}/bin/sparcv9/jar /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/jar /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/jar /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/jar /usr/local/sbin/
  
-               ln -s /opt/$jdkverdir/bin/sparcv9/java /bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/java /sbin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/java /usr/bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/java /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/java /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/java /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/java /bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/java /sbin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/java /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/java /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/java /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/java /usr/local/sbin/
  
-               ln -s /opt/$jdkverdir/bin/sparcv9/javac /bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/javac /sbin/              
-               ln -s /opt/$jdkverdir/bin/sparcv9/javac /usr/bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/javac /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/javac /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/sparcv9/javac /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/javac /bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/javac /sbin/              
+               ln -s /opt/${jdkverdir}/bin/sparcv9/javac /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/javac /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/javac /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/sparcv9/javac /usr/local/sbin/
 
 echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================"
-
-        elif [[ -d /opt/$jdkverdir && "$ARCH" == "x64" ]]; then
-           
-               chown -R $user:$user /opt/$jdkverdir
                
-               ln -s /opt/$jdkverdir/bin/jar /bin/
-               ln -s /opt/$jdkverdir/bin/jar /sbin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/sbin/
-
-               ln -s /opt/$jdkverdir/bin/java /bin/
-               ln -s /opt/$jdkverdir/bin/java /sbin/           
-               ln -s /opt/$jdkverdir/bin/java /usr/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/sbin/
-          
-               ln -s /opt/$jdkverdir/bin/javac /bin/
-               ln -s /opt/$jdkverdir/bin/javac /sbin/ 
-               ln -s /opt/$jdkverdir/bin/javac /usr/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/sbin/
-           
-               cd $pluginX64
-               ln -s  $libnpjp2X64 libnpjp2.so
-               chmod -v 755 $pluginX64/libnpjp2.so
-
-echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================" 
+        elif [[ -d /opt/${jdkverdir} && ${ARCH} == "arm32" || ${ARCH} == "arm64" ]]; then
                
-        elif [[ -d /opt/$jdkverdir && "$ARCH" == "arm64" ]]; then
+               chown -R ${user}:${user} /opt/${jdkverdir}
                
-               chown -R $user:$user /opt/$jdkverdir
-               
-               ln -s /opt/$jdkverdir/bin/jar /bin/
-               ln -s /opt/$jdkverdir/bin/jar /sbin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/jar /bin/
+               ln -s /opt/${jdkverdir}/bin/jar /sbin/
+               ln -s /opt/${jdkverdir}/bin/jar /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/jar /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/jar /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/jar /usr/local/sbin/
  
-               ln -s /opt/$jdkverdir/bin/java /bin/
-               ln -s /opt/$jdkverdir/bin/java /sbin/
-               ln -s /opt/$jdkverdir/bin/java /usr/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/java /bin/
+               ln -s /opt/${jdkverdir}/bin/java /sbin/
+               ln -s /opt/${jdkverdir}/bin/java /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/java /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/java /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/java /usr/local/sbin/
  
-               ln -s /opt/$jdkverdir/bin/javac /bin/
-               ln -s /opt/$jdkverdir/bin/javac /sbin/                
-               ln -s /opt/$jdkverdir/bin/javac /usr/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/sbin/
-
-echo -e "\n\t    ========================================\n\t    # Java Instalado com sucesso ..!!!     #\n\t    ========================================"
-
-        elif [[ -d /opt/$jdkverdir && "$ARCH" == "arm32" ]]; then
-               
-               chown -R $user:$user /opt/$jdkverdir
-               
-               ln -s /opt/$jdkverdir/bin/jar /bin/
-               ln -s /opt/$jdkverdir/bin/jar /sbin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/jar /usr/local/sbin/
- 
-               ln -s /opt/$jdkverdir/bin/java /bin/
-               ln -s /opt/$jdkverdir/bin/java /sbin/
-               ln -s /opt/$jdkverdir/bin/java /usr/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/java /usr/local/sbin/
- 
-               ln -s /opt/$jdkverdir/bin/javac /bin/
-               ln -s /opt/$jdkverdir/bin/javac /sbin/                
-               ln -s /opt/$jdkverdir/bin/javac /usr/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/sbin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/bin/
-               ln -s /opt/$jdkverdir/bin/javac /usr/local/sbin/
+               ln -s /opt/${jdkverdir}/bin/javac /bin/
+               ln -s /opt/${jdkverdir}/bin/javac /sbin/                
+               ln -s /opt/${jdkverdir}/bin/javac /usr/bin/
+               ln -s /opt/${jdkverdir}/bin/javac /usr/sbin/
+               ln -s /opt/${jdkverdir}/bin/javac /usr/local/bin/
+               ln -s /opt/${jdkverdir}/bin/javac /usr/local/sbin/
 
 echo -e "\n\t    ========================================\n\t   # Java Instalado com sucesso ..!!!    #" 
 
@@ -367,18 +268,18 @@ echo -e "\n\t    ========================================\n\t   # Java Instalado
 ;; # Section Install Packages (U|Li)n(i|u)x ends
  
    4) # Section Config Globals Variables Java (U|Li)n(i|u)x begins
-      if [ -f /etc/profile ]; then
-           echo "# " >> /etc/profile
-           echo "# Set the values for some environment variables Java begins " >> /etc/profile
-           echo "# Java $jdkverdir " >> /etc/profile
-           echo "export JAVA_HOME=/opt/$jdkverdir " >> /etc/profile
-           echo "export CLASSPATH=/opt/$jdkverdir/lib " >> /etc/profile
-           echo "export JRE_HOME=/opt/$jdkverdir/jre " >> /etc/profile
-           echo "export MAN_JAVA=/opt/$jdkverdir/man " >> /etc/profile
-           echo "export JAVA_PATH=\"$JAVA_HOME/bin:$JAVA_HOME/jre/bin\" " >> /etc/profile
-           echo "export JAVA_HOME CLASSPATH JRE_HOME MAN_JAVA JAVA_PATH " >> /etc/profile
-           echo "# Set the values for some environment variables Java ends " >> /etc/profile
-           echo "# " >> /etc/profile 
+      if [ -f ${PROFILE} ]; then
+           echo "# " >> ${PROFILE}
+           echo "# Set the values for some environment variables Java begins " >> ${PROFILE}
+           echo "# Java ${jdkverdir} " >> ${PROFILE}
+           echo "export JAVA_HOME=/opt/${jdkverdir} " >> ${PROFILE}
+           echo "export CLASSPATH=/opt/${jdkverdir}/lib " >> ${PROFILE}
+           echo "export JRE_HOME=/opt/${jdkverdir}/jre " >> ${PROFILE}
+           echo "export MAN_JAVA=/opt/${jdkverdir}/man " >> ${PROFILE}
+           echo "export JAVA_PATH=\"${JAVA_HOME}/bin:${JAVA_HOME}/jre/bin\" " >> ${PROFILE}
+           echo "export JAVA_HOME CLASSPATH JRE_HOME MAN_JAVA JAVA_PATH " >> ${PROFILE}
+           echo "# Set the values for some environment variables Java ends " >> ${PROFILE}
+           echo "# " >> ${PROFILE} 
            
            echo "
                  /*
@@ -416,7 +317,7 @@ echo -e "\n\t   ================================================================
                 java -version 2>&1 | awk '{ print "\t   # "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8""$9""$10}'
       fi 
 echo -e "\t   ==================================================================="
-source /etc/profile
+source ${PROFILE}
 ;; # Section Config Globals Variables Java (U|Li)n(i|u)x ends
  
     5) # Section Remove Packages (U|Li)n(i|u)x begins
@@ -441,9 +342,7 @@ source /etc/profile
            rm -rf /usr/local/bin/javac
            rm -rf /usr/local/sbin/javac
            
-           rm -rf /opt/$jdkverdir
-           rm -rf $pluginX64/libnpjp2.so
-           rm -rf $pluginX86/libnpjp2.so
+           rm -rf /opt/${jdkverdir}
 
 echo -e "\n\t    ========================================\n\t    # Java Desinstalado com sucesso ..!!!  #\n\t    ========================================"
         

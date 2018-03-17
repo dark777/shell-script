@@ -1,0 +1,11 @@
+Linux ARM 32 Hard Float ABI         | 77.93 MB  | jdk-8u162-linux-arm32-vfp-hflt.tar.gz
+Linux ARM 64 Hard Float ABI         | 74.88 MB  | jdk-8u162-linux-arm64-vfp-hflt.tar.gz
+Linux x86                           | 169.01 MB | jdk-8u162-linux-i586.rpm
+Linux x86                           | 183.81 MB | jdk-8u162-linux-i586.tar.gz
+Linux x64                           | 166.13 MB | jdk-8u162-linux-x64.rpm
+Linux x64                           | 181.02 MB | jdk-8u162-linux-x64.tar.gz
+macOS                               | 247.12 MB | jdk-8u162-macosx-x64.dmg
+Solaris SPARC 64-bit (SVR4 package) | 139.98 MB | jdk-8u162-solaris-sparcv9.tar.Z
+Solaris SPARC 64-bit                | 99.3 MB   | jdk-8u162-solaris-sparcv9.tar.gz
+Solaris x64                         | 140.68 MB | jdk-8u162-solaris-x64.tar.Z
+Solaris x64                         | 97.03 MB  | jdk-8u162-solaris-x64.tar.gz
