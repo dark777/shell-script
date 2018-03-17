@@ -55,7 +55,6 @@ cd ${HOMEUSER}/${SVERSION}
   --disable-gtktest \
   --disable-multilib \
   --enable-share \
-  --enable-shared \
   --enable-bootstrap \
   --enable-vtable-verify \
   --enable-libssp \
