@@ -40,10 +40,10 @@ cd ${HOMEUSER}/${SVERSION}
   --enable-zlib \
   --with-system-zlib \
   --enable-__cxa_atexit \
-  --enable-languages=c,c++,java \
+  --enable-languages=c,c++,fortran,go,objc,obj-c++,java \
   --with-tune=native \
   --enable-lto --enable-multiarch \
-  --enable-multilib \
+  --disable-multilib \
   --enable-share \
   --enable-bootstrap \
   --enable-vtable-verify \
