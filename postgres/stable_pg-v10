@@ -17,7 +17,7 @@ SVERSION=${SVERSION:-$(curl -s ${URL_PG} | sed -n ${HREF_PATTERN} | grep "v" | s
 URL_DB=${URL_DB:-${URL_PG}${SVERSION}}
 
 # VER_DB=10.3
-VER_DB=${VER_DB:-$(echo ${URL_DB} | cut -f6 -d'/' | sed 's/[a-z]//g')}
+VER_DB=${VER_DB:-$(echo ${SVERSION} | sed 's/[a-z]//g;s/\///g;')}
 
 # PKGNAME_DB=postgresql-10.3.tar.gz
 PKGNAME_DB=${PKGNAME_DB:-$(lynx --dump ${URL_DB} | awk -F'/' '/postgresql+-[0-9]+.*\.tar\.gz$/ {print $7}' | head -n1)}
