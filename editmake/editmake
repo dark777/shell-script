@@ -19,11 +19,11 @@ NOMES=($(awk -F'-' '{printf "%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s 
 for ((l = 0; l < ${qtd}; l++))
 do
   
-  EDIT=$(echo ${NOMES[$l]} | sed 's/M/m/g;')
+  EDIT=$(echo ${NOMES[${l}]} | sed 's/M/m/g;')
   
-  echo "Nome ${l}: ${NOMES[$l]} Renamed: ${EDIT[0]}"
+  echo "Nome ${l}: ${NOMES[${l}]} Renamed: ${EDIT[0]}"
   
-  mv ${NOMES[$l]} ${EDIT[0]}; cat ${INITMAKE} > ${NOMES[$l]}; cat ${EDIT[0]} >> ${NOMES[$l]}; rm -rf ${EDIT[0]}
+  mv ${NOMES[$l]} ${EDIT[0]}; cat ${INITMAKE} > ${NOMES[${l}]}; cat ${EDIT[0]} >> ${NOMES[${l}]}; rm -rf ${EDIT[0]}
   
   sed -i '/DateTime/ s/:.*/':\ ${altertime}'/g;/DateTime/ s/_/ /g;' ${NOMES[${l}]}
   
@@ -33,6 +33,6 @@ do
    echo -e "\e[36;1m\n\tNome \e[35;1m${l}: \e[m${NOMES[${l}]}\e[31;1m\n\n\tEdited\e[35;1m: \e[33;1m${NOMES[${l}]}\e[m successfully\n\n"
   fi
   
-  #rm -rf ${busca}
+  rm -rf ${busca}
   
 done #fim primeiro for
