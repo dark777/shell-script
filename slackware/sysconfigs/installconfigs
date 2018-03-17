@@ -199,7 +199,7 @@ ${USERADD} -m ${USUARIO}
 
 ${SETPASSWORD} ${USUARIO}
 
-mkdir -p /home/${USUARIO}/{Documentos,Downloads,Imagens,Musicas,Videos,Filmes,Packages,Projetos,Workspace}
+mkdir -p /home/${USUARIO}/{Documentos,Downloads,Imagens,Musicas,Videos,Filmes,Packages,Projetos,Workspace/GitHub}
 
 chown -R ${USUARIO}.${USUARIO} /home/${USUARIO}
 
