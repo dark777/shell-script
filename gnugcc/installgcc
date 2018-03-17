@@ -30,28 +30,39 @@ cd ${HOMEUSER}/${SVERSION}
   --with-gxx-include-dir=/usr/include/c++/$VERSION \
   --enable-linker-build-id \
   --without-included-gettext \
-  --libdir=/usr/lib --enable-isl \
+  --libdir=/usr/lib64 \
   --enable-nls \
+  --verbose \
+  --enable-objc-gc \
   --enable-clocale=gnu \
   --enable-gnu-unique-object \
   --enable-plugin \
   --enable-libstdcxx-debug \
   --enable-threads=posix \
   --enable-zlib \
+  --with-gnu-ld \
+  --mandir=/usr/man \
+  --infodir=/usr/info \
   --with-system-zlib \
   --enable-__cxa_atexit \
-  --enable-languages=c,c++,fortran,go,objc,obj-c++,java \
+  --enable-libstdcxx-dual-abi \
+  --disable-libunwind-exceptions \
+  --disable-install-libiberty \
+  --with-default-libstdcxx-abi=gcc4-compatible \
+  --enable-languages=ada,brig,c,c++,fortran,go,lto,objc,obj-c++,java \
   --with-tune=native \
-  --enable-lto --enable-multiarch \
+  --enable-lto \
+  --disable-gtktest \
   --disable-multilib \
   --enable-share \
+  --enable-shared \
   --enable-bootstrap \
   --enable-vtable-verify \
   --enable-libssp \
   --enable-libvtv \
   --enable-libcilkrts \
   --enable-intermodule \
-  --enable-checking=yes,types \
+  --enable-checking=release \
   --enable-coverage \
   --enable-libatomic \
   --enable-libgomp \
@@ -66,9 +77,9 @@ cd ${HOMEUSER}/${SVERSION}
   --enable-static-libjava \
   --enable-static-nss \
   --with-arch-directory=x86_64 \
-  --target=x86_64-pc-linux-gnu \
-  --build=x86_64-pc-linux-gnu \
-  --host=x86_64-pc-linux-gnu \
+  --target=x86_64-slackware-linux \
+  --build=x86_64-slackware-linux \
+  --host=x86_64-slackware-linux \
   --with-java-home=/usr/lib64/jvm/jre \
   --with-jvm-root-dir=/usr/lib64/jvm \
   --with-jvm-jar-dir=/usr/lib64/jvm/jvm-exports \
