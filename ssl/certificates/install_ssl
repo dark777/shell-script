@@ -3,10 +3,12 @@
 #https://askubuntu.com/questions/194074/enabling-ssl-in-mysql/439274
 set -eux
 
-# Make sure there is an /etc/mysql
+# Make sure there is an /etc/mysql public keys
 mkdir -p /etc/mysql/certs
-mkdir -p /etc/mysql/private/certs
 mkdir -p /etc/mysql/client
+
+# Make sure there is an /etc/mysql private keys
+mkdir -p /etc/mysql/private/certs
 mkdir -p /etc/mysql/private/client
 
 # Copy the local certs to /etc/mysql
