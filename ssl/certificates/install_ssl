@@ -34,7 +34,7 @@ chown -R mysql.mysql /etc/mysql
 
 cat <<COMMENT
 
-Created new mysql ssluser user
+Please created new mysql ssluser user
 
 MariaDB [mysql]> CREATE USER 'ssluser'@'%' IDENTIFIED BY 'MyPassword1';
 MariaDB [mysql]> GRANT USAGE ON *.* TO 'ssluser'@'%' REQUIRE X509;
