@@ -1,16 +1,20 @@
 #!/bin/sh
 
-ARCHFIRM=${ARCHFIRM:-$(echo a/kernel-firmware-* | rev | cut -f 2 -d - | rev)}
+ARCHFIRM=${ARCHFIRM:-$(echo a/kernel-firmware-* | cut -f4 -d -)}
 
-FIRMWARE=${FIRMWARE:-$(echo a/kernel-firmware-* | rev | cut -f 3 -d - | rev )}
+FIRMWARE=${FIRMWARE:-$(echo a/kernel-firmware-* | cut -f3 -d -)}
 
-ARCHKERNEL=${BKERNEL:-$(echo a/kernel-generic-* | rev | cut -f 2 -d - | rev)}
+ARCHKERNEL=${ARCHKERNEL:-$(echo a/kernel-generic-* | cut -f4 -d -)}
 
-VERSION=${VERSION:-$(echo a/kernel-generic-* | rev | cut -f 3 -d - | rev )}
+VERSION=${VERSION:-$(echo a/kernel-generic-* | cut -f3 -d -)}
 
-SKERNEL=${SKERNEL:-$(echo k/kernel-source-* | rev | cut -f 2 -d - | rev)}
+SKERNEL=${SKERNEL:-$(echo k/kernel-source-* | cut -f2 -d -)}
 
-LILO=/etc/lilo.conf
+ISSUE=${ISSUE:-/etc/issue}
+LILO=${LILO:-/etc/lilo.conf}
+SUDOERS=${SUDOERS:-/etc/sudoers}
+SLVERSION=${SLVERSION:-/etc/slackware-version}
+MODULESLOCAL=${MODULESLOCAL:-/etc/rc.d/rc.modules.local}
 
 groupadd sudo
 groupadd tar
@@ -24,14 +28,14 @@ cp lang.{csh,sh} /etc/profile.d/
 cp rc.{4,M,S,zram} /etc/rc.d
 
 
-sed -i 's/^#compact/compact/g;' /etc/lilo.conf
-sed -i 's/^timeout =.*/timeout = 50/g;' /etc/lilo.conf
-sed -i 's/^  label =.*/  label = SLCKWRLNX/g;' /etc/lilo.conf
-sed -i '/root/ s/ALL=(/ALL=(ALL:/g;' /etc/sudoers
-sed -i '/%sudo/ s/^#//g;/%sudo/ s/^ //g;/%sudo/ s/ALL=(/ALL=(ALL:/g;' /etc/sudoers
+sed -i 's/^#compact/compact/g;' ${LILO}
+sed -i 's/^timeout =.*/timeout = 50/g;' ${LILO}
+sed -i 's/^  label =.*/  label = SLCKWRLNX/g;' ${LILO}
+sed -i '/root/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
+sed -i '/%sudo/ s/^#//g;/%sudo/ s/^ //g;/%sudo/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
 
-if [ -f /etc/rc.d/rc.modules.local ]; then
- echo "/sbin/modprobe zram" >> /etc/rc.d/rc.modules.local
+if [ -f ${MODULESLOCAL} ]; then
+ echo "/sbin/modprobe zram" >> ${MODULESLOCAL}
 fi
 
 chmod 755 -v /etc/rc.d/rc.zram
@@ -39,10 +43,10 @@ chmod 755 -v /etc/rc.d/rc.zram
    #. /etc/rc.d/rc.mysqld start
    #. /etc/rc.d/rc.networkmanager start
    
-if [ -f /etc/slackware-version ]; then
-VER=$(cat /etc/slackware-version)
+if [ -f ${SLVERSION} ]; then
+VER=${VER:-$(cat ${SLVERSION})}
 
-echo "Welcome to $VER \s-\r.\m \l" > /etc/issue
+echo "Welcome to ${VER} \s-\r.\m \l" > ${ISSUE}
 
 fi
 
@@ -74,18 +78,18 @@ installpkg --install-new d/python3-3.5.1-x86_64-1_slack.txz
 installpkg --install-new d/python3-3.6.0-x86_64-3_SBo.tgz
 installpkg --install-new d/python-django-tagging-0.4.3-x86_64-1_slonly.txz
 installpkg --install-new d/python-django-1.10-x86_64-1_slonly.txz
-upgradepkg --install-new --reinstall a/kernel-firmware-$FIRMWARE-$ARCHFIRM-1.txz
-upgradepkg --install-new --reinstall a/kernel-generic-$VERSION-$ARCHKERNEL-1.txz
-upgradepkg --install-new --reinstall a/kernel-headers-$VERSION-$ARCHKERNEL-1.txz
-upgradepkg --install-new --reinstall a/kernel-huge-$VERSION-$ARCHKERNEL-1.txz
-upgradepkg --install-new --reinstall a/kernel-modules-$VERSION-$ARCHKERNEL-1.txz
-upgradepkg --install-new --reinstall k/kernel-source-$VERSION-$SKERNEL-1.txz
+upgradepkg --install-new --reinstall a/kernel-firmware-${FIRMWARE}-${ARCHFIRM}-1.txz
+upgradepkg --install-new --reinstall a/kernel-generic-${VERSION}-${ARCHKERNEL}-1.txz
+upgradepkg --install-new --reinstall a/kernel-headers-${VERSION}-${ARCHKERNEL}-1.txz
+upgradepkg --install-new --reinstall a/kernel-huge-${VERSION}-${ARCHKERNEL}-1.txz
+upgradepkg --install-new --reinstall a/kernel-modules-${VERSION}-${ARCHKERNEL}-1.txz
+upgradepkg --install-new --reinstall k/kernel-source-${VERSION}-${SKERNEL}-1.txz
 
 
 read -p "Crie um usuario: " usuario
 
-mkdir -p /home/$usuario/{Documentos,Downloads,Imagens,Musicas,Videos,Filmes,Packages,Projetos,Workspace}
+mkdir -p /home/${usuario}/{Documentos,Downloads,Imagens,Musicas,Videos,Filmes,Packages,Projetos,Workspace}
 
-chown -R $usuario.$usuario /home/$usuario
+chown -R ${usuario}.${usuario} /home/${usuario}
 
-usrmod -aG sudo,tar $usuario 
+usrmod -aG sudo,tar ${usuario}

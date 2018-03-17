@@ -1,27 +1,33 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-home=${HOME}/Downloads
+# home do usuario
+HOMEUSER=${HOMEUSER:-${HOME}/Downloads}
+
+# pega o numero de nucleos do processador
+NUCLEOS=${NUCLEOS:-$(grep "model name" /proc/cpuinfo | wc -l)}
+
+CORE=${CORE:-$((${NUCLEOS}+1))}
 
 # SVERSION pega o nome da ultima pasta gcc-*.*.*  dentro da pasta releases
-SVERSION=$(lynx --dump ftp://gcc.gnu.org/pub/gcc/releases/|sed -n '$p'|awk -F"/" '{print $NF}')
+SVERSION=${SVERSION:-$(lynx --dump ftp://gcc.gnu.org/pub/gcc/releases/|sed -n '$p'|awk -F"/" '{print $NF}')}
 
-# NVERSION pega a versao do gcc na variavel SVERSION
-NVERSION=$( echo $SVERSION | cut -f2 -d -)
+# VERSION pega a versao do gcc na variavel SVERSION
+VERSION=${VERSION:-$(echo ${SVERSION} | cut -f2 -d -)}
 
 # PKGVERSION pega o nome do ultimo pacote gcc-*.*.*.tar.bz2 dentro da pasta gcc-*.*.*  
-PKGVERSION=$(lynx --dump ftp://gcc.gnu.org/pub/gcc/releases/|sed -n '$p'| awk -F"/" '{print $NF".tar.gz"}')
+PKGVERSION=${PKGVERSION:-$(lynx --dump ftp://gcc.gnu.org/pub/gcc/releases/|sed -n '$p'| awk -F"/" '{print $NF".tar.gz"}')}
 
-LINK="ftp://gcc.gnu.org/pub/gcc/releases/$SVERSION/$PKGVERSION"
+LINK=${LINK:-"ftp://gcc.gnu.org/pub/gcc/releases/${SVERSION}/${PKGVERSION}"}
 
-wget -P $home -c $LINK
+wget -P ${HOMEUSER} -c ${LINK}
 
-tar -xvjf $home/$PKGVERSION
-cd $home/$SVERSION
+tar -xvjf ${HOMEUSER}/${PKGVERSION}
+cd ${HOMEUSER}/${SVERSION}
 
 ./contrib/download_prerequisites
  mkdir build && cd build
 ../configure --prefix=/usr \
-  --with-gxx-include-dir=/usr/include/c++/$NVERSION \
+  --with-gxx-include-dir=/usr/include/c++/$VERSION \
   --enable-linker-build-id \
   --without-included-gettext \
   --libdir=/usr/lib --enable-isl \
@@ -72,7 +78,7 @@ cd $home/$SVERSION
   --enable-libstdcxx-time=yes \
   --enable-checking=yes
 
-  make -j12
+  make -j${CORE}
   make -k check
   sudo make install
  
