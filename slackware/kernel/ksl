@@ -11,14 +11,14 @@
 #                                                                                                      
 #######################################################################################################
 if [ $(id -u) -ne 0 ]; then
- echo -e "\n\e[1;34m Usuário \e[1;31m${USER}\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n";
+ echo -e "\n\e[1;34m Usuário \e[1;31m${USER}\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n"
   exit 1
    else
 # Section verify Archteture Systems (U|Li)n(i|u)x begins
 if [ -z "${ARCH}" ]; then
- case "$(uname -m)" in
+ case $(uname -m) in
   x86_64) ARCH=64;;  #Downloads para arquitetura x86_64
-   i?86|x86) ARCH="";; #Downloads para arquitetura x86
+   i?86|x86) ARCH=""; #Downloads para arquitetura x86
     esac
      fi     
 # Section verify Archteture Systems (U|Li)n(i|u)x ends
@@ -38,7 +38,7 @@ LIBMODULES=${LIBMODULES:-/${LIB}/modules}
 # Where do we look for sources?
 SRCDIR=${SRCDIR:-$(pwd)}
 
-DEVDISK=${DEVDISK:-$(cat ${FSTAB} |tr '\t' ' ' |grep -v '^ *#' |tr -s ' ' |grep ' / ' |cut -f1 -d' ')}
+DEVDISK=${DEVDISK:-$(cat ${FSTAB} | tr '\t' ' ' | grep -v '^ *#' | tr -s ' ' | grep ' / ' | cut -f1 -d' ')}
 
 PART=${PART:-$(mount | grep ${DEVDISK} | awk '{print $1}' | cut -f3 -d/)}
 
@@ -119,16 +119,16 @@ MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -
 # Source file availability:
 
 if [ ! -f ${SOURCE_HUGE} ]; then
- echo "Source '$(basename ${SOURCE_HUGE})' not available yet...";
+ echo "Source '$(basename ${SOURCE_HUGE})' not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
   [ -w "${SRCDIR}" ] ||  ${SOURCE_HUGE}
   
-   echo "Will download file to ${SOURCE_HUGE}";
+   echo "Will download file to ${SOURCE_HUGE}"
     wget -nv -T 20 "${URL_HUGE}" || true
-     echo "Download complete.";
+     echo "Download complete."
 
   if [ $? -ne 0 -o ! -s "${SOURCE_HUGE}" ]; then
-   echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build.";
+   echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build."
     mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
      exit 1
       else
@@ -137,33 +137,33 @@ if [ ! -f ${SOURCE_HUGE} ]; then
          fi
          
   if [ ! -f ${VMHUGE} ]; then
-   echo "Not, found it ${VMHUGE} .!";
+   echo "Not, found it ${VMHUGE} .!"
     exit 1
      else
-      echo "Ah, found it ${VMHUGE} .!";
+      echo "Ah, found it ${VMHUGE} .!"
        ln -s ${VMHUGE} ${HUGE_LNK}
         fi
    
   if [ ! -f ${SYSMAPHUGE} ]; then
-   echo "Not, found it ${SYSMAPHUGE} .!";
+   echo "Not, found it ${SYSMAPHUGE} .!"
     exit 1
      else
-      echo "Ah, found it ${SYSMAPHUGE} .!";
+      echo "Ah, found it ${SYSMAPHUGE} .!"
        ln -s ${SYSMAPHUGE} ${HUGE_MAP}
         fi
 fi
 
 if [ ! -f ${SOURCE_GENERIC} ]; then
- echo "Source '$(basename ${SOURCE_GENERIC})' not available yet...";
+ echo "Source '$(basename ${SOURCE_GENERIC})' not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
   [ -w "${SRCDIR}" ] ||  ${SOURCE_GENERIC}
   
-   echo "Will download file to ${SOURCE_GENERIC}";
+   echo "Will download file to ${SOURCE_GENERIC}"
     wget -nv -T 20 "${URL_GENERIC}" || true
-     echo "Download complete.";
+     echo "Download complete."
   
   if [ $? -ne 0 -o ! -s "${SOURCE_GENERIC}" ]; then
-   echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build.";
+   echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build."
     mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
      exit 1
       else
@@ -172,40 +172,40 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
          fi
          
   if [ ! -f ${SYSMAPGENE} ]; then
-   echo "Not, found it ${SYSMAPGENE} .!";
+   echo "Not, found it ${SYSMAPGENE} .!"
     exit 1
      else
-      echo "Ah, found it ${SYSMAPGENE} .!";
+      echo "Ah, found it ${SYSMAPGENE} .!"
        ln -s ${SYSMAPGENE} ${GENERIC_MAP}
         fi
     
   if [ ! -f ${VMGENE} ]; then
-   echo "Not, found it ${VMGENE} .!";
+   echo "Not, found it ${VMGENE} .!"
     exit 1
      else
-      echo "Ah, found it ${VMGENE} .!";
+      echo "Ah, found it ${VMGENE} .!"
        ln -s ${VMGENE} ${GENERIC_LNK}
         fi
     
   if [ ! -f ${GENERIC_LNK} ]; then
-   echo "Not, found it ${GENERIC_LNK} .!";
+   echo "Not, found it ${GENERIC_LNK} .!"
     exit 1
      else
-      echo "Ah, found it ${GENERIC_LNK} .!";
+      echo "Ah, found it ${GENERIC_LNK} .!"
        fi
 fi
 
 if [ ! -f ${SOURCE_MODULE} ]; then
-  echo "Source '$(basename ${SOURCE_MODULE})' not available yet...";
+  echo "Source '$(basename ${SOURCE_MODULE})' not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
   [ -w "${SRCDIR}" ] ||  ${SOURCE_MODULE}
   
-   echo "Will download file to ${SOURCE_MODULE}";
+   echo "Will download file to ${SOURCE_MODULE}"
     wget -nv -T 20 "${URL_MODULES}" || true
-     echo "Download complete.";
+     echo "Download complete."
   
   if [ $? -ne 0 -o ! -s "${SOURCE_MODULE}" ]; then
-   echo "Downloading '$(basename ${SOURCE_MODULE})' failed... aborting the build.";
+   echo "Downloading '$(basename ${SOURCE_MODULE})' failed... aborting the build."
     mv -f "${SOURCE_MODULE}" "${SOURCE_MODULE}".FAIL
      exit 1
       else
@@ -214,14 +214,14 @@ if [ ! -f ${SOURCE_MODULE} ]; then
          fi
          
   if [ ! -d "${LIBMODULES}/${VERSION}" ]; then
-   echo "Not, found it ${LIBMODULES}/${VERSION} .!";
+   echo "Not, found it ${LIBMODULES}/${VERSION} .!"
     exit 1
      else
-      echo "Ah, found it ${LIBMODULES}/${VERSION} .!";
+      echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
        fi
 fi
 
-echo "Qual kernel deseja instalar?";
+echo "Qual kernel deseja instalar?"
 read -p "Digite g(eneric) ou h(uge): " resposta
 
 if [[ ${resposta} == "g" || ${resposta} == "G"  ]]; then
@@ -238,7 +238,7 @@ label  = GNRC-${VERSION}
 read-only
 # Linux ${VERSION} bootable generic partition config ends " >> ${LILO}
 
-echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n";
+echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n"
 
 else
 
@@ -249,7 +249,7 @@ label  = HG-${VERSION}
 read-only
 # Linux ${VERSION} bootable partition config ends " >> ${LILO}
 
-echo -e "\nKernel HG-${VERSION} install sucessfull.\n";
+echo -e "\nKernel HG-${VERSION} install sucessfull.\n"
 
 fi
 
