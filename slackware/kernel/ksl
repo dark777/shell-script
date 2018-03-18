@@ -17,8 +17,8 @@ if [ $(id -u) -ne 0 ]; then
 # Section verify Archteture Systems (U|Li)n(i|u)x begins
 if [ -z "${ARCH}" ]; then
  case $(uname -m) in
-  x86_64) ARCH=64;;  #Downloads para arquitetura x86_64
-   i?86|x86) ARCH=""; #Downloads para arquitetura x86
+  x86_64) ARCH=64;;  #Downloads for arch x86_64
+   i?86|x86) ARCH=""; #Downloads for arch x86
     esac
      fi     
 # Section verify Archteture Systems (U|Li)n(i|u)x ends
