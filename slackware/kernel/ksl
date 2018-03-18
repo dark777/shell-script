@@ -5,7 +5,7 @@
 # Pseudonym: wiki.anon                                                                                 
 # Script Name: ksl                                                                                     
 # License: GNU/GPL V3                                                                                  
-# DateTime: dom 14 jan 2018 01:20:41                                                                   
+# DateTime: dom 18 mar 2018 15:42:00                                                                   
 # echo "}oqo4gtutF_gnuu4ius4hx" | perl -pe \ 's/(.)/chr(ord($1)-2*3)/ge'                               
 # echo 'comhttps://slackwarewww' | sed 's@\(com\)\(https://\)\(slackware\)\(www\)@\2\4.\3.\1 ..!!!@'   
 #                                                                                                      
@@ -126,6 +126,32 @@ if [ ! -f ${SOURCE_HUGE} ]; then
    echo "Will download file to ${SOURCE_HUGE}"
     wget -nv -T 20 "${URL_HUGE}" || true
      echo "Download complete."
+      
+  if [ $? -ne 0 -o ! -s "${SOURCE_HUGE}" ]; then
+   echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build."
+    mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
+     exit 1
+      else
+       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
+         fi
+         
+  if [ ! -f ${VMHUGE} ]; then
+   echo "Not, found it ${VMHUGE} .!"
+    exit 1
+     else
+      echo "Ah, found it ${VMHUGE} .!"
+       ln -s ${VMHUGE} ${HUGE_LNK}
+        fi
+   
+  if [ ! -f ${SYSMAPHUGE} ]; then
+   echo "Not, found it ${SYSMAPHUGE} .!"
+    exit 1
+     else
+      echo "Ah, found it ${SYSMAPHUGE} .!"
+       ln -s ${SYSMAPHUGE} ${HUGE_MAP}
+        fi
+else
 
   if [ $? -ne 0 -o ! -s "${SOURCE_HUGE}" ]; then
    echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build."
@@ -151,7 +177,7 @@ if [ ! -f ${SOURCE_HUGE} ]; then
       echo "Ah, found it ${SYSMAPHUGE} .!"
        ln -s ${SYSMAPHUGE} ${HUGE_MAP}
         fi
-fi
+fi # fim condition SOURCE_HUGE
 
 if [ ! -f ${SOURCE_GENERIC} ]; then
  echo "Source '$(basename ${SOURCE_GENERIC})' not available yet..."
@@ -161,7 +187,7 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
    echo "Will download file to ${SOURCE_GENERIC}"
     wget -nv -T 20 "${URL_GENERIC}" || true
      echo "Download complete."
-  
+      
   if [ $? -ne 0 -o ! -s "${SOURCE_GENERIC}" ]; then
    echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build."
     mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
@@ -193,7 +219,40 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
      else
       echo "Ah, found it ${GENERIC_LNK} .!"
        fi
-fi
+else
+
+  if [ $? -ne 0 -o ! -s "${SOURCE_GENERIC}" ]; then
+   echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build."
+    mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
+     exit 1
+      else
+       tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
+         fi
+         
+  if [ ! -f ${SYSMAPGENE} ]; then
+   echo "Not, found it ${SYSMAPGENE} .!"
+    exit 1
+     else
+      echo "Ah, found it ${SYSMAPGENE} .!"
+       ln -s ${SYSMAPGENE} ${GENERIC_MAP}
+        fi
+    
+  if [ ! -f ${VMGENE} ]; then
+   echo "Not, found it ${VMGENE} .!"
+    exit 1
+     else
+      echo "Ah, found it ${VMGENE} .!"
+       ln -s ${VMGENE} ${GENERIC_LNK}
+        fi
+    
+  if [ ! -f ${GENERIC_LNK} ]; then
+   echo "Not, found it ${GENERIC_LNK} .!"
+    exit 1
+     else
+      echo "Ah, found it ${GENERIC_LNK} .!"
+       fi
+fi # fim condition SOURCE_GENERIC
 
 if [ ! -f ${SOURCE_MODULE} ]; then
   echo "Source '$(basename ${SOURCE_MODULE})' not available yet..."
@@ -203,7 +262,7 @@ if [ ! -f ${SOURCE_MODULE} ]; then
    echo "Will download file to ${SOURCE_MODULE}"
     wget -nv -T 20 "${URL_MODULES}" || true
      echo "Download complete."
-  
+      
   if [ $? -ne 0 -o ! -s "${SOURCE_MODULE}" ]; then
    echo "Downloading '$(basename ${SOURCE_MODULE})' failed... aborting the build."
     mv -f "${SOURCE_MODULE}" "${SOURCE_MODULE}".FAIL
@@ -219,7 +278,6 @@ if [ ! -f ${SOURCE_MODULE} ]; then
      else
       echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
        fi
-fi
 
 echo "Qual kernel deseja instalar?"
 read -p "Digite g(eneric) ou h(uge): " resposta
@@ -230,9 +288,27 @@ ${MKINITRD} -c -k ${VERSION} -f ${SYSARQ} -r ${DEVDISK} -m ${MKINITRDSTRINGS} -u
 
 ln -s ${INITRDGENERIC} ${LINKINITRD}
 
+read -p "Deseja adicionar a(pos) ou no f(im) de lilo.conf? " resposta
+
+if [[ ${resposta} == "a" || ${resposta} == "A" ]]; then
+
+## Adiciona partição após "# End LILO global section" no lilo.conf
+sed -i "63s/$/\n# Linux ${VERSION} bootable generic partition config begins/g;
+        63s/$/\nimage  = \/boot\/kernel_${GENERIC_TYPE}-${VERSION}/g;
+        63s/$/\ninitrd = \/${BOOT}\/initrd-${VERSION}/g;
+        63s/$/\nroot   = \/dev\/${PART}/g;
+        63s/$/\nlabel  = GNRC-${VERSION}/g;
+        63s/$/\nread-only/g;
+        63s/$/\n# Linux ${VERSION} bootable generic partition config ends/g;
+       " ${LILO}
+
+echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n"
+
+else
+## Adiciona partição no fim de lilo.conf
 echo "# Linux ${VERSION} bootable generic partition config begins
-image  = /${BOOT}/${GENERIC_LNK}
-initrd = /${BOOT}/${LINKINITRD}
+image  = /${BOOT}/kernel_${GENERIC_TYPE}-${VERSION}
+initrd = /${BOOT}/initrd-${VERSION}
 root   = /dev/${PART}
 label  = GNRC-${VERSION}
 read-only
@@ -240,10 +316,12 @@ read-only
 
 echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n"
 
+fi # fim condition resposta
+
 else
 
 echo "# Linux ${VERSION} bootable partition config begins
-image  = /${BOOT}/${HUGE_LNK}
+image  = /${BOOT}/kernel_${HUGE_TYPE}-${VERSION}
 root   = /dev/${PART}
 label  = HG-${VERSION}
 read-only
@@ -251,13 +329,15 @@ read-only
 
 echo -e "\nKernel HG-${VERSION} install sucessfull.\n"
 
-fi
+fi # fim condition generic
 
-${SLILO}
+${SLILO} # exec /sbin/lilo
 
-rm -rf ${SRCDIR}/${BOOT} 
+# remove dirs and packages
+rm -rf ${SRCDIR}/${BOOT}
 rm -rf ${SRCDIR}/${LIB}
 rm -rf ${SOURCE_HUGE}
 rm -rf ${SOURCE_GENERIC}
 rm -rf ${SOURCE_MODULE}
-fi
+
+fi # fim condition SOURCE_MODULE
