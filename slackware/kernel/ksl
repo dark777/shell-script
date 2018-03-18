@@ -11,7 +11,7 @@
 #                                                                                                      
 #######################################################################################################
 if [ $(id -u) -ne 0 ]; then
- echo -e "\n\e[1;34m Usuário \e[1;31m${USER}\e[0m \e[1;34mnão é root\n faça login como root\n para executar o script\e[0m ..!!\n"
+ echo -e "\n\e[1;34m User \e[1;31m${USER}\e[0m \e[1;34mis not root\n make login as root\n to run the script\e[0m ..!!\n"
   exit 1
    else
 # Section verify Archteture Systems (U|Li)n(i|u)x begins
@@ -92,7 +92,7 @@ HUGE_MAP=${HUGE_MAP:-/${BOOT}/sysmap_${HUGE_TYPE}-${VERSION}}
 GENERIC_MAP=${GENERIC_MAP:-/${BOOT}/sysmap_${GENERIC_TYPE}-${VERSION}}
 
 
-# Variaveis para downloads dos pacotes
+# variables for package downloads
 
 URL_HUGE=${URL_HUGE:-${KRNL_URL}${HUGE_PKG}}
 
@@ -177,7 +177,7 @@ else
       echo "Ah, found it ${SYSMAPHUGE} .!"
        ln -s ${SYSMAPHUGE} ${HUGE_MAP}
         fi
-fi # fim condition SOURCE_HUGE
+fi # end condition SOURCE_HUGE
 
 if [ ! -f ${SOURCE_GENERIC} ]; then
  echo "Source '$(basename ${SOURCE_GENERIC})' not available yet..."
@@ -252,7 +252,7 @@ else
      else
       echo "Ah, found it ${GENERIC_LNK} .!"
        fi
-fi # fim condition SOURCE_GENERIC
+fi # end condition SOURCE_GENERIC
 
 if [ ! -f ${SOURCE_MODULE} ]; then
   echo "Source '$(basename ${SOURCE_MODULE})' not available yet..."
@@ -279,8 +279,8 @@ if [ ! -f ${SOURCE_MODULE} ]; then
       echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
        fi
 
-echo "Qual kernel deseja instalar?"
-read -p "Digite g(eneric) ou h(uge): " resposta
+echo "Which kernel do you want to install?"
+read -p "Enter type g(eneric) ou h(uge): " resposta
 
 if [[ ${resposta} == "g" || ${resposta} == "G"  ]]; then
 
@@ -288,7 +288,7 @@ ${MKINITRD} -c -k ${VERSION} -f ${SYSARQ} -r ${DEVDISK} -m ${MKINITRDSTRINGS} -u
 
 ln -s ${INITRDGENERIC} ${LINKINITRD}
 
-read -p "Deseja adicionar a(pos) ou no f(im) de lilo.conf? " resposta
+read -p "Do you want to add a(fter) or at the e(nd) of lilo.conf? " resposta
 
 if [[ ${resposta} == "a" || ${resposta} == "A" ]]; then
 
@@ -340,4 +340,6 @@ rm -rf ${SOURCE_HUGE}
 rm -rf ${SOURCE_GENERIC}
 rm -rf ${SOURCE_MODULE}
 
-fi # fim condition SOURCE_MODULE
+fi # end condition SOURCE_MODULE
+
+fi # end condition Check admin
