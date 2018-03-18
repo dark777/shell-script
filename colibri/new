@@ -4,16 +4,16 @@ version=${version:-8}
 
 oracle_url=${oracle_url:-http://www.oracle.com}
 
+otn_oracle_url=${otn_oracle_url:-http://download.oracle.com/otn-pub/java/jdk/}
+
 jdk_url1=${jdk_url1:-${oracle_url}/technetwork/java/javase/downloads/index.html}
 
 jdk_url2=${jdk_url2:-$(curl -s ${jdk_url1} | egrep -o "\/technetwork\/java/\javase\/downloads\/jdk${version}-downloads-.+?\.html" | head -1 | cut -d '"' -f1)}
 
 jdk_url3=${jdk_url3:-${oracle_url}${jdk_url2}}
 
-jdk_url4=${jdk_url4:-$(curl -s ${jdk_url3} | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-x64.tar.gz" | head -2)}
+#jdk_url4=${jdk_url4:-$(curl -s ${jdk_url3} | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-x64.tar.gz" | head -2)}
 
-echo ${jdk_url3}
-echo ${jdk_url4}
 
  if [ -z "$ARCH" ]; then 
                 case $(uname -m) in
@@ -25,11 +25,41 @@ echo ${jdk_url4}
                 esac
                 
      fi # Section verify Archteture Systems (U|Li)n(i|u)x ends
-     
-jdk_url5=$(curl -s $jdk_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-${ARCH}.tar.gz" | head -2)
 
-pkgName1=$(basename $jdk_url5 | egrep -o "jdk-[5-9][a-z][0-9]+(.*)${ARCH}.tar.gz")
+# pega 8u161-b12 8u162-b12
+jdk_url4=$(curl -s $jdk_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-${ARCH}.tar.gz" | head -2 | cut -c45-53)
 
-echo ${jdk_url5}
+# pega 2f38c3b165be4555a1fa6e98c45e0808 0da788060d494f5095bf8624735fa2f1
+jdk_url5=$(curl -s $jdk_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-${ARCH}.tar.gz" | head -2 | cut -c55-86)
 
+# pega jdk-8u161-linux-x64.tar.gz jdk-8u162-linux-x64.tar.gz
+jdk_url6=$(curl -s $jdk_url3 | egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[5-9][a-z][0-9]+\-(.*)+\/jdk-[5-9][a-z][0-9]+(.*)linux-${ARCH}.tar.gz" | head -2 | cut -c88-113)
+
+# pega 8u162-b12
+jdk_url7=${jdk_url7:-$(echo ${jdk_url4} | cut -f2 -d' ')}
+
+# pega 0da788060d494f5095bf8624735fa2f1
+jdk_url8=${jdk_url8:-$(echo ${jdk_url5} | cut -f2 -d' ')}
+
+# pega jdk-8u162-linux-x64.tar.gz
+pkgName1=${pkgName1:-$(echo ${jdk_url6} | cut -f2 -d' ')}
+
+# monta url para: http://download.oracle.com/otn-pub/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jdk-8u162-linux-x64.tar.gz
+jdk_url_down=${jdk_url_down:-${otn_oracle_url}${jdk_url7}/${jdk_url8}/${pkgName1}}
+
+#echo ${jdk_url4}
+#echo ""
+#echo ${jdk_url5}
+#echo ""
+#echo ${jdk_url6}
+#echo ""
+#echo ${jdk_url7}
+#echo ""
+#echo ${jdk_url8}
+#echo ""
+#echo ${jdk_url9}
+echo ""
+echo ${jdk_url_down}
+echo ""
 echo ${pkgName1}
+echo ""
