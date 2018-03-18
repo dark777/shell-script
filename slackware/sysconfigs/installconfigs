@@ -153,12 +153,13 @@ fi
 
 if [ -f ${ETCPHP} ]; then
 
-sed -i 's/memory_limit =.*/memory_limit = 512M /g;' ${ETCPHP}
-sed -i 's/upload_max_filesize =.*/upload_max_filesize = 3M /g;' ${ETCPHP}
-sed -i 's/post_max_size =.*/post_max_size = 20M/g;' ${ETCPHP}
-sed -i 's/max_execution_time =.*/max_execution_time = 90M/g;' ${ETCPHP}
-sed -i 's/max_input_time =.*/max_input_time = 120M/' ${ETCPHP}
-sed -i 's/\;date.timezone =.*/date.timezone = America\/Sao_Paulo/' ${ETCPHP}
+sed -i 's/memory_limit =.*/memory_limit = 512M /g;
+        s/upload_max_filesize =.*/upload_max_filesize = 3M /g;
+        s/post_max_size =.*/post_max_size = 20M/g;
+        s/max_execution_time =.*/max_execution_time = 90M/g;
+        s/max_input_time =.*/max_input_time = 120M/g;
+        s/\;date.timezone =.*/date.timezone = America\/Sao_Paulo/g;
+       ' ${ETCPHP}
 
 fi
 
