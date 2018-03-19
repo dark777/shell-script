@@ -36,7 +36,7 @@ do
   if [ $? -ne 0 ]; then
    echo -e "\e[37;1m\n\t${NOMES[${l}]} \e[m<-\e[31;1m nothing done.!!\e[m\n\n"
   else
-   echo -e "\e[36;1m\n\tNome \e[35;1m${l}: \e[m${NOMES[${l}]}\e[31;1m\n\n\tEdited\e[35;1m: \e[33;1m${NOMES[${l}]}\e[m successfully\n\n"
+   echo -e "\e[36;1m\n\t${NOMES[${l}]} \e[31;1m${l}\e[m:\e[31;1m edited successfully.!!!\n\n"
   fi
   
   rm -rf ${busca}
