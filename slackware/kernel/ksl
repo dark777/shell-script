@@ -119,17 +119,17 @@ MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -
 # Source file availability:
 
 if [ ! -f ${SOURCE_HUGE} ]; then
- echo "Source '$(basename ${SOURCE_HUGE})' not available yet..."
+ echo "Source $(basename ${SOURCE_HUGE}) not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
-  [ -w "${SRCDIR}" ] ||  ${SOURCE_HUGE}
+  [ -w ${SRCDIR} ] ||  ${SOURCE_HUGE}
   
    echo "Will download file to ${SOURCE_HUGE}"
-    wget -nv -T 20 "${URL_HUGE}" || true
+    wget -nv -T 20 ${URL_HUGE} || true
      echo "Download complete."
       
-  if [ $? -ne 0 -o ! -s "${SOURCE_HUGE}" ]; then
-   echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build."
-    mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
+  if [ $? -ne 0 -o ! -s ${SOURCE_HUGE} ]; then
+   echo "Downloading $(basename ${SOURCE_HUGE}) failed... aborting the build."
+    mv -f ${SOURCE_HUGE} ${SOURCE_HUGE}.FAIL
      exit 1
       else
        tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
@@ -153,8 +153,8 @@ if [ ! -f ${SOURCE_HUGE} ]; then
         fi
 else
 
-  if [ $? -ne 0 -o ! -s "${SOURCE_HUGE}" ]; then
-   echo "Downloading '$(basename ${SOURCE_HUGE})' failed... aborting the build."
+  if [ $? -ne 0 -o ! -s ${SOURCE_HUGE} ]; then
+   echo "Downloading $(basename ${SOURCE_HUGE}) failed... aborting the build."
     mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
      exit 1
       else
@@ -180,17 +180,17 @@ else
 fi # end condition SOURCE_HUGE
 
 if [ ! -f ${SOURCE_GENERIC} ]; then
- echo "Source '$(basename ${SOURCE_GENERIC})' not available yet..."
+ echo "Source $(basename ${SOURCE_GENERIC}) not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
-  [ -w "${SRCDIR}" ] ||  ${SOURCE_GENERIC}
+  [ -w ${SRCDIR} ] ||  ${SOURCE_GENERIC}
   
    echo "Will download file to ${SOURCE_GENERIC}"
-    wget -nv -T 20 "${URL_GENERIC}" || true
+    wget -nv -T 20 ${URL_GENERIC} || true
      echo "Download complete."
       
-  if [ $? -ne 0 -o ! -s "${SOURCE_GENERIC}" ]; then
-   echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build."
-    mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
+  if [ $? -ne 0 -o ! -s ${SOURCE_GENERIC} ]; then
+   echo "Downloading $(basename ${SOURCE_GENERIC}) failed... aborting the build."
+    mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
      exit 1
       else
        tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
@@ -221,9 +221,9 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
        fi
 else
 
-  if [ $? -ne 0 -o ! -s "${SOURCE_GENERIC}" ]; then
-   echo "Downloading '$(basename ${SOURCE_GENERIC})' failed... aborting the build."
-    mv -f "${SOURCE_GENERIC}" "${SOURCE_GENERIC}".FAIL
+  if [ $? -ne 0 -o ! -s ${SOURCE_GENERIC} ]; then
+   echo "Downloading $(basename ${SOURCE_GENERIC}) failed... aborting the build."
+    mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
      exit 1
       else
        tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
@@ -254,30 +254,49 @@ else
        fi
 fi # end condition SOURCE_GENERIC
 
-if [ ! -f ${SOURCE_MODULE} ]; then
-  echo "Source '$(basename ${SOURCE_MODULE})' not available yet..."
-  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
-  [ -w "${SRCDIR}" ] ||  ${SOURCE_MODULE}
-  
-   echo "Will download file to ${SOURCE_MODULE}"
-    wget -nv -T 20 "${URL_MODULES}" || true
-     echo "Download complete."
-      
-  if [ $? -ne 0 -o ! -s "${SOURCE_MODULE}" ]; then
-   echo "Downloading '$(basename ${SOURCE_MODULE})' failed... aborting the build."
-    mv -f "${SOURCE_MODULE}" "${SOURCE_MODULE}".FAIL
+if [ -f ${SOURCE_MODULE} ]; then
+
+  if [ $? -ne 0 -o ! -s ${SOURCE_MODULE} ]; then
+   echo "Downloading $(basename ${SOURCE_MODULE}) failed... aborting the build."
+    mv -f ${SOURCE_MODULE} ${SOURCE_MODULE}.FAIL
      exit 1
       else
        tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
         cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
          fi
          
-  if [ ! -d "${LIBMODULES}/${VERSION}" ]; then
+  if [ ! -d ${LIBMODULES}/${VERSION} ]; then
    echo "Not, found it ${LIBMODULES}/${VERSION} .!"
     exit 1
      else
       echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
        fi
+else
+
+  echo "Source '$(basename ${SOURCE_MODULE})' not available yet..."
+  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
+  [ -w "${SRCDIR}" ] ||  ${SOURCE_MODULE}
+  
+   echo "Will download file to ${SOURCE_MODULE}"
+    wget -nv -T 20 ${URL_MODULES} || true
+     echo "Download complete."
+      
+  if [ $? -ne 0 -o ! -s ${SOURCE_MODULE} ]; then
+   echo "Downloading $(basename ${SOURCE_MODULE}) failed... aborting the build."
+    mv -f ${SOURCE_MODULE} ${SOURCE_MODULE}.FAIL
+     exit 1
+      else
+       tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
+        cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
+         fi
+         
+  if [ ! -d ${LIBMODULES}/${VERSION} ]; then
+   echo "Not, found it ${LIBMODULES}/${VERSION} .!"
+    exit 1
+     else
+      echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
+       fi
+fi # end condition SOURCE_MODULE
 
 echo "Which kernel do you want to install?"
 read -p "Enter type g(eneric) ou h(uge): " resposta
@@ -329,7 +348,7 @@ read-only
 
 echo -e "\nKernel HG-${VERSION} install sucessfull.\n"
 
-fi # fim condition generic
+fi # fim condition resposta generic
 
 ${SLILO} # exec /sbin/lilo
 
@@ -339,7 +358,5 @@ rm -rf ${SRCDIR}/${LIB}
 rm -rf ${SOURCE_HUGE}
 rm -rf ${SOURCE_GENERIC}
 rm -rf ${SOURCE_MODULE}
-
-fi # end condition SOURCE_MODULE
 
 fi # end condition Check admin
