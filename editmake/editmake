@@ -22,7 +22,7 @@ do
   
   echo "Nome ${l}: ${NOMES[${l}]} Renamed: ${EDIT[0]}"
   
-  mv ${NOMES[$l]} ${EDIT[0]};
+  mv ${NOMES[${l}]} ${EDIT[0]};
   
   cat ${INITMAKE} > ${NOMES[${l}]};
   
