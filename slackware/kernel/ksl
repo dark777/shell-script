@@ -12,7 +12,7 @@
 #######################################################################################################
 if [ $(id -u) -ne 0 ]; then
  echo -e "\n\e[1;34m User \e[1;31m${USER}\e[0m \e[1;34mis not root\n make login as root\n to run the script\e[0m ..!!\n"
-  exit 1
+  exit
    else
 # Section verify Archteture Systems (U|Li)n(i|u)x begins
 if [ -z "${ARCH}" ]; then
@@ -146,7 +146,7 @@ if [ ! -f ${SOURCE_HUGE} ]; then
    
   if [ ! -f ${SYSMAPHUGE} ]; then
    echo "Not, found it ${SYSMAPHUGE} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${SYSMAPHUGE} .!"
        ln -s ${SYSMAPHUGE} ${HUGE_MAP}
@@ -156,7 +156,7 @@ else
   if [ $? -ne 0 -o ! -s ${SOURCE_HUGE} ]; then
    echo "Downloading $(basename ${SOURCE_HUGE}) failed... aborting the build."
     mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
-     exit 1
+     exit
       else
        tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
         cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
@@ -164,7 +164,7 @@ else
          
   if [ ! -f ${VMHUGE} ]; then
    echo "Not, found it ${VMHUGE} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${VMHUGE} .!"
        ln -s ${VMHUGE} ${HUGE_LNK}
@@ -172,7 +172,7 @@ else
    
   if [ ! -f ${SYSMAPHUGE} ]; then
    echo "Not, found it ${SYSMAPHUGE} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${SYSMAPHUGE} .!"
        ln -s ${SYSMAPHUGE} ${HUGE_MAP}
@@ -191,7 +191,7 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
   if [ $? -ne 0 -o ! -s ${SOURCE_GENERIC} ]; then
    echo "Downloading $(basename ${SOURCE_GENERIC}) failed... aborting the build."
     mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
-     exit 1
+     exit
       else
        tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
         cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
@@ -199,7 +199,7 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
          
   if [ ! -f ${SYSMAPGENE} ]; then
    echo "Not, found it ${SYSMAPGENE} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${SYSMAPGENE} .!"
        ln -s ${SYSMAPGENE} ${GENERIC_MAP}
@@ -207,7 +207,7 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
     
   if [ ! -f ${VMGENE} ]; then
    echo "Not, found it ${VMGENE} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${VMGENE} .!"
        ln -s ${VMGENE} ${GENERIC_LNK}
@@ -215,7 +215,7 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
     
   if [ ! -f ${GENERIC_LNK} ]; then
    echo "Not, found it ${GENERIC_LNK} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${GENERIC_LNK} .!"
        fi
@@ -224,7 +224,7 @@ else
   if [ $? -ne 0 -o ! -s ${SOURCE_GENERIC} ]; then
    echo "Downloading $(basename ${SOURCE_GENERIC}) failed... aborting the build."
     mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
-     exit 1
+     exit
       else
        tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
         cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
@@ -240,7 +240,7 @@ else
     
   if [ ! -f ${VMGENE} ]; then
    echo "Not, found it ${VMGENE} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${VMGENE} .!"
        ln -s ${VMGENE} ${GENERIC_LNK}
@@ -248,7 +248,7 @@ else
     
   if [ ! -f ${GENERIC_LNK} ]; then
    echo "Not, found it ${GENERIC_LNK} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${GENERIC_LNK} .!"
        fi
@@ -259,7 +259,7 @@ if [ -f ${SOURCE_MODULE} ]; then
   if [ $? -ne 0 -o ! -s ${SOURCE_MODULE} ]; then
    echo "Downloading $(basename ${SOURCE_MODULE}) failed... aborting the build."
     mv -f ${SOURCE_MODULE} ${SOURCE_MODULE}.FAIL
-     exit 1
+     exit
       else
        tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
         cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
@@ -267,7 +267,7 @@ if [ -f ${SOURCE_MODULE} ]; then
          
   if [ ! -d ${LIBMODULES}/${VERSION} ]; then
    echo "Not, found it ${LIBMODULES}/${VERSION} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
        fi
@@ -284,7 +284,7 @@ else
   if [ $? -ne 0 -o ! -s ${SOURCE_MODULE} ]; then
    echo "Downloading $(basename ${SOURCE_MODULE}) failed... aborting the build."
     mv -f ${SOURCE_MODULE} ${SOURCE_MODULE}.FAIL
-     exit 1
+     exit
       else
        tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
         cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
@@ -292,7 +292,7 @@ else
          
   if [ ! -d ${LIBMODULES}/${VERSION} ]; then
    echo "Not, found it ${LIBMODULES}/${VERSION} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
        fi
