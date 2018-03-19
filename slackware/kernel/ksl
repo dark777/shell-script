@@ -118,7 +118,33 @@ MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -
 
 # Source file availability:
 
-if [ ! -f ${SOURCE_HUGE} ]; then
+if [ -f ${SOURCE_HUGE} ]; then
+  if [ $? -ne 0 -o ! -s ${SOURCE_HUGE} ]; then
+   echo "Downloading $(basename ${SOURCE_HUGE}) failed... aborting the build."
+    mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
+     exit
+      else
+       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
+         fi
+         
+  if [ ! -f ${VMHUGE} ]; then
+   echo "Not, found it ${VMHUGE} .!"
+    exit
+     else
+      echo "Ah, found it ${VMHUGE} .!"
+       ln -s ${VMHUGE} ${HUGE_LNK}
+        fi
+   
+  if [ ! -f ${SYSMAPHUGE} ]; then
+   echo "Not, found it ${SYSMAPHUGE} .!"
+    exit
+     else
+      echo "Ah, found it ${SYSMAPHUGE} .!"
+       ln -s ${SYSMAPHUGE} ${HUGE_MAP}
+        fi
+else
+
  echo "Source $(basename ${SOURCE_HUGE}) not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
   [ -w ${SRCDIR} ] ||  ${SOURCE_HUGE}
@@ -151,43 +177,9 @@ if [ ! -f ${SOURCE_HUGE} ]; then
       echo "Ah, found it ${SYSMAPHUGE} .!"
        ln -s ${SYSMAPHUGE} ${HUGE_MAP}
         fi
-else
-
-  if [ $? -ne 0 -o ! -s ${SOURCE_HUGE} ]; then
-   echo "Downloading $(basename ${SOURCE_HUGE}) failed... aborting the build."
-    mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
-     exit
-      else
-       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
-        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
-         fi
-         
-  if [ ! -f ${VMHUGE} ]; then
-   echo "Not, found it ${VMHUGE} .!"
-    exit
-     else
-      echo "Ah, found it ${VMHUGE} .!"
-       ln -s ${VMHUGE} ${HUGE_LNK}
-        fi
-   
-  if [ ! -f ${SYSMAPHUGE} ]; then
-   echo "Not, found it ${SYSMAPHUGE} .!"
-    exit
-     else
-      echo "Ah, found it ${SYSMAPHUGE} .!"
-       ln -s ${SYSMAPHUGE} ${HUGE_MAP}
-        fi
 fi # end condition SOURCE_HUGE
 
-if [ ! -f ${SOURCE_GENERIC} ]; then
- echo "Source $(basename ${SOURCE_GENERIC}) not available yet..."
-  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
-  [ -w ${SRCDIR} ] ||  ${SOURCE_GENERIC}
-  
-   echo "Will download file to ${SOURCE_GENERIC}"
-    wget -nv -T 20 ${URL_GENERIC} || true
-     echo "Download complete."
-      
+if [ -f ${SOURCE_GENERIC} ]; then
   if [ $? -ne 0 -o ! -s ${SOURCE_GENERIC} ]; then
    echo "Downloading $(basename ${SOURCE_GENERIC}) failed... aborting the build."
     mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
@@ -221,6 +213,14 @@ if [ ! -f ${SOURCE_GENERIC} ]; then
        fi
 else
 
+ echo "Source $(basename ${SOURCE_GENERIC}) not available yet..."
+  # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
+  [ -w ${SRCDIR} ] ||  ${SOURCE_GENERIC}
+  
+   echo "Will download file to ${SOURCE_GENERIC}"
+    wget -nv -T 20 ${URL_GENERIC} || true
+     echo "Download complete."
+      
   if [ $? -ne 0 -o ! -s ${SOURCE_GENERIC} ]; then
    echo "Downloading $(basename ${SOURCE_GENERIC}) failed... aborting the build."
     mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
@@ -232,7 +232,7 @@ else
          
   if [ ! -f ${SYSMAPGENE} ]; then
    echo "Not, found it ${SYSMAPGENE} .!"
-    exit 1
+    exit
      else
       echo "Ah, found it ${SYSMAPGENE} .!"
        ln -s ${SYSMAPGENE} ${GENERIC_MAP}
