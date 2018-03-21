@@ -1,3 +1,5 @@
+Java SE Development Kit 10
+
 Linux ARM 32 Hard Float ABI         | 77.93 MB  | jdk-8u162-linux-arm32-vfp-hflt.tar.gz
 Linux ARM 64 Hard Float ABI         | 74.88 MB  | jdk-8u162-linux-arm64-vfp-hflt.tar.gz
 Linux x86                           | 169.01 MB | jdk-8u162-linux-i586.rpm
@@ -9,3 +11,10 @@ Solaris SPARC 64-bit (SVR4 package) | 139.98 MB | jdk-8u162-solaris-sparcv9.tar.
 Solaris SPARC 64-bit                | 99.3 MB   | jdk-8u162-solaris-sparcv9.tar.gz
 Solaris x64                         | 140.68 MB | jdk-8u162-solaris-x64.tar.Z
 Solaris x64                         | 97.03 MB  | jdk-8u162-solaris-x64.tar.gz
+#################################################################################
+Java SE Development Kit 10
+
+Linux                               | 305.93 MB | jdk-10_linux-x64_bin.rpm
+Linux                               | 338.37 MB | jdk-10_linux-x64_bin.tar.gz
+macOS                               | 395.42 MB | jdk-10_osx-x64_bin.dmg
+Solaris SPARC                       | 206.77 MB | jdk-10_solaris-sparcv9_bin.tar.gz

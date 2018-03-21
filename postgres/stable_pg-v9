@@ -37,7 +37,7 @@ elif [ ! -f ${SOURCE} ]; then
   [ -w "${CWD}" ] ||  ${SOURCE}
   
   if ! [ "x${URL_PKG}" == "x" ]; then
-   echo "Will download file to $(dirname $SOURCE)"
+   echo "Will download file to $(dirname ${SOURCE})"
     wget -nv -T 20 "${URL_PKG}" || true
      echo "Download complete."
     
