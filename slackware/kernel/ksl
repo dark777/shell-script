@@ -331,7 +331,7 @@ initrd = /${BOOT}/initrd-${VERSION}
 root   = /dev/${PART}
 label  = GNRC-${VERSION}
 read-only
-# Linux ${VERSION} bootable generic partition config ends " >> ${LILO}
+# Linux ${VERSION} bootable generic partition config ends" >> ${LILO}
 
 echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n"
 
@@ -344,7 +344,7 @@ image  = /${BOOT}/kernel_${HUGE_TYPE}-${VERSION}
 root   = /dev/${PART}
 label  = HG-${VERSION}
 read-only
-# Linux ${VERSION} bootable partition config ends " >> ${LILO}
+# Linux ${VERSION} bootable partition config ends" >> ${LILO}
 
 echo -e "\nKernel HG-${VERSION} install sucessfull.\n"
 
