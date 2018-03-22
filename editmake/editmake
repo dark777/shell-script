@@ -23,11 +23,11 @@ do
   
   echo -e "\e[37;1mFile \e[31;1m${l}\e[m: \e[35;1m${NOMES[${l}]} \e[37;1mRenamed\e[m: ${EDIT[0]}\e[m"
   
-  mv ${NOMES[${l}]} ${EDIT[0]};
+  mv ${NOMES[${l}]} ${EDIT[0]}
   
-  cat ${INITMAKE} > ${NOMES[${l}]};
+  cat ${INITMAKE} > ${NOMES[${l}]}
   
-  cat ${EDIT[0]} >> ${NOMES[${l}]};
+  cat ${EDIT[0]} >> ${NOMES[${l}]}
   
   rm -rf ${EDIT[0]}
   
