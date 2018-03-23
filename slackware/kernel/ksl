@@ -59,37 +59,27 @@ MODULES_PKG=${MODULES_PKG:-$(lynx --dump ${KRNL_URL} | egrep -o 'kernel-modules+
 
 VERSION=${VERSION:-$(echo ${HUGE_PKG} | cut -f3 -d -)}
 
-
-# Variaveis que pegam os tipos dos pacotes
-
-HUGE_TYPE=${HUGE_TYPE:-$(echo ${HUGE_PKG} | cut -f2 -d -)}
-
-GENERIC_TYPE=${GENERIC_TYPE:-$(echo ${GENERIC_PKG} | cut -f2 -d -)}
-
-MODULES_TYPE=${MODULES_TYPE:-$(echo ${MODULES_PKG} | cut -f2 -d -)}
-
-
 # Variaveis para instalação e linkagem do kernel
 
-VMHUGE=${VMHUGE:-/${BOOT}/vmlinuz-${HUGE_TYPE}-${VERSION}}
+VMHUGE=${VMHUGE:-/${BOOT}/vmlinuz-${HUGE_PKG:7:4}-${HUGE_PKG:12:7}}
 
-VMGENE=${VMGENE:-/${BOOT}/vmlinuz-${GENERIC_TYPE}-${VERSION}}
+VMGENE=${VMGENE:-/${BOOT}/vmlinuz-${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}}
 
-CONFHUGE=${CONFHUGE:-/${BOOT}/config-${HUGE_TYPE}-${VERSION}}
+CONFHUGE=${CONFHUGE:-/${BOOT}/config-${HUGE_PKG:7:4}-${HUGE_PKG:12:7}}
 
-CONFGENE=${CONFGENE:-/${BOOT}/config-${GENERIC_TYPE}-${VERSION}}
+CONFGENE=${CONFGENE:-/${BOOT}/config-${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}}
 
-SYSMAPHUGE=${SYSMAPHUGE:-/${BOOT}/System.map-${HUGE_TYPE}-${VERSION}}
+SYSMAPHUGE=${SYSMAPHUGE:-/${BOOT}/System.map-${HUGE_PKG:7:4}-${HUGE_PKG:12:7}}
 
-SYSMAPGENE=${SYSMAPGENE:-/${BOOT}/System.map-${GENERIC_TYPE}-${VERSION}}
+SYSMAPGENE=${SYSMAPGENE:-/${BOOT}/System.map-${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}}
 
-HUGE_LNK=${HUGE_LNK:-/${BOOT}/kernel_${HUGE_TYPE}-${VERSION}}
+HUGE_LNK=${HUGE_LNK:-/${BOOT}/kernel_${HUGE_PKG:7:4}-${HUGE_PKG:12:7}}
 
-GENERIC_LNK=${GENERIC_LNK:-/${BOOT}/kernel_${GENERIC_TYPE}-${VERSION}}
+GENERIC_LNK=${GENERIC_LNK:-/${BOOT}/kernel_${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}}
 
-HUGE_MAP=${HUGE_MAP:-/${BOOT}/sysmap_${HUGE_TYPE}-${VERSION}}
+HUGE_MAP=${HUGE_MAP:-/${BOOT}/sysmap_${HUGE_PKG:7:4}-${HUGE_PKG:12:7}}
 
-GENERIC_MAP=${GENERIC_MAP:-/${BOOT}/sysmap_${GENERIC_TYPE}-${VERSION}}
+GENERIC_MAP=${GENERIC_MAP:-/${BOOT}/sysmap_${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}}
 
 
 # variables for package downloads
@@ -108,9 +98,9 @@ SOURCE_MODULE=${SOURCE_MODULE:-${SRCDIR}/$(basename ${MODULES_PKG})}
 
 MKINITRD=${MKINITRD:-/sbin/mkinitrd}
 
-INITRDGENERIC=${INITRDGENERIC:-/${BOOT}/initrd-${VERSION}-generic}
+INITRDGENERIC=${INITRDGENERIC:-/${BOOT}/initrd-${GENERIC_PKG:14:8}-${GENERIC_PKG:7:7}}
 
-LINKINITRD=${LINKINITRD:-/${BOOT}/initrd-${VERSION}}
+LINKINITRD=${LINKINITRD:-/${BOOT}/initrd-${GENERIC_PKG:14:8}}
 
 MKINITRDCOMMAND=${MKINITRDCOMMAND:-/usr/share/mkinitrd/mkinitrd_command_generator.sh}
 
@@ -121,11 +111,11 @@ MKINITRDSTRINGS=${MKINITRDSTRINGS:-$(${MKINITRDCOMMAND} | grep ^mkinitrd | cut -
 if [ -f ${SOURCE_HUGE} ]; then
   if [ $? -ne 0 -o ! -s ${SOURCE_HUGE} ]; then
    echo "Downloading $(basename ${SOURCE_HUGE}) failed... aborting the build."
-    mv -f "${SOURCE_HUGE}" "${SOURCE_HUGE}".FAIL
+    mv -f ${SOURCE_HUGE} ${SOURCE_HUGE}.FAIL
      exit
       else
-       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
-        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
+       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_PKG:7:4}-${HUGE_PKG:12:7}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_PKG:7:4}-${HUGE_PKG:12:7} /${BOOT}
          fi
          
   if [ ! -f ${VMHUGE} ]; then
@@ -158,8 +148,8 @@ else
     mv -f ${SOURCE_HUGE} ${SOURCE_HUGE}.FAIL
      exit 1
       else
-       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION}
-        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_TYPE}-${VERSION} /${BOOT}
+       tar -xf ${SOURCE_HUGE} ${BOOT}/{System.map,config,vmlinuz}-${HUGE_PKG:7:4}-${HUGE_PKG:12:7}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${HUGE_PKG:7:4}-${HUGE_PKG:12:7} /${BOOT}
          fi
          
   if [ ! -f ${VMHUGE} ]; then
@@ -185,8 +175,8 @@ if [ -f ${SOURCE_GENERIC} ]; then
     mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
      exit
       else
-       tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
-        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
+       tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8} /${BOOT}
          fi
          
   if [ ! -f ${SYSMAPGENE} ]; then
@@ -226,8 +216,8 @@ else
     mv -f ${SOURCE_GENERIC} ${SOURCE_GENERIC}.FAIL
      exit
       else
-       tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION}
-        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_TYPE}-${VERSION} /${BOOT}
+       tar -xf ${SOURCE_GENERIC} ${BOOT}/{System.map,config,vmlinuz}-${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}
+        cp -ar ${SRCDIR}/${BOOT}/{System.map,config,vmlinuz}-${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8} /${BOOT}
          fi
          
   if [ ! -f ${SYSMAPGENE} ]; then
@@ -261,15 +251,15 @@ if [ -f ${SOURCE_MODULE} ]; then
     mv -f ${SOURCE_MODULE} ${SOURCE_MODULE}.FAIL
      exit
       else
-       tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
-        cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
+       tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_PKG:7:7}/${MODULES_PKG:15:7}
+        cp -ar ${SRCDIR}/${LIB}/${MODULES_PKG:7:7}/${MODULES_PKG:15:7} ${LIBMODULES}
          fi
          
-  if [ ! -d ${LIBMODULES}/${VERSION} ]; then
-   echo "Not, found it ${LIBMODULES}/${VERSION} .!"
+  if [ ! -d ${LIBMODULES}/${MODULES_PKG:15:7} ]; then
+   echo "Not, found it ${LIBMODULES}/${MODULES_PKG:15:7} .!"
     exit
      else
-      echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
+      echo "Ah, found it ${LIBMODULES}/${HUGE_PKG:12:7} .!"
        fi
 else
 
@@ -286,15 +276,15 @@ else
     mv -f ${SOURCE_MODULE} ${SOURCE_MODULE}.FAIL
      exit
       else
-       tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_TYPE}/${VERSION}
-        cp -ar ${SRCDIR}/${LIB}/${MODULES_TYPE}/${VERSION} ${LIBMODULES}
+       tar -xf ${SOURCE_MODULE} ${LIB}/${MODULES_PKG:7:7}/${MODULES_PKG:15:7}
+        cp -ar ${SRCDIR}/${LIB}/${MODULES_PKG:7:7}/${MODULES_PKG:15:7} ${LIBMODULES}
          fi
          
-  if [ ! -d ${LIBMODULES}/${VERSION} ]; then
-   echo "Not, found it ${LIBMODULES}/${VERSION} .!"
+  if [ ! -d ${LIBMODULES}/${MODULES_PKG:15:7} ]; then
+   echo "Not, found it ${LIBMODULES}/${MODULES_PKG:15:7} .!"
     exit
      else
-      echo "Ah, found it ${LIBMODULES}/${VERSION} .!"
+      echo "Ah, found it ${LIBMODULES}/${MODULES_PKG:15:7} .!"
        fi
 fi # end condition SOURCE_MODULE
 
@@ -303,7 +293,7 @@ read -p "Enter type g(eneric) ou h(uge): " resposta
 
 if [[ ${resposta} == "g" || ${resposta} == "G"  ]]; then
 
-${MKINITRD} -c -k ${VERSION} -f ${SYSARQ} -r ${DEVDISK} -m ${MKINITRDSTRINGS} -u -o ${INITRDGENERIC}
+${MKINITRD} -c -k ${MODULES_PKG:15:7} -f ${SYSARQ} -r ${DEVDISK} -m ${MKINITRDSTRINGS} -u -o ${INITRDGENERIC}
 
 ln -s ${INITRDGENERIC} ${LINKINITRD}
 
@@ -312,41 +302,41 @@ read -p "Do you want to add a(fter) or at the e(nd) of lilo.conf? " resposta
 if [[ ${resposta} == "a" || ${resposta} == "A" ]]; then
 
 ## Adiciona partição após "# End LILO global section" no lilo.conf
-sed -i "63s/$/\n# Linux ${VERSION} bootable generic partition config begins/g;
-        63s/$/\nimage  = \/boot\/kernel_${GENERIC_TYPE}-${VERSION}/g;
-        63s/$/\ninitrd = \/${BOOT}\/initrd-${VERSION}/g;
+sed -i "63s/$/\n# Linux ${GENERIC_PKG:14:8} bootable generic partition config begins/g;
+        63s/$/\nimage  = \/boot\/kernel_${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}/g;
+        63s/$/\ninitrd = \/${BOOT}\/initrd-${GENERIC_PKG:14:8}/g;
         63s/$/\nroot   = \/dev\/${PART}/g;
-        63s/$/\nlabel  = GNRC-${VERSION}/g;
+        63s/$/\nlabel  = GNRC-${GENERIC_PKG:14:8}/g;
         63s/$/\nread-only/g;
-        63s/$/\n# Linux ${VERSION} bootable generic partition config ends/g;
+        63s/$/\n# Linux ${GENERIC_PKG:14:8} bootable generic partition config ends/g;
        " ${LILO}
 
-echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n"
+echo -e "\nKernel GNRC-${GENERIC_PKG:14:8} install sucessfull.\n"
 
 else
 ## Adiciona partição no fim de lilo.conf
-echo "# Linux ${VERSION} bootable generic partition config begins
-image  = /${BOOT}/kernel_${GENERIC_TYPE}-${VERSION}
-initrd = /${BOOT}/initrd-${VERSION}
+echo "# Linux ${GENERIC_PKG:14:8} bootable generic partition config begins
+image  = /${BOOT}/kernel_${GENERIC_PKG:7:7}-${GENERIC_PKG:14:8}
+initrd = /${BOOT}/initrd-${GENERIC_PKG:14:8}
 root   = /dev/${PART}
-label  = GNRC-${VERSION}
+label  = GNRC-${GENERIC_PKG:14:8}
 read-only
-# Linux ${VERSION} bootable generic partition config ends" >> ${LILO}
+# Linux ${GENERIC_PKG:14:8} bootable generic partition config ends" >> ${LILO}
 
-echo -e "\nKernel GNRC-${VERSION} install sucessfull.\n"
+echo -e "\nKernel GNRC-${GENERIC_PKG:14:8} install sucessfull.\n"
 
 fi # fim condition resposta
 
 else
 
-echo "# Linux ${VERSION} bootable partition config begins
-image  = /${BOOT}/kernel_${HUGE_TYPE}-${VERSION}
+echo "# Linux ${HUGE_PKG:12:7} bootable partition config begins
+image  = /${BOOT}/kernel_${HUGE_PKG:7:4}-${HUGE_PKG:12:7}
 root   = /dev/${PART}
-label  = HG-${VERSION}
+label  = HG-${HUGE_PKG:12:7}
 read-only
-# Linux ${VERSION} bootable partition config ends" >> ${LILO}
+# Linux ${HUGE_PKG:12:7} bootable partition config ends" >> ${LILO}
 
-echo -e "\nKernel HG-${VERSION} install sucessfull.\n"
+echo -e "\nKernel HG-${HUGE_PKG:12:7} install sucessfull.\n"
 
 fi # fim condition resposta generic
 
