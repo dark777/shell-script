@@ -28,9 +28,11 @@ cp lang.{csh,sh} /etc/profile.d/
 cp rc.{4,M,S,zram} /etc/rc.d
 
 
-sed -i 's/^#compact/compact/g;' ${LILO}
-sed -i 's/^timeout =.*/timeout = 50/g;' ${LILO}
-sed -i 's/^  label =.*/  label = SLCKWRLNX/g;' ${LILO}
+sed -i 's/^#compact/compact/g;
+        s/^timeout =.*/timeout = 50/g;
+        s/^  label =.*/  label = SLCKWRLNX/g;
+       ' ${LILO}
+       
 sed -i '/root/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
 sed -i '/%sudo/ s/^#//g;/%sudo/ s/^ //g;/%sudo/ s/ALL=(/ALL=(ALL:/g;' ${SUDOERS}
 
