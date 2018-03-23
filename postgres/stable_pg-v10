@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CWD=$(pwd)
+CWD=${CWD:-$(pwd)}
 
 PRGNAM=${PRGNAM:-postgresql}
 
@@ -34,22 +34,22 @@ echo "Ah, found it ${SOURCE} .!";
 
 # Source file availability:
 elif [ ! -f ${SOURCE} ]; then
-  echo "Source '$(basename ${SOURCE})' not available yet..."
+  echo "Source $(basename ${SOURCE}) not available yet..."
   # Check if the $SRCDIR is writable at all - if not, download to $SOURCE
-  [ -w "${CWD}" ] ||  ${SOURCE}
+  [ -w ${CWD} ] ||  ${SOURCE}
   
   if ! [ "x${URL_PKG}" == "x" ]; then
    echo "Will download file to $(dirname ${SOURCE})"
-    wget -nv -T 20 "${URL_PKG}" || true
+    wget -nv -T 20 ${URL_PKG} || true
      echo "Download complete."
     
-    if [ $? -ne 0 -o ! -s "${SOURCE}" ]; then
-     echo "Downloading '${SOURCE}' failed... aborting the build."
-      mv -f "${SOURCE}" "${SOURCE}".FAIL
+    if [ $? -ne 0 -o ! -s ${SOURCE} ]; then
+     echo "Downloading ${SOURCE} failed... aborting the build."
+      mv -f ${SOURCE} ${SOURCE}.FAIL
        exit 1
     fi
   else
-    echo "File '$(basename ${SOURCE})' not available... aborting the build."
+    echo "File $(basename ${SOURCE}) not available... aborting the build."
      exit 1
   fi
 fi
