@@ -5,13 +5,15 @@ ALTERTIME=${ALTERTIME:-$(date "+%a_%d_%b_%Y_%H:%M:%S")}
 
 INITMAKE=${INITMAKE:-~/Workspace/GitHub/shell-script/editmake/initmake}
 
+MAKE=${MAKE:-$(find {Aggregation/*,Composition/*,Cadastros/*,DataStructure/*,libmenu/*,Overload/*,Override/*,Polymorphism/*,Regex/*,StringSet/*,TermPaper/*} -name "Makefile")}
+
 cd ~/Workspace/GitHub/standard-cxx
 
-find {Aggregation/*,Composition/*,Cadastros/*,DataStructure/*,libmenu/*,Overload/*,Override/*,Polymorphism/*,Regex/*,StringSet/*,TermPaper/*} -name "Makefile" > locates
+${MAKE} > locates
 
-BUSCA=${BUSCA:-$(find . -name "locates")}
+LOCATES=${LOCATES:-$(find . -name "locates")}
 
-QTD=${QTD:-$(cat ${BUSCA} | wc -l)}
+QTD=${QTD:-$(cat ${LOCATES} | wc -l)}
 
 NOMES=($(awk -F'-' '{printf "%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s",$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $70}' ${BUSCA}))
 
@@ -39,6 +41,6 @@ do
    echo -e "\e[37;1mFile \e[31;1m${l}\e[m: \e[36;1m${NOMES[${l}]}\e[31;1m edited successfully.!!!\n\n\e[m"
   fi
   
-  rm -rf ${BUSCA}
+  rm -rf ${LOCATES}
   
 done #fim primeiro for
