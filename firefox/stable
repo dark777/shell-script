@@ -12,8 +12,6 @@
 #            $ sh stable
 #
 ### VARIAVEIS
-os=$1
-linguagem=$2
 
 if [ -z "${ARCH}" ]; then
  case $(uname -m) in
@@ -36,8 +34,14 @@ if [ -z "${os}" ]; then
      esac
 fi
 
+#https://download.mozilla.org/?product=firefox-beta-latest&os=linux64&lang=en-US
+echo "https://download.mozilla.org/?product=firefox-beta-latest&os=${os}&lang=${linguagem}"
+
 if [ $os = linux${ARCH} ]; then
 wget -O firefox_${os}_${linguagem}.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=${os}&lang=${linguagem}"
 else
 wget -O Firefox_${os}_${linguagem}.exe "https://download.mozilla.org/?product=firefox-latest&os=${os}&lang=${linguagem}"
 fi
+
+#https://download-installer.cdn.mozilla.net/pub/firefox/releases/60.0b6/linux-x86_64/en-US/firefox-60.0b6.tar.bz2
+#https://download-installer.cdn.mozilla.net/pub/firefox/releases/60.0b6/linux-i686/en-US/firefox-60.0b6.tar.bz2

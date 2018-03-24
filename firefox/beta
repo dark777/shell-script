@@ -12,8 +12,6 @@
 #            $ sh beta
 #
 ### VARIAVEIS
-os=$1
-linguagem=$2
 
 if [ -z "${ARCH}" ]; then
  case $(uname -m) in
