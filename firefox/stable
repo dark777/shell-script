@@ -1,15 +1,7 @@
 #!/bin/bash
 # Programa para baixar ultima versao do firefox utilizando
 # o esquema de URL https://download-installer.cdn.mozilla.net/pub/firefox/releases/latest/README.txt
-# uso: sh stable [SISTEMA_OPERACIONAL] [LINGUAGEM]
-#      Valores default para SISTEMA_OPERACIONAL E LINGUAGEM sao win e pt-BR, respectivamente
-#
-# exemplo 1: baixar versao para linux 64 bits em ingles:
-#            $ sh stable linux64 en-US
-# exemplo 2: baixar versao para linux-x86 bits em ingles:
-#            $ sh stable linux en-US
-# exemplo 3: baixar versao para windows em portugues (valores padrao)
-#            $ sh stable
+# uso: $ sh stable
 #
 ### VARIAVEIS
 
