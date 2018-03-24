@@ -6,7 +6,9 @@
 #
 # exemplo 1: baixar versao para linux 64 bits em ingles:
 #            $ sh beta linux64 en-US
-# exemplo 2: baixar versao para windows em portugues (valores padrao)
+# exemplo 2: baixar versao para linux-x86 bits em ingles:
+#            $ sh beta linux en-US
+# exemplo 3: baixar versao para windows em portugues (valores padrao)
 #            $ sh beta
 #
 ### VARIAVEIS
