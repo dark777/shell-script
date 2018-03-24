@@ -1,0 +1,34 @@
+#!/bin/bash
+# Programa para baixar ultima versao do firefox utilizando
+# o esquema de URL https://download-installer.cdn.mozilla.net/pub/firefox/releases/latest/README.txt
+# uso: sh beta [SISTEMA_OPERACIONAL] [LINGUAGEM]
+#      Valores default para SISTEMA_OPERACIONAL E LINGUAGEM sao win e pt-BR, respectivamente
+#
+# exemplo 1: baixar versao para linux 64 bits em ingles:
+#            $ sh beta linux64 en-US
+# exemplo 2: baixar versao para windows em portugues (valores padrao)
+#            $ sh beta
+#
+### VARIAVEIS
+os=$1
+linguagem=$2
+
+### PRINCIPAL
+# popular variaveis com valores padrao de sistema operacional e 
+# linguagem, caso argumentos nao tenham sido passados 
+[ -z $os ] && os=win
+[ -z $linguagem ] && linguagem=pt-BR
+
+#https://download.mozilla.org/?product=firefox-beta-latest&os=linux64&lang=en-US
+echo "https://download.mozilla.org/?product=firefox-beta-latest&os=${os}&lang=${linguagem}"
+
+if [ $os = win ]; then
+wget -O Firefox_${linguagem}_Setup.exe "https://download.mozilla.org/?product=firefox-beta-latest&os=${os}&lang=${linguagem}"
+else
+wget -O firefox_${linguagem}_beta.tar.bz2 "https://download.mozilla.org/?product=firefox-beta-latest&os=${os}&lang=${linguagem}"
+fi
+
+
+
+
+#https://download-installer.cdn.mozilla.net/pub/firefox/releases/60.0b6/linux-x86_64/en-US/firefox-60.0b6.tar.bz2
