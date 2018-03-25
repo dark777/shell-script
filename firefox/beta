@@ -18,7 +18,7 @@ if [ -z "${os}" ]; then
  case $(uname -s) in
   Linux)
    os=linux${ARCH}
-    linguagem=${linguagem:-$(locale | grep "^LC_ALL" |cut -f2 -d = | cut -f1 -d. | sed 's/_/-/g')}
+    linguagem=${linguagem:-$(locale | grep "^LANG" |cut -f2 -d = | cut -f1 -d. | sed 's/_/-/g')}
      ;;
   *)
    os=win; #Downloads for arch x86
