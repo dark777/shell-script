@@ -1,0 +1,60 @@
+DEPENDÊNCIAS
+O projeto (bibliotecas padrão) contém duas dependências, que são:
+
+    bash v4.3 (ou superior) - Interpretador de comandos.
+    coreuils - GNU Core Utilities, que é um pacote contendo ferramentas úteis com ls, cat, wc etc, presente em qualquer sistema Unix-like
+
+AMBIENTE
+Para utilizar quaisquer bibliotecas é necessário configurar previamente o ambiente.
+
+O bashsrc utiliza a variável BASHSRC_PATH para definir o diretório padrão contendo as bibliotecas/binários.
+
+Insira os valores das variáveis abaixo no arquivo ~/.bashrc ou ~/.profile:
+
+$export BASHSRC_PATH=$HOME/bashsrc
+$ export PATH=$PATH:$BASHSRC_PATH/src
+$ export PATH=$PATH:$BASHSRC_PATH/bin
+
+Caso tenha selecionado um diretório diferente para o projeto, substitua a variável '$HOME' pela localização designada.
+
+Carregando as configurações:
+
+$. ~/.bashrc
+
+ou:
+
+$. ~/.profile
+
+Obs.: se tudo estiver 'ok', nenhuma mensagem de erro é apresentada.
+
+FUNÇÕES
+Os protótipos das funções são prefixadas pelo nome da biblioteca a qual pertence seguindo pelo nome da função cujo os parâmetros posicionais são tratados na ordem determinada em sua declaração.
+
+Protótipo: biblioteca.funcao <[tipo]arg1> <[tipo2]arq2>
+
+A função getopt.parse disponível na biblioteca getopt.sh, está presente em todas as funções e é responsável pela validação dos dados por meio de expressões regulares que garantem uma tipagem forte na passagem dos argumentos. É altamente recomendado sua utilização se pretende garantir os valores recebidos em uma função ou método.
+
+IMPLEMENTAÇÃO DE TIPO
+Shell script não possui orientação a objetos, métodos ou heranças. Porém, como qualquer outra linguagem existe o escopo de visibilidade durante a declaração de uma variável e com a abstração adequada é possível a criação de funções que simulam métodos de acesso por entidade.
+
+O método é como uma função mais possui característica de acesso ao membro da entidade e que foi implementada de forma a receber como prefixo o nome do variável instanciada e que "herda" todas as funções do tipo implementado.
+
+Todo o objeto implementado é global, ou seja, seus métodos são visíveis por todo o código, exceto o valor da variável da entidade que só pode ser acessada dentro do seu escopo de declaração. (exceto struct_t)
+
+BIBLIOTECA BUILT-IN
+A biblioteca builtin é composta por funções básicas para declaração de tipos, iteração de elementos, loops e etc. Entretanto é de suma importância e imprescindível para o funcionamento do eco sistema do bashsrc, cuja importação deve preceder qualquer outra biblioteca. Ao contrário das demais bibliotecas, suas funções não possuem um prefixo, sendo referenciadas apenas por seu identificador curto.
+
+Protótipo: funcao
+
+CONSIDERAÇÕES FINAIS
+O bashsrc tem como objetivo fornecer ao usuário uma alternativa de programação funcional e com recursos extras que independem de outras ferramentas. Sem perder a objetividade, legibilidade e produtividade no desenvolvido de scripts.
+
+No atual momento o bashsrc se encontra na versão 1.0.0 e como todo projeto está sujeito a falhas, mas, estou dedicando meu tempo disponível a corrigi-las, realizar melhorias se necessário e criar novas bibliotecas.
+
+Para manter a confiabilidade e estabilidade do código conto com a ajuda dos usuários na reportação de possíveis erros.
+
+O projeto está disponível no Github: https://github.com/shellscriptx/bashsrc
+
+Para mais informações, consulte a documentação: https://github.com/shellscriptx/bashsrc/wiki
+
+Desenvolvido por: Juliano Santos (SHAMAN)
