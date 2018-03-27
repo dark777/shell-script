@@ -1,0 +1,8 @@
+lynx -dump http://minhateca.com.br/Animesdojonny/Desenhos/THUNDERCATS/Thundercats+-+Completo | sed -r 's/^\s+[0-9]+\. //g;' > downloads2
+lynx -dump http://minhateca.com.br/Animesdojonny/Desenhos/THUNDERCATS/Thundercats+-+Completo,2 | sed -r 's/^\s+[0-9]+\. //g;' >> downloads2
+lynx -dump http://minhateca.com.br/Animesdojonny/Desenhos/THUNDERCATS/Thundercats+-+Completo,3 | sed -r 's/^\s+[0-9]+\. //g;' >> downloads2
+lynx -dump http://minhateca.com.br/Animesdojonny/Desenhos/THUNDERCATS/Thundercats+-+Completo,4 | sed -r 's/^\s+[0-9]+\. //g;' >> downloads2
+lynx -dump http://minhateca.com.br/Animesdojonny/Desenhos/THUNDERCATS/Thundercats+-+Completo,5 | sed -r 's/^\s+[0-9]+\. //g;' >> downloads2
+
+sed -i 's/.rar(archive)/.rar/g;' downloads2
+sort -u downloads2 > noduplicate

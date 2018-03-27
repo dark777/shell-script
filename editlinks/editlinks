@@ -1,0 +1,20 @@
+#!/bin/bash
+
+LOCATES=${LOCATES:-$(find . -name "noduplicates")}
+
+ALL_NAMES=${ALL_NAMES:-$(cat ${LOCATES} | cut -f8 -d /)}
+ALL_LINKS=${ALL_LINKS:-$(cat ${LOCATES})}
+
+VEC_NAMES=(${ALL_NAMES})
+VEC_LINKS=(${ALL_LINKS})
+
+echo ""
+for ((l = 1; l <= ${#VEC_NAMES[@]}; l++))
+do
+  NAMES=$(printf "%s%03u.%s" "${ALL_NAMES:0:14}" ${l} "${ALL_NAMES:28:3}")
+  
+  #sed "s/^/#${NAMES}\n#/g;s/$/\nwget -O ${NAMES} \"\"\nunrar e ${NAMES}\n\n/g;" downloads2
+  #echo -e "#${NAMES}\nwget -O ${NAMES} \"\"\nunrar e ${NAMES}\n\n/g;" >> downloads
+  #echo -e "#${NAMES}\nunrar e ${NAMES}\n" >> all_extract
+  
+done #fim primeiro for
