@@ -11,7 +11,7 @@ O bashsrc utiliza a variável BASHSRC_PATH para definir o diretório padrão con
 
 Insira os valores das variáveis abaixo no arquivo ~/.bashrc ou ~/.profile:
 
-$export BASHSRC_PATH=$HOME/bashsrc
+$ export BASHSRC_PATH=$HOME/bashsrc
 $ export PATH=$PATH:$BASHSRC_PATH/src
 $ export PATH=$PATH:$BASHSRC_PATH/bin
 
@@ -19,11 +19,11 @@ Caso tenha selecionado um diretório diferente para o projeto, substitua a vari�
 
 Carregando as configurações:
 
-$. ~/.bashrc
+$ . ~/.bashrc
 
 ou:
 
-$. ~/.profile
+$ . ~/.profile
 
 Obs.: se tudo estiver 'ok', nenhuma mensagem de erro é apresentada.
 
