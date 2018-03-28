@@ -15,6 +15,13 @@ do
   
   #sed "s/^/#${NAMES}\n#/g;s/$/\nwget -O ${NAMES} \"\"\nunrar e ${NAMES}\n\n/g;" downloads2
   #echo -e "#${NAMES}\nwget -O ${NAMES} \"\"\nunrar e ${NAMES}\n\n/g;" >> downloads
-  #echo -e "#${NAMES}\nunrar e ${NAMES}\n" >> all_extract
   
+  echo -e "\n#${NAMES}\nunrar e ${NAMES}" >> allextract
+  
+  
+
 done #fim primeiro for
+echo -e "#!/bin/sh\n\nif [ ! -f \$(ls *${ALL_NAMES:27:4}) ]; then\n echo \"Nenhum arquivo ${ALL_NAMES:27:4} encontrado\"\n  else" >> all_extract
+cat allextract >> all_extract
+echo -e "\nfi\n\nif [ ! -d \$(pwd)/compactados ]; then\n mkdir compactados\n  mv *.rar compactados/\n   else\n    mv *.rar compactados/\n     fi" >> all_extract
+rm allextract

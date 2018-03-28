@@ -1,3 +1,9 @@
+#!/bin/sh
+
+if [ ! -f $(ls *.rar) ]; then
+ echo "Nenhum arquivo .rar encontrado"
+  else
+
 #Thundercats-EP001.rar
 unrar e Thundercats-EP001.rar
 
@@ -388,3 +394,12 @@ unrar e Thundercats-EP129.rar
 #Thundercats-EP130.rar
 unrar e Thundercats-EP130.rar
 
+fi
+
+if [ ! -d $(pwd)/compactados ]; then
+ mkdir compactados
+  mv *.rar compactados/
+   else
+    mv *.rar compactados/
+     fi
+     
