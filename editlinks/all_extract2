@@ -1,0 +1,42 @@
+#!/bin/bash
+
+QTD=$(find $1 -iname "*.rar" | wc -l)
+
+i="1"
+
+while [ ${i} -le ${QTD} ];
+ do
+  ArquivoCompleto=$(ls *.rar | head -${i} | tail -1)
+  unrar x -y "${ArquivoCompleto}"
+ i=$((${i}+1))
+done
+
+QTD=$(find $1 -iname "*.zip" | wc -l)
+j="1"
+
+while [ ${j} -le ${QTD} ];
+ do
+  ArquivoCompleto=$(ls *.zip | head -${j} | tail -1)
+  unzip "${ArquivoCompleto}"
+ j=$((${j}+1))
+done
+
+QTD=$(ls -d */ | wc -l)
+k="1"
+
+while [ ${k} -le ${QTD} ];
+do
+ ArquivoCompleto=$(ls -d */ | head -${k} | tail -1)
+  final=$(echo ${ArquivoCompleto} | sed 's/^ //g;s/ - /_/g;s/ /_/g;s/ $//g;')
+  mv "${ArquivoCompleto}" ${final}
+ k=$((${k}+1))
+done
+
+if [ ! -d $(pwd)/compactados ]; then
+ mkdir compactados
+  mv *.rar compactados/
+   else
+    mv *.rar compactados/
+     fi
+
+exit 0
