@@ -32,8 +32,8 @@ do
  k=$((${k}+1))
 done
 
-if [[ ! -d $(pwd)/compactados && ! -f $(ls *.rar) || ! -f $(ls *.zip)]]; then
-  echo -e "Arquivos Rar ou Zip nao existem\n\n";
+if [[ ! -f $(ls *.rar) || ! -f $(ls *.zip) ]]; then
+  echo -e "Rar or Zip files do not exist\n\n";
    exit
     else
   if [ ! -d $(pwd)/compactados ]; then
