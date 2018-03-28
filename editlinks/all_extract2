@@ -6,49 +6,50 @@ i="1"
 
 while [ ${i} -le ${QTD} ];
  do
-  ArquivoCompleto=$(ls *.rar | head -${i} | tail -1)
-  unrar x -y "${ArquivoCompleto}"
+  ARQUIVOCOMPLETO=$(ls *.rar | head -${i} | tail -1)
+  unrar x -y "${ARQUIVOCOMPLETO}"
  i=$((${i}+1))
 done
+
+#<<<---->>>------------------------------------------------------------------------------------------
 
 QTD=$(find $1 -iname "*.zip" | wc -l)
 j="1"
 
 while [ ${j} -le ${QTD} ];
  do
-  ArquivoCompleto=$(ls *.zip | head -${j} | tail -1)
-  unzip "${ArquivoCompleto}"
+  ARQUIVOCOMPLETO=${ARQUIVOCOMPLETO:-$(ls *.zip | head -${j} | tail -1)}
+  unzip "${ARQUIVOCOMPLETO}"
  j=$((${j}+1))
 done
+
+#<<<---->>>------------------------------------------------------------------------------------------
 
 QTD=$(ls -d */ | wc -l)
 k="1"
 
 while [ ${k} -le ${QTD} ];
 do
- ArquivoCompleto=$(ls -d */ | head -${k} | tail -1)
-  final=$(echo ${ArquivoCompleto} | sed 's/^ //g;s/ - /_/g;s/ /_/g;s/ $//g;')
-  mv "${ArquivoCompleto}" ${final}
+ ARQUIVOCOMPLETO=$(ls -d */ | head -${k} | tail -1)
+ 
+  NOVONOME=${NOVONOME:-$(echo ${ARQUIVOCOMPLETO} | sed 's/^ //g;s/ - /_/g;s/ /_/g;s/ $//g;')}
+  mv "${ARQUIVOCOMPLETO}" ${NOVONOME}
  k=$((${k}+1))
 done
 
+#<<<---->>>------------------------------------------------------------------------------------------
 
-if [ ! -d $(pwd)/compactados ]; then
- mkdir compactado
+COMPACTADOS=${COMPACTADOS:-$(ls | egrep '\.rar$|\.zip$')}
+DESCOMPACTADOS=${DESCOMPACTADOS:-$(ls | egrep '\.avi$|\.flv$|\.mp4$|\.rmvb$|\.mkv$')}
+
+if [[ ! -d $(pwd)/compactados && ! -d $(pwd)/descompactados ]]; then 
+ mkdir compactados
+  mkdir descompactados
+   mv ${COMPACTADOS} compactados/
+    mv ${DESCOMPACTADOS} descompactados/
+else
+ mv ${COMPACTADOS} compactados/
+  mv ${DESCOMPACTADOS} descompactados/
+   fi
    
-  if [ -f $(ls *.rar) ]; then
-   mv *.rar compactados/
-    else
-     mv *.zip compactados/
-      fi
-  
-  else
-  
-  if [ -f $(ls *.rar) ]; then
-   mv *.rar compactados/
-    else
-     mv *.zip compactados/
-      fi
-fi
-
 exit 0
