@@ -1,0 +1,11 @@
+#!/bin/bash
+
+read -p "qual o arquivo? " arquivo
+
+if [ ${arquivo: -4} == ".txt" ]; then
+    echo "arquivo tipo txt"
+elif [ ${arquivo: -4} == ".doc" ]; then
+    echo "arquivo tipo doc"
+else
+    echo "arquivo invalido"
+fi 
