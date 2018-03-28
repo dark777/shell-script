@@ -32,11 +32,28 @@ do
  k=$((${k}+1))
 done
 
-if [ ! -d $(pwd)/compactados ]; then
- mkdir compactados
-  mv *.rar compactados/
+if [[ ! -d $(pwd)/compactados && ! -f $(ls *.rar) || ! -f $(ls *.zip)]]; then
+  echo -e "Arquivos Rar ou Zip nao existem\n\n";
+   exit
+    else
+  if [ ! -d $(pwd)/compactados ]; then
+   mkdir compactado
+   
+   if [ -f $(ls *.rar) ]; then
+     mv *.rar compactados/
+     else
+     mv *.zip compactados/
+   fi
+   
    else
-    mv *.rar compactados/
-     fi
+   
+   if [ -f $(ls *.rar) ]; then
+     mv *.rar compactados/
+     else
+     mv *.zip compactados/
+   fi
+   
+  fi
+fi
 
 exit 0
