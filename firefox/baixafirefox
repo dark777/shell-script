@@ -1,0 +1,31 @@
+#!/bin/bash
+# Programa para baixar ultima versao do firefox utilizando
+# o esquema de URL https://download-installer.cdn.mozilla.net/pub/firefox/releases/latest/README.txt
+# uso: baixafirefox [SISTEMA_OPERACIONAL] [LINGUAGEM] [TIPO]
+#      Valores das opcoes :
+#               SISTEMA_OPERACIONAL = win (default), win64, osx, linux e linux64
+#               LINGUAGEM = pt-BR (default), en-US, fr, es-AR etc
+#               TIPO = firefox-beta-latest (default) firefox-latest
+#
+# exemplo 1: baixar versao beta, para linux 64 bits, em ingles:
+#            $ baixafirefox linux64 en-US
+#
+# exemplo 2: baixar versao beta, para windows em portugues (valores padrao)
+#            $ baixafirefox
+#
+# exemplo 3: baixar versao estável, para windows em portugues (valores padrao)
+#            $ baixafirefox win pt-BR firefox-latest
+#
+### VARIAVEIS
+os=$1
+linguagem=$2
+produto=$3
+
+### PRINCIPAL
+# popular variaveis com valores padrao de sistema operacional e 
+# linguagem, caso argumentos nao tenham sido passados 
+[ -z $os ] && os=win
+[ -z $linguagem ] && linguagem=pt-BR
+[ -z $produto ] && produto=firefox-beta-latest
+echo "https://download.mozilla.org/?product=$produto&os=$os&lang=$linguagem"
+wget --content-disposition https://download.mozilla.org/?product=$produto\&os=$os\&lang=$linguagem 
