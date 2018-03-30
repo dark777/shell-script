@@ -2,14 +2,14 @@
 title: Desvendando o comando DATE
 ---
 
-Este tutorial mostra alguns exemplos de como utilizar o comando date para:
+## Este tutorial mostra alguns exemplos de como utilizar o comando date para:
 
     Exibir a data/hora do Sistema;
     Alterar a data/hora do Sistema;
     Exibir a data/hora Formatada;
     Efetuar cálculos com Data e Hora. 
 
-Alterando a Data e Hora do Sistema:
+## Alterando a Data e Hora do Sistema:
 
 Toda vez que o sistema operacional Linux é inicializado, este busca no relógio da BIOS
 (também chamado de relógio de hardware) as configurações necessárias para configurar a
@@ -55,7 +55,7 @@ por fim sincronizar com o relógio do hardware:
 
     $ date 081007501987 | hwclock -w
 
-# Parâmetros que podem ser utilizados para formatação de datas:
+## Parâmetros que podem ser utilizados para formatação de datas:
 
 - %A : dia da semana (domingo,..., sábado).
 - %B : nome do mês (janeiro,..., dezembro).
