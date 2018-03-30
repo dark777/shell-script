@@ -11,7 +11,8 @@ title: Desvendando o comando DATE
 
 ## Alterando a Data e Hora do Sistema:
 
-```Toda vez que o sistema operacional Linux é inicializado, este busca no relógio da BIOS
+```
+Toda vez que o sistema operacional Linux é inicializado, este busca no relógio da BIOS
 (também chamado de relógio de hardware) as configurações necessárias para configurar a
 data/hora do sistema. Ou seja, no Linux podemos ter a data/hora do sistema diferente da data/hora
 que temos no hardware, e essa informação é muito importante no momento de efetuar ajustes.
