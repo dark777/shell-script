@@ -251,7 +251,7 @@ alias repo-dmars=\"git add .;git commit -m \"Sources code digital mars D\";git p
 alias del=\"mv \$@ --target-directory=\${HOME}/.local/share/Trash/files/\"
 alias trash=\"su -c \"rm -rf \${HOME}/.local/share/Trash/{files/*,info/*}\"\"
 
-bash()
+clsh()
 {
 # Remove linha em branco:
 BLANK_LNRM=\${BLANK_LNRM:-\$(sed  -i '/^$/d' ~/.bash_history)}
