@@ -18,20 +18,20 @@ title: Debugando Shell script
 # Você pode usar o comando acima dois no próprio script shell:
 
 script:
-
-* #!/bin/bash
-* clear
-* #turn on debug mode
-* set -x
-* for f in *
-* do
-*  file $f
-*done
-*#turn OFF debug mode
-*set +x
-*ls
-*#more commands
-
+```
+#!/bin/bash
+ clear
+ #turn on debug mode
+ set -x
+ for f in *
+ do
+  file $f
+done
+#turn OFF debug mode
+set +x
+ls
+#more commands
+```
 
 # Você pode substituir a linha padrão de Shebang para depuração
 
