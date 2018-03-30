@@ -20,12 +20,12 @@ ou
 script:
 ```
 #!/bin/bash
- clear
- #turn on debug mode
- set -x
- for f in *
+clear
+#turn on debug mode
+set -x
+for f in *
  do
-  file $f
+ file $f
 done
 #turn OFF debug mode
 set +x
