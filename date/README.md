@@ -20,14 +20,14 @@ o próximo boot, quando o sistema fará uma nova requisição ao relógio do har
 Se for executado apenas o comando date no shell do Linux será obtido um
 resultado com a seguinte formatação:
 
-Qui Jun 19 21:37:16 BRT 2008
+### Qui Jun 19 21:37:16 BRT 2008
 
-Para ajustar a data do sistema para o dia 29 de março de 1987
-(meu aniversário rsrs :) ) poderia ser utilizado o seguinte comando:
+Para ajustar a data do sistema para um dia qualquer
+poderia ser utilizado o seguinte comando:
 
-Sintaxe: date mês/dia/ano
+# Sintaxe: date mês/dia/ano
 
-    $ date -s 03/29/1987
+    $ date -s 04/01/2018
 
 Após ajustar a data do sistema é importante sincronizá-la com a data do hardware,
 para isso use o seguinte comando na seqüência:
@@ -37,13 +37,13 @@ para isso use o seguinte comando na seqüência:
 Dica: Para ajustar a data/hora do sistema e sincronizar com o hardware em um 
 único comando é muito simples, basta seguir a seguinte sintaxe:
 
-mm (mês 00-12)
-dd (dia 00-31)
-HH (hora 00-23)
-MM (min 00-59)
-YYYY (0000-9999)
+- mm (mês 00-12)
+- dd (dia 00-31)
+- HH (hora 00-23)
+- MM (min 00-59)
+- YYYY (0000-9999)
 
-date mmddHHMMYYYY
+    $ date mmddHHMMYYYY
 
 Exemplo 1: Ajustar a data para o dia 14 de setembro de 2008 e a hora para 18:30, 
 por fim sincronizar com o relógio do hardware:
@@ -55,7 +55,7 @@ por fim sincronizar com o relógio do hardware:
 
     $ date 081007501987 | hwclock -w
 
-Parâmetros que podem ser utilizados para formatação de datas:
+# Parâmetros que podem ser utilizados para formatação de datas:
 
 - %A : dia da semana (domingo,..., sábado).
 - %B : nome do mês (janeiro,..., dezembro).
@@ -76,95 +76,95 @@ Parâmetros que podem ser utilizados para formatação de datas:
 - %y : os dois últimos dígitos do ano.
 - %r : formato de 12 horas completo (hh:mm:ss AM/PM) 
 
-Exemplos de formatações de data/hora com o comando date no shell:
+# Exemplos de formatações de data/hora com o comando date no shell:
 
     $ date
-- Saída: Qui Jun 19 22:40:28 BRT 2008
+### Saída: Qui Jun 19 22:40:28 BRT 2008
 
     $ date +%d/%m/%y
-- Saída: 19/06/08
+### Saída: 19/06/08
 
     $ date +%d/%m/%Y
-- Saída: 19/06/2008
+### Saída: 19/06/2008
 
     $ date +%H:%M:%S
-- Saída: 22:45:24
+### Saída: 22:45:24
 
     $ date "+%d %B %Y"
-- Saída: 19 junho 2008
+### Saída: 19 junho 2008
 
     $ date "+%d %B %Y , %A"
-- Saída: 19 junho 2008 , quinta
+### Saída: 19 junho 2008 , quinta
 
 
-Exemplos de cálculos com Data/Hora no Linux.
+# Exemplos de cálculos com Data/Hora no Linux.
 
-Qual a data de cinco dias atrás?
+# Qual a data de cinco dias atrás?
 
     $ date +%d%m%y -d "5 days ago"
-- Saída: 140608
+### Saída: 140608
 
-Que dia e hora serão, se adicionarmos 45 horas na hora atual?
+# Que dia e hora serão, se adicionarmos 45 horas na hora atual?
 
     $ date --date "45 hours"
-- Saída: Sáb Jun 21 20:02:38 BRT 2008
+### Saída: Sáb Jun 21 20:02:38 BRT 2008
 
-Que dia será daqui duas semanas?
+# Que dia será daqui duas semanas?
 
     $ date -d "2 week"
-- Saída: Qui Jul 3 23:22:25 BRT 2008
+### Saída: Qui Jul 3 23:22:25 BRT 2008
 
-Que dia será daqui a 5 meses e 2 dia?
+# Que dia será daqui a 5 meses e 2 dia?
 
     $ date -d "5 month 2 day"
-- Saída: Sáb Nov 22 00:37:53 BRST 2008
+### Saída: Sáb Nov 22 00:37:53 BRST 2008
 
-Outro exemplos:
+# Outro exemplos:
 
     $ date
-# Qui Jun 19 23:56:28 BRT 2008
+### Qui Jun 19 23:56:28 BRT 2008
 
     $ date --date=now
-# Qui Jun 19 23:56:28 BRT 2008
+### Qui Jun 19 23:56:28 BRT 2008
 
     $ date --date=today #Mesma Coisa
-# Qui Jun 19 23:56:28 BRT 2008
+### Qui Jun 19 23:56:28 BRT 2008
 
     $ date --date='3 seconds'
-# Qui Jun 19 23:56:31 BRT 2008
+### Qui Jun 19 23:56:31 BRT 2008
 
     $ date --date='3 seconds ago'
-# Qui Jun 19 23:56:25 BRT 2008
+### Qui Jun 19 23:56:25 BRT 2008
 
     $ date --date='4 hours'
-# Sex Jun 20 03:56:28 BRT 2008
+### Sex Jun 20 03:56:28 BRT 2008
 
     $ date --date='tomorrow'
-# Sex Jun 20 23:56:28 BRT 2008
+### Sex Jun 20 23:56:28 BRT 2008
 
     $ date --date='1 day'
-# Sex Jun 20 23:56:28 BRT 2008
+### Sex Jun 20 23:56:28 BRT 2008
 
     $ date --date='1 days'
-# Sex Jun 20 23:56:28 BRT 2008
+### Sex Jun 20 23:56:28 BRT 2008
 
     $ date --date='yesterday'
-# Qua Jun 18 23:56:28 BRT 2008
+### Qua Jun 18 23:56:28 BRT 2008
 
     $ date --date='1 day ago'
-# Qua Jun 18 23:56:28 BRT 2008
+### Qua Jun 18 23:56:28 BRT 2008
 
     $ date --date='1 days ago'
-# Qua Jun 18 23:56:28 BRT 2008
+### Qua Jun 18 23:56:28 BRT 2008
 
     $ date --date='1 week'
-# Qui Jun 26 23:56:28 BRT 2008
+### Qui Jun 26 23:56:28 BRT 2008
 
     $ date --date='1 fortnight'
-# Qui Jul 3 23:56:28 BRT 2008
+### Qui Jul 3 23:56:28 BRT 2008
 
     $ date --date='1 month'
-# Sáb Jul 19 23:56:28 BRT 2008
+### Sáb Jul 19 23:56:28 BRT 2008
 
     $ date --date='1 year'
 ### Sex Jun 19 23:56:28 BRT 2009
