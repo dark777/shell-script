@@ -4,13 +4,13 @@ title: Debugando Shell script
 
 ### Use os cabeçalhos
 
-    #!/bin/bash -x
+-   #!/bin/bash -x
 -   ou
-    #!/bin/bash -vx
+-   #!/bin/bash -vx
 
 -   Onde:
 
-    -   v :: Mostra os comandos à medida que são lidos pelo bash.
+    - v :: Mostra os comandos à medida que são lidos pelo bash.
     
     - x :: Expande os resultados dos comandos e variáveis
     (muito útil quando o shell script possui variáveis numéricas e laços de repetição, por exemplo).
