@@ -9,25 +9,33 @@ Este tutorial mostra alguns exemplos de como utilizar o comando date para:
 
 Alterando a Data e Hora do Sistema:
 
-Toda vez que o sistema operacional Linux é inicializado, este busca no relógio da BIOS (também chamado de relógio de hardware) as configurações necessárias para configurar a data/hora do sistema. Ou seja, no Linux podemos ter a data/hora do sistema diferente da data/hora que temos no hardware, e essa informação é muito importante no momento de efetuar ajustes.
+Toda vez que o sistema operacional Linux é inicializado, este busca no relógio da BIOS
+(também chamado de relógio de hardware) as configurações necessárias para configurar a
+data/hora do sistema. Ou seja, no Linux podemos ter a data/hora do sistema diferente da data/hora
+que temos no hardware, e essa informação é muito importante no momento de efetuar ajustes.
 
-Pode-se ajustar sua data e hora conforme necessário, porém a mesma não será mantida até o próximo boot, quando o sistema fará uma nova requisição ao relógio do hardware para ajustar-se.
+Pode-se ajustar sua data e hora conforme necessário, porém a mesma não será mantida até
+o próximo boot, quando o sistema fará uma nova requisição ao relógio do hardware para ajustar-se.
 
-Se for executado apenas o comando date no shell do Linux será obtido um resultado com a seguinte formatação:
+Se for executado apenas o comando date no shell do Linux será obtido um
+resultado com a seguinte formatação:
 
 Qui Jun 19 21:37:16 BRT 2008
 
-Para ajustar a data do sistema para o dia 14 de setembro de 2008 (meu aniversário rsrs :) ) poderia ser utilizado o seguinte comando:
+Para ajustar a data do sistema para o dia 14 de setembro de 2008
+(meu aniversário rsrs :) ) poderia ser utilizado o seguinte comando:
 
 Sintaxe: date mês/dia/ano
 
 bash-4.4$ date -s 09/14/2008
 
-Após ajustar a data do sistema é importante sincronizá-la com a data do hardware, para isso use o seguinte comando na seqüência:
+Após ajustar a data do sistema é importante sincronizá-la com a data do hardware,
+para isso use o seguinte comando na seqüência:
 
 bash-4.4$ hwclock -w
 
-Dica: Para ajustar a data/hora do sistema e sincronizar com o hardware em um único comando é muito simples, basta seguir a seguinte sintaxe:
+Dica: Para ajustar a data/hora do sistema e sincronizar com o hardware em um 
+único comando é muito simples, basta seguir a seguinte sintaxe:
 
 mm (mês 00-12)
 dd (dia 00-31)
@@ -37,11 +45,13 @@ YYYY (0000-9999)
 
 date mmddHHMMYYYY
 
-Exemplo 1: Ajustar a data para o dia 14 de setembro de 2008 e a hora para 18:30, por fim sincronizar com o relógio do hardware:
+Exemplo 1: Ajustar a data para o dia 14 de setembro de 2008 e a hora para 18:30, 
+por fim sincronizar com o relógio do hardware:
 
 bash-4.4$ date 091418302008 | hwclock -w
 
-Exemplo 2: Ajustar a data para o dia 10 de agosto de 1987 e a hora para 07:50, por fim sincronizar com o relógio do hardware:
+Exemplo 2: Ajustar a data para o dia 10 de agosto de 1987 e a hora para 07:50,
+por fim sincronizar com o relógio do hardware:
 
 bash-4.4$ date 081007501987 | hwclock -w
 
