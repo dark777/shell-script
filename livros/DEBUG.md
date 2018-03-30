@@ -96,7 +96,7 @@ echo "$a + $b = $c"
 
 Execute o script da seguinte maneira:
 
-bash-4.4$ ./script.sh
+    $ ./script.sh
 
 # Output:
 
@@ -118,7 +118,7 @@ _DEBUG="off"
 
 Execute o script:
 
-bash-4.4$ ./script.sh
+    $ ./script.sh
 
 # Output:
 
@@ -128,7 +128,7 @@ Found in xyz.txt file
 
 # Caso não queira usar um dos passos acima ou as Shebang em seu arquivo shell basta fazer:
 
-bash-4.4 bash -x meuscript.sh
+    $ bash -x meuscript.sh
 
 
 https://www.cyberciti.biz/tips/debugging-shell-script.html
