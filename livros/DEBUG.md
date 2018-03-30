@@ -139,7 +139,8 @@ Found in xyz.txt file
 Para fazer debug de Bash-Script existem algumas ferramentas muito úteis:
 Parametro -n no bash
 
-O uso do comando bash -n faz a análise sintáxica do seu script, para verificar se existem erros de digitação ou que impessam seu script de ser executado.
+O uso do comando bash -n faz a análise sintáxica do seu script,
+para verificar se existem erros de digitação ou que impessam seu script de ser executado.
 ```
 Arquivo: exemploBashN.sh
 ```
@@ -285,11 +286,11 @@ sem
 debug
 ```
 ### Se você só quiser debugar uma parte do código, pode encerrar ela com set:
-
+```
 set -x
 <código>
 set +x
-
-- **Fonte**:
-http://shellscript.com.br/
-tldp.org/LDP/abs/html/debugging.html
+```
+-   Fonte:
+- http://shellscript.com.br/
+- tldp.org/LDP/abs/html/debugging.html
