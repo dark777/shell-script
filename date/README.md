@@ -79,22 +79,22 @@ por fim sincronizar com o relógio do hardware:
 ## Exemplos de formatações de data/hora com o comando date no shell:
 
     $ date
-### Saída: Qui Jun 19 22:40:28 BRT 2008
+> Saída: Qui Jun 19 22:40:28 BRT 2008
 
     $ date +%d/%m/%y
-### Saída: 19/06/08
+> Saída: 19/06/08
 
     $ date +%d/%m/%Y
-### Saída: 19/06/2008
+> Saída: 19/06/2008
 
     $ date +%H:%M:%S
-### Saída: 22:45:24
+> Saída: 22:45:24
 
     $ date "+%d %B %Y"
-### Saída: 19 junho 2008
+> Saída: 19 junho 2008
 
     $ date "+%d %B %Y , %A"
-### Saída: 19 junho 2008 , quinta
+> Saída: 19 junho 2008 , quinta
 
 
 ## Exemplos de cálculos com Data/Hora no Linux.
@@ -102,22 +102,22 @@ por fim sincronizar com o relógio do hardware:
 ## Qual a data de cinco dias atrás?
 
     $ date +%d%m%y -d "5 days ago"
-### Saída: 140608
+> Saída: 140608
 
 ## Que dia e hora serão, se adicionarmos 45 horas na hora atual?
 
     $ date --date "45 hours"
-### Saída: Sáb Jun 21 20:02:38 BRT 2008
+> Saída: Sáb Jun 21 20:02:38 BRT 2008
 
 ## Que dia será daqui duas semanas?
 
     $ date -d "2 week"
-### Saída: Qui Jul 3 23:22:25 BRT 2008
+> Saída: Qui Jul 3 23:22:25 BRT 2008
 
 ## Que dia será daqui a 5 meses e 2 dia?
 
     $ date -d "5 month 2 day"
-### Saída: Sáb Nov 22 00:37:53 BRST 2008
+> Saída: Sáb Nov 22 00:37:53 BRST 2008
 
 ## Outro exemplos:
 
