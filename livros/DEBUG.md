@@ -293,4 +293,4 @@ set +x
 ```
 + Fonte:
 - http://shellscript.com.br/
-- tldp.org/LDP/abs/html/debugging.html
+- http://tldp.org/LDP/abs/html/debugging.html
