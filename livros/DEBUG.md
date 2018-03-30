@@ -132,3 +132,162 @@ bash-4.4 bash -x meuscript.sh
 
 
 https://www.cyberciti.biz/tips/debugging-shell-script.html
+
+### ----------------------------------------------------------------------------------------
+
+Para fazer debug de Bash-Script existem algumas ferramentas muito úteis:
+Parametro -n no bash
+
+O uso do comando bash -n faz a análise sintáxica do seu script, para verificar se existem erros de digitação ou que impessam seu script de ser executado.
+
+Arquivo: exemploBashN.sh
+
+#!/bin/bash
+
+echo "Isso é um exemplo"
+echo "Agora falta uma aspas
+echo "E o bash -n deve notificar esse problema"
+
+Execução:
+
+    $ bash -n exemploBashN.sh
+exemploBashN.sh: line 5: unexpected EOF while looking for matching `"'
+exemploBashN.sh: line 7: syntax error: unexpected end of file
+
+
+Comando set
+
+O comando set permite habilitar e desabilitar algumas funcionalidades do bash. Quando usado com -, ele habilita a funcionalidade. Quando usando com + ele desliga a mesma.
+set -x
+
+Ativa a impressão da EXPRESSÃO executada.
+
+Arquivo: exemploBashSetX.sh
+
+#!/bin/bash
+
+set -x
+echo "Quantos anos você tem?"
+read idade
+echo "Você tem $idade anos"
+set +x
+echo "Agora sem imprimir a expressão executada"
+
+Execução:
+
+    $ ./exemploSetX.sh
+ + echo 'Quantos anos você tem?'
+ Quantos anos você tem?
+ + read idade
+ 26
+ + echo 'Você tem 26 anos'
+ Você tem 26 anos
+ + set +x
+ Agora sem imprimir a expressão executada
+
+set -v
+
+Ativa a impressão da LINHA executada
+
+Arquivo: exemploSetV.sh
+
+#!/bin/bash
+
+set -v
+echo "Quantos anos você tem?"
+read idade
+echo "Você tem $idade anos"
+set +x
+echo "Agora sem imprimir a LINHA executada"
+
+Execução:
+
+$./exemploSetV.sh
+echo "Quantos anos você tem?"
+Quantos anos você tem?
+read idade
+26
+echo "Você tem $idade anos"
+Você tem 26 anos
+set +v
+Agora sem imprimir a LINHA executada
+$
+
+set -e
+
+Aborta a execução do script quando qualquer comando falhar.
+
+Arquivo: exemploSetE.sh
+
+#!/bin/bash
+
+set -e
+
+echo "Carregando www.goooooooogle.com.br (site não existe)"
+
+curl -v -f "www.goooooooogle.com.br" > site.html
+
+echo "Essas linha não serão executadas"
+echo "pois o comando 'curl' não conseguiu executar com sucesso"   
+
+set +e
+
+echo "Nem essas, pois o script já foi abortado."
+
+Execução:
+
+./exemploSetE.sh
+Carregando www.goooooooogle.com.br (site não existe)
+* Rebuilt URL to: www.goooooooogle.com.br/
+* Could not resolve host: www.goooooooogle.com.br
+* Closing connection 0
+curl: (6) Could not resolve host: www.goooooooogle.com.br
+
+### Comando trap
+
+O comando trap pode ser utilizado junto com o read para simular o uso de breakpoints.
+
+#!/bin/bash
+
+echo "após o comando \"trap 'read' DEBUG\", aperte ENTER para executar o proximo comando"
+
+trap 'read' DEBUG 
+
+echo "olá"
+echo "mundo"
+echo "bash"
+echo "é só love"
+
+trap - DEBUG 
+
+echo "agora"
+echo "sem"
+echo "debug"
+
+    - Execução:
+
+    $ ./exemploTrap.sh 
+após o comando "trap 'read' DEBUG", aperte ENTER para executar o proximo comando
+<ENTER>
+olá
+<ENTER>
+mundo
+<ENTER>
+bash
+<ENTER>
+é só love
+<ENTER>
+agora
+sem
+debug
+
+
+### Se você só quiser debugar uma parte do código, pode encerrar ela com set:
+
+set -x
+<código>
+set +x
+
+Fonte: 
+http://shellscript.com.br/
+tldp.org/LDP/abs/html/debugging.html
