@@ -9,7 +9,7 @@ title: Desvendando o comando DATE
     Exibir a data/hora Formatada;
     Efetuar cálculos com Data e Hora. 
 
-## Alterando a Data e Hora do Sistema:
+## Alterando a Data e Hora do Sistema: ##
 
 Toda vez que o sistema operacional Linux é inicializado, este busca no relógio da BIOS
 (também chamado de relógio de hardware) as configurações necessárias para configurar a
