@@ -177,13 +177,13 @@ Execução:
 
     $ ./exemploSetX.sh
  + echo 'Quantos anos você tem?'
- Quantos anos você tem?
+ + Quantos anos você tem?
  + read idade
- 26
+ + 26
  + echo 'Você tem 26 anos'
- Você tem 26 anos
+ + Você tem 26 anos
  + set +x
- Agora sem imprimir a expressão executada
+ + Agora sem imprimir a expressão executada
 
 set -v
 
@@ -202,8 +202,8 @@ echo "Agora sem imprimir a LINHA executada"
 
 Execução:
 
-$./exemploSetV.sh
-echo "Quantos anos você tem?"
+    $ ./exemploSetV.sh
+* echo "Quantos anos você tem?"
 Quantos anos você tem?
 read idade
 26
@@ -211,7 +211,6 @@ echo "Você tem $idade anos"
 Você tem 26 anos
 set +v
 Agora sem imprimir a LINHA executada
-$
 
 set -e
 
@@ -236,7 +235,7 @@ echo "Nem essas, pois o script já foi abortado."
 
 Execução:
 
-./exemploSetE.sh
+    $ ./exemploSetE.sh
 Carregando www.goooooooogle.com.br (site não existe)
 * Rebuilt URL to: www.goooooooogle.com.br/
 * Could not resolve host: www.goooooooogle.com.br
@@ -264,7 +263,7 @@ echo "agora"
 echo "sem"
 echo "debug"
 
-    - Execução:
+Execução:
 
     $ ./exemploTrap.sh 
 após o comando "trap 'read' DEBUG", aperte ENTER para executar o proximo comando
