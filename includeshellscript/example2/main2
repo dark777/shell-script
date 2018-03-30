@@ -1,8 +1,10 @@
-MAIN2=$(pwd)/shell
+#!/bin/bash
 
- . /$MAIN2
+MAIN2=${MAIN2:-$(pwd)/shell}
+
+ . /${MAIN2}
 
 echo -e " 
-         $HELLO
-         $LINUX2
+         ${HELLO}
+         ${LINUX2}
         \e[0m"

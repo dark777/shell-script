@@ -1,3 +1,5 @@
+#!/bin/bash
+
 KERNEL1=($(awk -F'-' '{print $1, $2, $3}' /usr/src/linux/include/config/kernel.release))
 KERNEL2=($(awk -F'-' '{print $1, $2, $3}' $(pwd)/kernel.release))
 
