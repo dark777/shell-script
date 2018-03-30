@@ -22,17 +22,17 @@ resultado com a seguinte formatação:
 
 Qui Jun 19 21:37:16 BRT 2008
 
-Para ajustar a data do sistema para o dia 14 de setembro de 2008
+Para ajustar a data do sistema para o dia 29 de março de 1987
 (meu aniversário rsrs :) ) poderia ser utilizado o seguinte comando:
 
 Sintaxe: date mês/dia/ano
 
-bash-4.4$ date -s 09/14/2008
+    $ date -s 03/29/1987
 
 Após ajustar a data do sistema é importante sincronizá-la com a data do hardware,
 para isso use o seguinte comando na seqüência:
 
-bash-4.4$ hwclock -w
+    $ hwclock -w
 
 Dica: Para ajustar a data/hora do sistema e sincronizar com o hardware em um 
 único comando é muito simples, basta seguir a seguinte sintaxe:
@@ -48,123 +48,122 @@ date mmddHHMMYYYY
 Exemplo 1: Ajustar a data para o dia 14 de setembro de 2008 e a hora para 18:30, 
 por fim sincronizar com o relógio do hardware:
 
-bash-4.4$ date 091418302008 | hwclock -w
+    $ date 091418302008 | hwclock -w
 
 Exemplo 2: Ajustar a data para o dia 10 de agosto de 1987 e a hora para 07:50,
 por fim sincronizar com o relógio do hardware:
 
-bash-4.4$ date 081007501987 | hwclock -w
+    $ date 081007501987 | hwclock -w
 
 Parâmetros que podem ser utilizados para formatação de datas:
 
-    %A : dia da semana (domingo,..., sábado).
-    %B : nome do mês (janeiro,..., dezembro).
-    %H : hora do dia (0 a 23).
-    %M : minuto (0 a 59).
-    %S : segundos (0 a 61).
-    %T : hora no formato hh:mm:ss.
-    %Y : ano.
-    %a : dia da semana abreviado (dom,..., sab).
-    %b : nome do mês abreviado (jan,..., dez).
-    %c : dia da semana, data e hora.
-    %d : dia do mês (00-31).
-    %j : dia ano (1 a 366).
-    %m : mês (1 a 12).
-    %s : número de segundos desde das zero horas de 01/01/1970.
-    %w : dia da semana, onde 0 = domingo, 1 = segunda,..., 6 = sábado.
-    %x : representação da data local.
-    %y : os dois últimos dígitos do ano.
-    %r : formato de 12 horas completo (hh:mm:ss AM/PM) 
-
+    - %A : dia da semana (domingo,..., sábado).
+    - %B : nome do mês (janeiro,..., dezembro).
+    - %H : hora do dia (0 a 23).
+    - %M : minuto (0 a 59).
+    - %S : segundos (0 a 61).
+    - %T : hora no formato hh:mm:ss.
+    - %Y : ano.
+    - %a : dia da semana abreviado (dom,..., sab).
+    - %b : nome do mês abreviado (jan,..., dez).
+    - %c : dia da semana, data e hora.
+    - %d : dia do mês (00-31).
+    - %j : dia ano (1 a 366).
+    - %m : mês (1 a 12).
+    - %s : número de segundos desde das zero horas de 01/01/1970.
+    - %w : dia da semana, onde 0 = domingo, 1 = segunda,..., 6 = sábado.
+    - %x : representação da data local.
+    - %y : os dois últimos dígitos do ano.
+    - %r : formato de 12 horas completo (hh:mm:ss AM/PM) 
 
 Exemplos de formatações de data/hora com o comando date no shell:
 
-bash-4.4$ date
+    $ date
 Saída: Qui Jun 19 22:40:28 BRT 2008
 
-bash-4.4$ date +%d/%m/%y
+    $ date +%d/%m/%y
 Saída: 19/06/08
 
-bash-4.4$ date +%d/%m/%Y
+    $ date +%d/%m/%Y
 Saída: 19/06/2008
 
-bash-4.4$ date +%H:%M:%S
+    $ date +%H:%M:%S
 Saída: 22:45:24
 
-bash-4.4$ date "+%d %B %Y"
+    $ date "+%d %B %Y"
 Saída: 19 junho 2008
 
-bash-4.4$ date "+%d %B %Y , %A"
+    $ date "+%d %B %Y , %A"
 Saída: 19 junho 2008 , quinta
 
 Exemplos de cálculos com Data/Hora no Linux.
 
 Qual a data de cinco dias atrás?
 
-bash-4.4$ date +%d%m%y -d "5 days ago"
+    $ date +%d%m%y -d "5 days ago"
 Saída: 140608
 
 Que dia e hora serão, se adicionarmos 45 horas na hora atual?
 
-bash-4.4$ date --date "45 hours"
+    $ date --date "45 hours"
 Saída: Sáb Jun 21 20:02:38 BRT 2008
 
 Que dia será daqui duas semanas?
 
-bash-4.4$ date -d "2 week"
+    $ date -d "2 week"
 Saída: Qui Jul 3 23:22:25 BRT 2008
 
 Que dia será daqui a 5 meses e 2 dia?
 
-bash-4.4$ date -d "5 month 2 day"
+    $ date -d "5 month 2 day"
 Saída: Sáb Nov 22 00:37:53 BRST 2008
 
 Outro exemplos:
 
-bash-4.4$ date
+    $ date
 Qui Jun 19 23:56:28 BRT 2008
 
-bash-4.4$ date --date=now
+    $ date --date=now
 Qui Jun 19 23:56:28 BRT 2008
 
-bash-4.4$ date --date=today #Mesma Coisa
+    $ date --date=today #Mesma Coisa
 Qui Jun 19 23:56:28 BRT 2008
 
-bash-4.4$ date --date='3 seconds'
+    $ date --date='3 seconds'
 Qui Jun 19 23:56:31 BRT 2008
 
-bash-4.4$ date --date='3 seconds ago'
+    $ date --date='3 seconds ago'
 Qui Jun 19 23:56:25 BRT 2008
 
-bash-4.4$ date --date='4 hours'
+    $ date --date='4 hours'
 Sex Jun 20 03:56:28 BRT 2008
 
-bash-4.4$ date --date='tomorrow'
+    $ date --date='tomorrow'
 Sex Jun 20 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 day'
+    $ date --date='1 day'
 Sex Jun 20 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 days'
+    $ date --date='1 days'
 Sex Jun 20 23:56:28 BRT 2008
 
-bash-4.4$ date --date='yesterday'
+    $ date --date='yesterday'
 Qua Jun 18 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 day ago'
+    $ date --date='1 day ago'
 Qua Jun 18 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 days ago'
+    $ date --date='1 days ago'
 Qua Jun 18 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 week'
+    $ date --date='1 week'
 Qui Jun 26 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 fortnight'
+    $ date --date='1 fortnight'
 Qui Jul 3 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 month'
+    $ date --date='1 month'
 Sáb Jul 19 23:56:28 BRT 2008
 
-bash-4.4$ date --date='1 year'
+    $ date --date='1 year'
 Sex Jun 19 23:56:28 BRT 2009
