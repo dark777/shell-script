@@ -167,4 +167,4 @@ Outro exemplos:
 # Sáb Jul 19 23:56:28 BRT 2008
 
     $ date --date='1 year'
-# Sex Jun 19 23:56:28 BRT 2009
+### Sex Jun 19 23:56:28 BRT 2009
