@@ -25,7 +25,7 @@ resultado com a seguinte formatação:
 Para ajustar a data do sistema para um dia qualquer
 poderia ser utilizado o seguinte comando:
 
-# Sintaxe: date mês/dia/ano
+Sintaxe: date mês/dia/ano
 
     $ date -s 04/01/2018
 
