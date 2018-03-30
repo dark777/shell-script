@@ -76,7 +76,7 @@ por fim sincronizar com o relógio do hardware:
 - %y : os dois últimos dígitos do ano.
 - %r : formato de 12 horas completo (hh:mm:ss AM/PM) 
 
-# Exemplos de formatações de data/hora com o comando date no shell:
+## Exemplos de formatações de data/hora com o comando date no shell:
 
     $ date
 ### Saída: Qui Jun 19 22:40:28 BRT 2008
