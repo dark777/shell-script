@@ -88,13 +88,14 @@ Saída: 19/06/08
 Saída: 19/06/2008
 
     $ date +%H:%M:%S
-Saída: 22:45:24
+- Saída: 22:45:24
 
     $ date "+%d %B %Y"
 Saída: 19 junho 2008
 
     $ date "+%d %B %Y , %A"
 Saída: 19 junho 2008 , quinta
+
 
 Exemplos de cálculos com Data/Hora no Linux.
 
