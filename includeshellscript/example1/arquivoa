@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Arquivo A"
+function funcaoA()
+{
+ echo "Executando a funcao A"
+} 

@@ -1,0 +1,7 @@
+#!/bin/bash
+source ./arquivoa # ./ para indicar que o arquivo esta na mesma pasta
+source ./arquivob
+
+echo "Arquivo C"
+funcaoA
+funcaoB 
