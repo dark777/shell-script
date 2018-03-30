@@ -4,9 +4,9 @@ title: Debugando Shell script
 
 ### Use os cabeçalhos
 
-    -   #!/bin/bash -x
+    #!/bin/bash -x
 -   ou
-    -   #!/bin/bash -vx
+    #!/bin/bash -vx
 
 -   Onde:
 
