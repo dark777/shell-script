@@ -71,7 +71,7 @@ _DEBUG="off" # set to anything but not to 'on'
 
 Script de exemplo:
 
-#!/bin/bash
+* #!/bin/bash
 _DEBUG="on"
 function DEBUG()
 {
