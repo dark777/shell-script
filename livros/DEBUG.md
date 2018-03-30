@@ -4,9 +4,9 @@ title: Debugando Shell script
 
 ### Use os cabeçalhos
 
-#!/bin/bash -x
-ou
-#!/bin/bash -vx
+    -   #!/bin/bash -x
+-   ou
+    -   #!/bin/bash -vx
 
 -   Onde:
 
@@ -35,11 +35,11 @@ script:
 
 # Você pode substituir a linha padrão de Shebang para depuração
 
-de #!/bin/bash
-para
-#!/bin/bash -x
-ou
-#!/bin/bash -vx
+-   de #!/bin/bash
+-   para
+    -   #!/bin/bash -x
+-   ou
+    -   #!/bin/bash -vx
 
 # Use uma função DEBUG inteligente
 
