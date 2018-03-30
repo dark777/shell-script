@@ -97,29 +97,29 @@ por fim sincronizar com o relógio do hardware:
 ### Saída: 19 junho 2008 , quinta
 
 
-# Exemplos de cálculos com Data/Hora no Linux.
+## Exemplos de cálculos com Data/Hora no Linux.
 
-# Qual a data de cinco dias atrás?
+## Qual a data de cinco dias atrás?
 
     $ date +%d%m%y -d "5 days ago"
 ### Saída: 140608
 
-# Que dia e hora serão, se adicionarmos 45 horas na hora atual?
+## Que dia e hora serão, se adicionarmos 45 horas na hora atual?
 
     $ date --date "45 hours"
 ### Saída: Sáb Jun 21 20:02:38 BRT 2008
 
-# Que dia será daqui duas semanas?
+## Que dia será daqui duas semanas?
 
     $ date -d "2 week"
 ### Saída: Qui Jul 3 23:22:25 BRT 2008
 
-# Que dia será daqui a 5 meses e 2 dia?
+## Que dia será daqui a 5 meses e 2 dia?
 
     $ date -d "5 month 2 day"
 ### Saída: Sáb Nov 22 00:37:53 BRST 2008
 
-# Outro exemplos:
+## Outro exemplos:
 
     $ date
 ### Qui Jun 19 23:56:28 BRT 2008
