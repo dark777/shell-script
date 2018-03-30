@@ -45,8 +45,6 @@ Dica: Para ajustar a data/hora do sistema e sincronizar com o hardware em um
 - MM (min 00-59)
 - YYYY (0000-9999)
 
-    $ date mmddHHMMYYYY
-
 Exemplo 1: Ajustar a data para o dia 14 de setembro de 2008 e a hora para 18:30, 
 por fim sincronizar com o relógio do hardware:
 
