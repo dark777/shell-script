@@ -1,7 +1,5 @@
 ---
-```title:
 Desvendando o comando DATE
-```
 ---
 
 ## Este tutorial mostra alguns exemplos de como utilizar o comando date para:
