@@ -135,13 +135,12 @@ Found in xyz.txt file
 
 https://www.cyberciti.biz/tips/debugging-shell-script.html
 
-###
-
+```
 Para fazer debug de Bash-Script existem algumas ferramentas muito úteis:
 Parametro -n no bash
 
 O uso do comando bash -n faz a análise sintáxica do seu script, para verificar se existem erros de digitação ou que impessam seu script de ser executado.
-
+```
 Arquivo: exemploBashN.sh
 ```
 #!/bin/bash
@@ -156,13 +155,14 @@ Execução:
  + exemploBashN.sh: line 5: unexpected EOF while looking for matching `"'
  + exemploBashN.sh: line 7: syntax error: unexpected end of file
 
-
+```
 Comando set
 
 O comando set permite habilitar e desabilitar algumas funcionalidades do bash. Quando usado com -, ele habilita a funcionalidade. Quando usando com + ele desliga a mesma.
 set -x
 
 Ativa a impressão da EXPRESSÃO executada.
+```
 
 Arquivo: exemploBashSetX.sh
 ```
