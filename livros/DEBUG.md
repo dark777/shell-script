@@ -19,18 +19,18 @@ ou
 
 script:
 
-#!/bin/bash
- clear
-#turn on debug mode
-set -x
-for f in *
-do
-  file $f
-done
-#turn OFF debug mode
-set +x
-ls
-#more commands
+* #!/bin/bash
+* clear
+* #turn on debug mode
+* set -x
+* for f in *
+* do
+*  file $f
+*done
+*#turn OFF debug mode
+*set +x
+*ls
+*#more commands
 
 
 # Você pode substituir a linha padrão de Shebang para depuração
@@ -45,14 +45,14 @@ ou
 
 Primeiro, adicione uma variável especial chamada  _DEBUG. Set _DEBUG  para 'on' quando você precisa depurar um script:
 
-_DEBUG="on"
+* _DEBUG="on"
 
 Coloque a seguinte função no início do script:
 
-function DEBUG()
-{
- [ "$_DEBUG" == "on" ] &&  $@
-}
+* function DEBUG()
+* {
+*  [ "$_DEBUG" == "on" ] &&  $@
+* }
 
 # Agora, onde quer que você precise de depuração, use simplesmente a função DEBUG da seguinte maneira:
 
@@ -72,24 +72,24 @@ _DEBUG="off" # set to anything but not to 'on'
 Script de exemplo:
 
 * #!/bin/bash
-_DEBUG="on"
-function DEBUG()
-{
- [ "$_DEBUG" == "on" ] &&  $@
-}
- 
-DEBUG echo 'Reading files'
-for i in *
-do
-  grep 'something' $i > /dev/null
-  [ $? -eq 0 ] && echo "Found in $i file"
-done
-DEBUG set -x
-a=2
-b=3
-c=$(( $a + $b ))
-DEBUG set +x
-echo "$a + $b = $c"
+* _DEBUG="on"
+* function DEBUG()
+* {
+*  [ "$_DEBUG" == "on" ] &&  $@
+* }
+
+* DEBUG echo 'Reading files'
+* for i in *
+* do
+*  grep 'something' $i > /dev/null
+*  [ $? -eq 0 ] && echo "Found in $i file"
+* done
+* DEBUG set -x
+* a=2
+* b=3
+* c=$(( $a + $b ))
+* DEBUG set +x
+* echo "$a + $b = $c"
 
 
 # Salve e feche o arquivo.
@@ -114,13 +114,13 @@ Found in xyz.txt file
 
 você precisa editar o arquivo:
 
-_DEBUG="off"
+* _DEBUG="off"
 
 Execute o script:
 
     $ ./script.sh
 
-# Output:
+Output:
 
 Found in xyz.txt file
 2 + 3 = 5
