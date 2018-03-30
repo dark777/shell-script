@@ -22,7 +22,7 @@ o próximo boot, quando o sistema fará uma nova requisição ao relógio do har
 Se for executado apenas o comando date no shell do Linux será obtido um
 resultado com a seguinte formatação:
 
-### Qui Jun 19 21:37:16 BRT 2008
+> Qui Jun 19 21:37:16 BRT 2008
 
 Para ajustar a data do sistema para um dia qualquer
 poderia ser utilizado o seguinte comando:
@@ -122,49 +122,49 @@ por fim sincronizar com o relógio do hardware:
 ## Outro exemplos:
 
     $ date
-### Qui Jun 19 23:56:28 BRT 2008
+> Qui Jun 19 23:56:28 BRT 2008
 
     $ date --date=now
-### Qui Jun 19 23:56:28 BRT 2008
+> Qui Jun 19 23:56:28 BRT 2008
 
     $ date --date=today #Mesma Coisa
-### Qui Jun 19 23:56:28 BRT 2008
+> Qui Jun 19 23:56:28 BRT 2008
 
     $ date --date='3 seconds'
-### Qui Jun 19 23:56:31 BRT 2008
+> Qui Jun 19 23:56:31 BRT 2008
 
     $ date --date='3 seconds ago'
-### Qui Jun 19 23:56:25 BRT 2008
+> Qui Jun 19 23:56:25 BRT 2008
 
     $ date --date='4 hours'
-### Sex Jun 20 03:56:28 BRT 2008
+> Sex Jun 20 03:56:28 BRT 2008
 
     $ date --date='tomorrow'
-### Sex Jun 20 23:56:28 BRT 2008
+> Sex Jun 20 23:56:28 BRT 2008
 
     $ date --date='1 day'
-### Sex Jun 20 23:56:28 BRT 2008
+> Sex Jun 20 23:56:28 BRT 2008
 
     $ date --date='1 days'
-### Sex Jun 20 23:56:28 BRT 2008
+> Sex Jun 20 23:56:28 BRT 2008
 
     $ date --date='yesterday'
-### Qua Jun 18 23:56:28 BRT 2008
+> Qua Jun 18 23:56:28 BRT 2008
 
     $ date --date='1 day ago'
-### Qua Jun 18 23:56:28 BRT 2008
+> Qua Jun 18 23:56:28 BRT 2008
 
     $ date --date='1 days ago'
-### Qua Jun 18 23:56:28 BRT 2008
+> Qua Jun 18 23:56:28 BRT 2008
 
     $ date --date='1 week'
-### Qui Jun 26 23:56:28 BRT 2008
+> Qui Jun 26 23:56:28 BRT 2008
 
     $ date --date='1 fortnight'
-### Qui Jul 3 23:56:28 BRT 2008
+> Qui Jul 3 23:56:28 BRT 2008
 
     $ date --date='1 month'
-### Sáb Jul 19 23:56:28 BRT 2008
+> Sáb Jul 19 23:56:28 BRT 2008
 
     $ date --date='1 year'
-### Sex Jun 19 23:56:28 BRT 2009
+> Sex Jun 19 23:56:28 BRT 2009
