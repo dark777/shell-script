@@ -3,12 +3,12 @@ title: Desvendando o comando DATE
 ---
 
 ## Este tutorial mostra alguns exemplos de como utilizar o comando date para:
-
-    Exibir a data/hora do Sistema;
-    Alterar a data/hora do Sistema;
-    Exibir a data/hora Formatada;
-    Efetuar cálculos com Data e Hora. 
-
+```
+Exibir a data/hora do Sistema;
+Alterar a data/hora do Sistema;
+Exibir a data/hora Formatada;
+Efetuar cálculos com Data e Hora. 
+```
 ## Alterando a Data e Hora do Sistema:
 
 ```
