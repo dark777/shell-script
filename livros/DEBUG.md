@@ -15,7 +15,7 @@ ou
     - x :: Expande os resultados dos comandos e variáveis
     (muito útil quando o shell script possui variáveis numéricas e laços de repetição, por exemplo).
 
-## Você pode usar o comando acima dois no próprio script shell:
+### Você pode usar o comando acima dois no próprio script shell:
 
 script:
 ```
@@ -33,7 +33,7 @@ ls
 #more commands
 ```
 
-## Você pode substituir a linha padrão de Shebang para depuração
+### Você pode substituir a linha padrão de Shebang para depuração
 ```
 de:
 #!/bin/bash
@@ -43,7 +43,7 @@ ou
 #!/bin/bash -vx
 ```
 
-## Use uma função DEBUG inteligente
+### Use uma função DEBUG inteligente
 
 Primeiro, adicione uma variável especial chamada  _DEBUG. Set _DEBUG  para 'on' quando você precisa depurar um script:
 ```
@@ -56,7 +56,7 @@ function DEBUG()
   [ "$_DEBUG" == "on" ] &&  $@
  }
 ```
-## Agora, onde quer que você precise de depuração, use simplesmente a função DEBUG da seguinte maneira:
+### Agora, onde quer que você precise de depuração, use simplesmente a função DEBUG da seguinte maneira:
 ```
 DEBUG echo "File is $filename"
 ou
@@ -93,13 +93,13 @@ function DEBUG()
 echo "$a + $b = $c"
 ```
 
-## Salve e feche o arquivo.
+### Salve e feche o arquivo.
 
 Execute o script da seguinte maneira:
 
     $ ./script.sh
 
-## Output:
+### Output:
 
 Reading files
 Found in xyz.txt file
@@ -112,7 +112,7 @@ DEBUG set +x
 set +x
 2 + 3 = 5
 ```
-## Agora, defina DEBUG como desligado.
+### Agora, defina DEBUG como desligado.
 
 você precisa editar o arquivo:
 ```
@@ -128,12 +128,12 @@ Found in xyz.txt file
 2 + 3 = 5
 ```
 
-## Caso não queira usar um dos passos acima ou as Shebang em seu arquivo shell basta fazer:
+### Caso não queira usar um dos passos acima ou as Shebang em seu arquivo shell basta fazer:
 
     $ bash -x meuscript.sh
 
 
-https://www.cyberciti.biz/tips/debugging-shell-script.html
+- **Debugging Shell Script**: https://www.cyberciti.biz/tips/debugging-shell-script.html
 
 ```
 Para fazer debug de Bash-Script existem algumas ferramentas muito úteis:
@@ -269,6 +269,7 @@ echo "debug"
 Execução:
 
     $ ./exemploTrap.sh 
+``` 
 após o comando "trap 'read' DEBUG", aperte ENTER para executar o proximo comando
 <ENTER>
 olá
@@ -282,14 +283,13 @@ bash
 agora
 sem
 debug
-
-
+```
 ### Se você só quiser debugar uma parte do código, pode encerrar ela com set:
 
 set -x
 <código>
 set +x
 
-Fonte: 
+- **Fonte**:
 http://shellscript.com.br/
 tldp.org/LDP/abs/html/debugging.html
