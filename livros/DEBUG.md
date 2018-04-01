@@ -291,6 +291,6 @@ set -x
 <código>
 set +x
 ```
-+ Fonte:
-- http://shellscript.com.br/
-- http://tldp.org/LDP/abs/html/debugging.html
+- **Fonte:
+- **Shell-Script**: http://shellscript.com.br/
+- **Tldp debugging**:  http://tldp.org/LDP/abs/html/debugging.html
