@@ -1,0 +1,40 @@
+Como transformar numero decimal em horas:
+
+2,44 horas = 2 horas + 0,44 horas.
+
+
+Para saber quantos minutos são 0,44, basta multiplicar por 60.
+
+0,44 x 60 = 26,4 
+
+2h : 26 min + 0,4min.
+
+
+Agora, transformar 0,4 min em segundos.
+Também, basta multiplicar por 60.
+
+0,4 x 60 = 24
+
+2h : 26 min : 24 seg.
+
+###################################################################
+
+Transformando 98 minutos em horas:
+Quando passar de 60 minutos acrescenta uma hora.
+
+98 / 60 = 1.63333333333
+
+1,64 horas = 1 horas + 0,64 horas.
+
+Para saber quantos minutos são 0,64, basta multiplicar por 60.
+
+0,64 x 60 = 38,4
+
+1h : 38 min + 0,4min.
+
+Agora, transformar 0,4 min em segundos.
+Também, basta multiplicar por 60.
+
+0,4 x 60 = 24
+
+1h : 38 min : 24 seg.
