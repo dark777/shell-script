@@ -12,9 +12,9 @@ o salário do mês será dividido por 28 e multiplicado por 15, para se apurar o
 
  
 
-Salário proporcional = salário mensal : 28 x nº de dias trabalhados
+Salário proporcional = salário mensal / 28 x nº de dias trabalhados
 
-Salário proporcional = R$1.200,00 : 28 x 15
+Salário proporcional = R$1.200,00 / 28 x 15
 
 Salário proporcional = R$642,86
 
@@ -37,9 +37,9 @@ o salário do mês será dividido por 29 e multiplicado por 24, para se apurar o
 
  
 
-Salário proporcional = salário mensal : 29 x nº de dias trabalhados
+Salário proporcional = salário mensal / 29 x nº de dias trabalhados
 
-Salário proporcional = R$1.200,00 : 29 x 24
+Salário proporcional = R$1.200,00 / 29 x 24
 
 Salário proporcional = R$993,10
 
@@ -64,9 +64,9 @@ o salário do mês será dividido por 31 e multiplicado por 15, para se apurar o
 
  
 
-Salário proporcional = salário mensal : 31 x nº de dias trabalhados
+Salário proporcional = salário mensal / 31 x nº de dias trabalhados
 
-Salário proporcional = R$1.200,00 : 31 x 15
+Salário proporcional = R$1.200,00 / 31 x 15
 
 Salário proporcional = R$580,65
 
@@ -97,9 +97,9 @@ Como o mês é diferente de 30 dias, o divisor será pelo número de dias efetiv
 
  
 
-Saldo de salário = salário mensal : 28 x nº de dias trabalhados
+Saldo de salário = salário mensal / 28 x nº de dias trabalhados
 
-Saldo de salário = R$1.400,00 : 28 x 26
+Saldo de salário = R$1.400,00 / 28 x 26
 
 Saldo de salário = R$1.300,00
 
@@ -117,9 +117,9 @@ Como o mês é diferente de 30 dias, o divisor será pelo número de dias efetiv
 
  
 
-Saldo de salário = salário mensal : 29 x nº de dias trabalhados
+Saldo de salário = salário mensal / 29 x nº de dias trabalhados
 
-Saldo de salário = R$1.400,00 : 29 x 28
+Saldo de salário = R$1.400,00 / 29 x 28
 
 Saldo de salário = R$1.351,72
 
@@ -137,9 +137,9 @@ Como o mês é diferente de 30 dias, o divisor será pelo número de dias efetiv
 
  
 
-Saldo de salário = salário mensal : 31 x nº de dias trabalhados
+Saldo de salário = salário mensal / 31 x nº de dias trabalhados
 
-Saldo de salário = R$1.400,00 : 31 x 30
+Saldo de salário = R$1.400,00 / 31 x 30
 
 Saldo de salário = R$1.354,84
 
@@ -256,7 +256,7 @@ para obtermos o valor total das férias e pagarmos 1 dia de salário em folha de
 
 Cálculo no mês de Março
 
-R$ 1.700,00 : 31 dias = R$ 54,839
+R$ 1.700,00 / 31 dias = R$ 54,839
 
 R$ 54,839 x 30 dias = R$ 1.645,16
 
