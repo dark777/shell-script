@@ -115,7 +115,7 @@ sed -i '/id/ s/3/*/g;53,57s/^/#/g;/--noclear/ s/ --noclear.* / tty1 /g;' ${INITT
 # Substitui `hostname` por \u.\h na linha 47
 # Substitui `pwd` por \w na linha 47
 # Substitui @ por ponto na linha 57
-sed -i '47s/`hostname`/\\u.\\h/g;47s/`pwd`/\\w/g;47s/^#//g;57s/@/./g' ${PROFILE}
+sed -i '47s/`hostname`/\\u.\\h/g;47s/`pwd`/\\w/g;47s/^#//g;57s/@/./g;' ${PROFILE}
 rm -rf ${ZPROFILE}
 
 # Substitui us por br
